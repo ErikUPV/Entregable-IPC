@@ -30,6 +30,7 @@ public class JavaFXMLApplication extends Application {
       
         
         stage.setTitle("Green Ball");
+
         stage.show();
     }
 
