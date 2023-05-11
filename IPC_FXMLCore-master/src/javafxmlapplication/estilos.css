@@ -36,3 +36,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .button:pressed{
     -fx-background-color: linear-gradient(rgb(15, 61, 25), rgb(26, 107, 44));
 }
+
+#backButton {
+    -fx-background-color: orange;
+}
