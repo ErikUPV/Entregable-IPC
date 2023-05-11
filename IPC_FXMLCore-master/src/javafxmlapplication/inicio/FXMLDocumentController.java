@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafxmlapplication.JavaFXMLApplication;
 
 /**
  *
@@ -57,5 +58,10 @@ public class FXMLDocumentController implements Initializable {
        
         
     }    
+
+    @FXML
+    private void IniciarSesionOnAction(ActionEvent event) {
+        JavaFXMLApplication.setRoot("autenticacion");
+    }
     
 }
