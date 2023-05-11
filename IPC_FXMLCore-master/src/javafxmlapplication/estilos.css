@@ -19,22 +19,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 #loginVBOX {
-    -fx-background-color: white
+    -fx-background-color: papayawhip
 }
 
 .button {
-    -fx-background-color: rgb(26, 107, 44);
-    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(seagreen, rgb(28, 101, 60));    -fx-text-fill: white;
     -fx-text-bold: true;
-    -fx-background-radius: 0%;
     -fx-font-family: Helvetica;
+    
+    /*Make edges rounder but not round*/
+    -fx-background-radius: 15 15 15 15;
 }
 .button:hover {
-    -fx-background-color: linear-gradient(rgb(26, 107, 44), rgb(15, 61, 25));
-    -fx-cursor: hand
+    -fx-background-color: linear-gradient(seagreen, rgb(28, 101, 60));
+    -fx-cursor: hand;
+    -fx-translate-y: -1px;
+   
 }
 .button:pressed{
-    -fx-background-color: linear-gradient(rgb(15, 61, 25), rgb(26, 107, 44));
+    -fx-background-color:  linear-gradient(rgb(28, 101, 60), seagreen);
+    -fx-translate-y: 1px;
 }
 
 #backButton {
@@ -45,3 +49,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #cajita {
     
 }
+
+
