@@ -4,12 +4,11 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.autenticacion.FXMLAutenticacionController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button id="backButton" mnemonicParsing="false" text="Button" />
+          <Button id="backButton" mnemonicParsing="false" onAction="#backButtonOnAction" text="Button" />
         </items>
       </ToolBar>
    </top>
