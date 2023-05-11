@@ -5,11 +5,13 @@
  */
 package javafxmlapplication;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -45,6 +47,7 @@ public class JavaFXMLApplication extends Application {
         root = loader.load();
         roots.put("autenticacion", root);
         
+        Image img = new Image(new FileInputStream("imagenes/ball.png"));
         
         setRoot("inicio");
         
@@ -53,6 +56,7 @@ public class JavaFXMLApplication extends Application {
         scene.getStylesheets().add(css);
         stage.setMinWidth(1280);
         stage.setMinHeight(720);
+        stage.getIcons().add(img);
         stage.setTitle("Green Ball");
         stage.setScene(scene);
         stage.show();
