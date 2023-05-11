@@ -39,4 +39,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 #backButton {
     -fx-background-color: orange;
+    -fx-background-radius: 100%;
+}
+
+#cajita {
+    
 }
