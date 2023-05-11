@@ -1,0 +1,38 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 11 feb 2023, 21:40:38
+    Author     : jsoler
+*/
+
+
+#loginStackpane {
+    -fx-background-image: url("./imagenes/fondo-inicio.jpg");
+    -fx-background-size: 100% 100%; /* Adjust the values as per your requirement */
+    -fx-background-repeat: no-repeat;
+}
+
+#loginHBOX {
+    -fx-background-color: transparent
+}
+
+#loginVBOX {
+    -fx-background-color: white
+}
+
+.button {
+    -fx-background-color: rgb(26, 107, 44);
+    -fx-text-fill: white;
+    -fx-text-bold: true;
+    -fx-background-radius: 0%;
+    -fx-font-family: Helvetica;
+}
+.button:hover {
+    -fx-background-color: linear-gradient(rgb(26, 107, 44), rgb(15, 61, 25));
+    -fx-cursor: hand
+}
+.button:pressed{
+    -fx-background-color: linear-gradient(rgb(15, 61, 25), rgb(26, 107, 44));
+}

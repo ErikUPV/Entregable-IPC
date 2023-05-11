@@ -5,7 +5,6 @@
  */
 package javafxmlapplication.pistas;
 
-import javafxmlapplication.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
