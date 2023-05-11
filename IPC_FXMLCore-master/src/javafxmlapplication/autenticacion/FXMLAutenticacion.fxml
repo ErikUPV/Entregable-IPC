@@ -9,11 +9,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.autenticacion.FXMLAutenticacionController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.autenticacion.FXMLAutenticacionController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -29,38 +30,55 @@
       </ToolBar>
    </top>
    <center>
-      <VBox id="cajita" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox id="cajita" fx:id="vBoxPrincipal" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="455.0" prefWidth="337.0" styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio de sesión">
-               <VBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Text>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="111.0" prefWidth="345.0">
                <children>
-                  <Label text="Label" />
-                  <TextField />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesión">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox prefHeight="17.0" prefWidth="257.0">
+               <children>
+                  <Label text="Usuario" />
+                  <TextField prefHeight="26.0" prefWidth="287.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="46.0" prefWidth="102.0">
                <children>
-                  <Label text="Label" />
-                  <PasswordField />
+                  <Label text="Contraseña" />
+                  <PasswordField prefHeight="26.0" prefWidth="332.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="40.0" left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </VBox>
+            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="114.0" text="Iniciar sesión" />
+            <HBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="338.0" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Aun no estás registrado?">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
          <BorderPane.margin>
-            <Insets bottom="50.0" left="70.0" right="70.0" top="50.0" />
+            <Insets bottom="50.0" top="50.0" />
          </BorderPane.margin>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
       </VBox>
    </center>
 </BorderPane>

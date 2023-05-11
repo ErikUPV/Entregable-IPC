@@ -32,13 +32,14 @@ import javafxmlapplication.Paginas;
  * @author jsoler
  */
 public class FXMLDocumentController implements Initializable {
-    private Label labelMessage;
-    private ImageView fondoImageView;
-    private Pane loginPane;
+
     @FXML
-    private VBox loginVBOX;
+    private StackPane inicioStackpane;
     @FXML
-    private StackPane loginStackpane;
+    private VBox inicioVBOX;
+    @FXML
+    private HBox inicioHBOX;
+    
     
     //=========================================================
     // event handler, fired when button is clicked or 
@@ -56,7 +57,7 @@ public class FXMLDocumentController implements Initializable {
 //        BackgroundSize.DEFAULT);
 ////then you set to your node
 //        loginStackpane.setBackground(new Background(myBI));
-       
+       inicioVBOX.maxWidthProperty().bind(inicioHBOX.prefWidthProperty().multiply(0.5));
         
     }    
 

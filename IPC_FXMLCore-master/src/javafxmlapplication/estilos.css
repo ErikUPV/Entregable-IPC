@@ -8,17 +8,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 */
 
 
-#loginStackpane {
+.mainContainer {
     -fx-background-image: url("./imagenes/fondo-inicio.jpg");
     -fx-background-size: 100% 100%; /* Adjust the values as per your requirement */
     -fx-background-repeat: no-repeat;
 }
 
-#loginHBOX {
+#inicioHBOX {
     -fx-background-color: transparent
 }
 
-#loginVBOX {
+#inicioVBOX {
     -fx-background-color: papayawhip
 }
 
@@ -42,12 +42,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 #backButton {
-    -fx-background-color: orange;
+    
     -fx-background-radius: 100%;
 }
 
 #cajita {
     
+}
+
+
+.vBoxPrincipal {
+    -fx-background-color: papayawhip;
+    -fx-background-radius: 15 15 15 15
 }
 
 
