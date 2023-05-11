@@ -1,40 +1,31 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package javafxmlapplication;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
+ * FXML Controller class
  *
- * @author jsoler
+ * @author erikb
  */
 public class FXMLDocumentController implements Initializable {
-    //========================================================
-    // objects defined into FXML file with fx:id 
+
     @FXML
-    private Button buttonClick;
+    private StackPane loginStackpane;
     @FXML
-    private Label labelMessage;
-    
-    //=========================================================
-    // event handler, fired when button is clicked or 
-    //                      when the button has the focus and enter is pressed
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        labelMessage.setText("Hello, this is your first JavaFX project - IPC");
-    }
-    
-    //=========================================================
-    // you must initialize here all related with the object 
+    private VBox loginVBOX;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

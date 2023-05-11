@@ -5,7 +5,6 @@
  */
 package javafxmlapplication.espacio_personal;
 
-import javafxmlapplication.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
