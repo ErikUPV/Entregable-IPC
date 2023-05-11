@@ -5,16 +5,20 @@
  */
 package javafxmlapplication;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
 import java.util.HashMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
 public class JavaFXMLApplication extends Application {
-    private static HashMap<String, Parent> roots = new HashMap<>();
+    private static HashMap<Paginas, Parent> roots = new HashMap<>();
     
     private static Scene scene; 
     
@@ -22,7 +26,7 @@ public class JavaFXMLApplication extends Application {
         scene.setRoot(root);
     }
     
-    public static void setRoot(String clave) {
+    public static void setRoot(Paginas clave) {
         Parent root = roots.get(clave);
         if (root != null) {
         setRoot(root);
@@ -37,22 +41,35 @@ public class JavaFXMLApplication extends Application {
         Parent root;
         FXMLLoader loader;
         // 1- creación del grafo de escena a partir del fichero FXML
+        
         loader= new  FXMLLoader(getClass().getResource("inicio/FXMLDocument.fxml"));
         root = loader.load();
-        roots.put("inicio", root);
+        roots.put(Paginas.INICIO, root);
         scene = new Scene(root);
         loader = new FXMLLoader(getClass().getResource("autenticacion/FXMLAutenticacion.fxml"));
         root = loader.load();
-        roots.put("autenticacion", root);
+        roots.put(Paginas.AUTENTICACION, root);
+        loader = new FXMLLoader(getClass().getResource("registro/FXMLRegistro.fxml"));
+        root = loader.load();
+        roots.put(Paginas.REGISTRO, root);
+        loader = new FXMLLoader(getClass().getResource("pistas/FXMLVerPistas.fxml"));
+        root = loader.load();
+        roots.put(Paginas.PISTAS, root);
+        loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLEspacioPersonal.fxml"));
+        root = loader.load();
+        roots.put(Paginas.ESPACIO_PERSONAL, root);
         
         
-        setRoot("inicio");
+        Image img = new Image(new FileInputStream("src\\javafxmlapplication\\imagenes\\tennis.png"));
+        
+        setRoot(Paginas.INICIO);
         
         String css;
         css = this.getClass().getResource("estilos.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setMinWidth(1280);
         stage.setMinHeight(720);
+        stage.getIcons().add(img);
         stage.setTitle("Green Ball");
         stage.setScene(scene);
         stage.show();
