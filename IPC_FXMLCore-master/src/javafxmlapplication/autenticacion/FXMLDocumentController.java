@@ -25,6 +25,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label labelMessage;
     
+    
     //=========================================================
     // event handler, fired when button is clicked or 
     //                      when the button has the focus and enter is pressed

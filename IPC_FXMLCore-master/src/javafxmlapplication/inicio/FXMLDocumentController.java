@@ -5,6 +5,7 @@
  */
 package javafxmlapplication.inicio;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -26,19 +27,22 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
+import model.*;
 
 /**
  *
  * @author jsoler
  */
 public class FXMLDocumentController implements Initializable {
-    private Label labelMessage;
-    private ImageView fondoImageView;
-    private Pane loginPane;
+
     @FXML
-    private VBox loginVBOX;
+    private StackPane inicioStackpane;
     @FXML
-    private StackPane loginStackpane;
+    private VBox inicioVBOX;
+    @FXML
+    private HBox inicioHBOX;
+    
+    private Club club;
     
     //=========================================================
     // event handler, fired when button is clicked or 
@@ -47,8 +51,14 @@ public class FXMLDocumentController implements Initializable {
     //=========================================================
     // you must initialize here all related with the object 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)  {
         // TODO
+        
+        try {  club = Club.getInstance();
+        
+        } catch (ClubDAOException | IOException e) {
+            
+        }
        
         
 //        BackgroundImage myBI= new BackgroundImage(new Image("/imagenes/pexels-pixabay-209977.jpg",32,32,false,true),
@@ -56,7 +66,7 @@ public class FXMLDocumentController implements Initializable {
 //        BackgroundSize.DEFAULT);
 ////then you set to your node
 //        loginStackpane.setBackground(new Background(myBI));
-       
+       inicioVBOX.maxWidthProperty().bind(inicioHBOX.prefWidthProperty().multiply(0.5));
         
     }    
 
