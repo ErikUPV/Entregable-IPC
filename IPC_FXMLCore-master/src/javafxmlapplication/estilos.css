@@ -23,23 +23,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 
 .button {
-    -fx-background-color: linear-gradient(seagreen, rgb(28, 101, 60));    -fx-text-fill: white;
+    -fx-background-color: seagreen;    -fx-text-fill: white;
     -fx-text-bold: true;
     -fx-font-family: Helvetica;
     
     /*Make edges rounder but not round*/
-    -fx-background-radius: 15 15 15 15;
+    -fx-background-radius: 5 5 5 5;
 }
-.button:hover {
-    -fx-background-color: linear-gradient(seagreen, rgb(28, 101, 60));
+
+.back-button {
+    -fx-border-width: 3;
+}
+.button:hover, .button:focused {
+    -fx-background-color: rgb(28, 101, 60);
     -fx-cursor: hand;
-    -fx-translate-y: -1px;
    
 }
 .button:pressed{
-    -fx-background-color:  linear-gradient(rgb(28, 101, 60), seagreen);
     -fx-translate-y: 1px;
 }
+
 
 #backButton {
     
@@ -54,6 +57,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .vBoxPrincipal {
     -fx-background-color: papayawhip;
     -fx-background-radius: 15 15 15 15
+}
+
+.tool-bar {
+    -fx-background-color: papayawhip
 }
 
 

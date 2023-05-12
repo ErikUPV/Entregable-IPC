@@ -18,7 +18,7 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button id="backButton" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
+          <Button id="backButton" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0" styleClass="back-button">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,12 +42,13 @@
                         <Font size="34.0" />
                      </font>
                   </Text>
+                  <Label fx:id="debugLabel" prefHeight="18.0" prefWidth="316.0" text="Label" />
                </children>
             </VBox>
             <VBox prefHeight="17.0" prefWidth="257.0">
                <children>
                   <Label text="Usuario" />
-                  <TextField prefHeight="26.0" prefWidth="287.0" />
+                  <TextField fx:id="userTextField" prefHeight="26.0" prefWidth="287.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
@@ -56,21 +57,25 @@
             <VBox prefHeight="46.0" prefWidth="102.0">
                <children>
                   <Label text="Contraseña" />
-                  <PasswordField prefHeight="26.0" prefWidth="332.0" />
+                  <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="332.0" />
                </children>
                <VBox.margin>
                   <Insets bottom="40.0" left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="114.0" text="Iniciar sesión" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="42.0" prefWidth="114.0" text="Iniciar sesión" />
             <HBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="338.0" spacing="40.0">
                <children>
-                  <Button mnemonicParsing="false" text="Aun no estás registrado?">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </Button>
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="169.0">
+                     <children>
+                        <Label text="¿Aún no estás registrado?" />
+                        <Button mnemonicParsing="false" text="Registrarse" />
+                     </children>
+                  </VBox>
                </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
             </HBox>
          </children>
          <BorderPane.margin>
