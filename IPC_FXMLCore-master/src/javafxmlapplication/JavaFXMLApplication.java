@@ -72,7 +72,7 @@ public class JavaFXMLApplication extends Application {
         css = this.getClass().getResource("estilos.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setMinWidth(800);
-        stage.setMinHeight(600);
+        stage.setMinHeight(650);
         stage.getIcons().add(img);
         stage.setTitle("Green Ball");
         stage.setScene(scene);
