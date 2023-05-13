@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import model.Club;
 
 
 public class JavaFXMLApplication extends Application {
@@ -22,6 +23,7 @@ public class JavaFXMLApplication extends Application {
     
     private static Scene scene; 
     
+    private Club club;
     public static void setRoot(Parent root) {
         scene.setRoot(root);
     }
@@ -36,6 +38,8 @@ public class JavaFXMLApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
+        club = Club.getInstance();
+        club.setInitialData();
        
         //======================================================================
         Parent root;
