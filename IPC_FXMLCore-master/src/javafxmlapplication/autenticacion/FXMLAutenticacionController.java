@@ -62,7 +62,11 @@ public class FXMLAutenticacionController implements Initializable {
         debugLabel.setText(""+ club.getCourts().toString());
         
         // TODO
-        vBoxPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.3));
+        borderPane.widthProperty().addListener(
+                (observable, oldV, newV) -> {
+                    if (newV.intValue() < 1000) vBoxPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.35));
+                    else vBoxPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.3));
+                });
     }    
 
     @FXML

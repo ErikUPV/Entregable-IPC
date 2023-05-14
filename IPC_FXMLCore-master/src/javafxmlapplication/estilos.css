@@ -9,7 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 
 .mainContainer {
-    -fx-background-image: url("./imagenes/fondo-inicio.jpg");
+    -fx-background-image: url("./imagenes/georgia-g7b5d50963_1920.jpg");
     -fx-background-size: 100% 100%; /* Adjust the values as per your requirement */
     -fx-background-repeat: no-repeat;
 }
