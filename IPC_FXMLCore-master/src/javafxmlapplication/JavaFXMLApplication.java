@@ -24,11 +24,20 @@ public class JavaFXMLApplication extends Application {
     private static Scene scene; 
     
     private Club club;
+    
+    Parent lastRoot;
+    
+    public static void getLastRoot() {
+        
+    }
+    
     public static void setRoot(Parent root) {
         scene.setRoot(root);
+        
     }
     
     public static void setRoot(Paginas clave) {
+       
         Parent root = roots.get(clave);
         if (root != null) {
         setRoot(root);
