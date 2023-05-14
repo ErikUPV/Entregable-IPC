@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 import javafx.beans.binding.DoubleBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -19,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
+import javafxmlapplication.espacio_personal.FXMLDocumentController;
 import model.*;
 
 /**
@@ -48,13 +51,14 @@ public class FXMLAutenticacionController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         try {
             club = Club.getInstance();
             club.registerMember("nombre", "apellido", "999999999", "admin", "admin", "51555555555", 333, null);
-
+            userTextField.setText("admin"); passwordField.setText("admin");
         } catch ( ClubDAOException | IOException e) {
             System.err.println("Error hallado: " + e);
         }
@@ -76,12 +80,17 @@ public class FXMLAutenticacionController implements Initializable {
     }
 
     @FXML
-    private void loginButtonOnAction(ActionEvent event) throws InterruptedException {
+    private void loginButtonOnAction(ActionEvent event) throws InterruptedException, IOException {
         try {
             member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
              if ( member != null){
             debugLabel.textProperty().set("Bienvenido " + member.getNickName());
-        } 
+            FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLEspacioPersonal.fxml")); 
+            Parent root = miCargador.load();
+            FXMLDocumentController controlador = miCargador.getController();
+            controlador.initMember(member);
+            JavaFXMLApplication.setRoot(root);
+            } 
         } catch (NullPointerException e) {
             debugLabel.setText("Por favor introduzca unas credenciales válidas");
          
