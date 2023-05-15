@@ -36,28 +36,26 @@
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints fx:id="columnaPrincipal" hgrow="SOMETIMES" minWidth="10.0" prefWidth="337.0" />
+          <ColumnConstraints fx:id="columnaPrincipal" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="480.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="455.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="490.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox fx:id="vBoxPrincipal" prefHeight="200.0" prefWidth="0.0" styleClass="vBoxPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox fx:id="vBoxPrincipal" prefHeight="434.0" prefWidth="520.0" spacing="20.0" styleClass="vBoxPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label text="Registro">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <GridPane alignment="CENTER_LEFT" hgap="10.0" prefHeight="282.0" prefWidth="406.0">
+                  <GridPane alignment="CENTER_LEFT" hgap="10.0" prefHeight="371.0" prefWidth="440.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.20001220703125" minWidth="10.0" prefWidth="55.00001220703123" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="74.20001220703125" minWidth="10.0" prefWidth="34.199987792968756" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.60001220703126" minWidth="10.0" prefWidth="125.60001220703126" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.199951171875" minWidth="10.0" prefWidth="215.19996337890626" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.60001220703123" minWidth="10.0" prefWidth="215.20003662109374" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -67,69 +65,68 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                               <Label text="Nickname" />
-                              <TextField />
+                              <TextField fx:id="nickTextField" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="54.0" prefWidth="118.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="54.0" prefWidth="118.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
-                              <Label text="Nombre" />
-                              <TextField />
+                              <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <VBox alignment="BOTTOM_LEFT" prefHeight="46.0" prefWidth="175.0">
+                                       <children>
+                                          <Label text="Nombre" />
+                                          <TextField fx:id="nameTextField" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="BOTTOM_LEFT" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="342.0">
+                                       <children>
+                                          <Label text="Apellidos" />
+                                          <TextField fx:id="surnameTextField" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="54.0" prefWidth="174.0" GridPane.rowIndex="2">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
-                              <Label text="Apellidos" />
-                              <TextField />
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="54.0" prefWidth="174.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                               <Label text="Teléfono" />
-                              <TextField prefHeight="26.0" prefWidth="197.0" />
+                              <TextField fx:id="tlfTextField" maxWidth="-Infinity" prefHeight="26.0" prefWidth="140.0" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                               <Label text="Contraseña" />
-                              <PasswordField />
+                              <PasswordField fx:id="pwTextField" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="54.0" prefWidth="202.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="54.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                               <Label text="Repetir contraseña" />
-                              <PasswordField />
+                              <PasswordField fx:id="repeatPwTextField" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                               <Label text="Nº tarjeta de cŕedito" />
-                              <TextField />
+                              <TextField fx:id="creditCardTextField" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
                               <Label text="CVC" />
-                              <TextField />
+                              <TextField fx:id="cvcTextField" maxWidth="-Infinity" prefWidth="50.0" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </GridPane>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="440.0">
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="104.0">
                            <children>
@@ -141,9 +138,18 @@
                         <ImageView fx:id="perfilImageView" fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
-                  <HBox alignment="BOTTOM_RIGHT" prefHeight="36.0" prefWidth="337.0">
+                  <HBox alignment="CENTER" prefHeight="26.0" prefWidth="555.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Button" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="323.0">
+                           <children>
+                              <Label fx:id="badInputLabel" text="Introduzca sus datos en los campos marcados" textFill="RED" visible="false" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="240.0">
+                           <children>
+                              <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerOnAction" text="Registrarse" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
