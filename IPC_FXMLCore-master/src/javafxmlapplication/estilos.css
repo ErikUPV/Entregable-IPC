@@ -56,11 +56,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .vBoxPrincipal {
     -fx-background-color: papayawhip;
-    -fx-background-radius: 15 15 15 15
+    -fx-background-radius: 15 15 15 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.6, 0.0, 0.0);
+
 }
 
 .tool-bar {
-    -fx-background-color: papayawhip
+    -fx-background-color: papayawhip;
+            -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.6, 0.0, 0.0);
+
+}
+
+.errorTextField {
+    -fx-background-color: #FCE5E0;
+    -fx-border-color: red;
+    -fx-border-radius: 5 5 5 5
+    
 }
 
 
