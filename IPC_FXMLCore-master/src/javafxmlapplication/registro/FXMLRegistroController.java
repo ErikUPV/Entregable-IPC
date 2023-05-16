@@ -123,27 +123,27 @@ public class FXMLRegistroController implements Initializable {
     @FXML
     private void registerOnAction(ActionEvent event) {
        registerButton.disableProperty().setValue(true);
-       if (nickTextField.textProperty().getValueSafe().isEmpty() || nickTextField.textProperty().getValueSafe().isBlank()) showErrorMessage(nickTextField);
+       if (nickTextField.textProperty().getValueSafe().isEmpty() || nickTextField.textProperty().getValueSafe().isBlank()) showErrorMessage(nickTextField, "Nick vacío");
        else hideErrorMessage(nickTextField);
        
-       if (nameTextField.textProperty().getValueSafe().isEmpty() || nameTextField.textProperty().getValueSafe().) showErrorMessage( nameTextField);
+       if (nameTextField.textProperty().getValueSafe().isEmpty() || nameTextField.textProperty().getValueSafe().isBlank()) showErrorMessage( nameTextField, "Nombre vacío");
        else hideErrorMessage(nameTextField);
        
-       if (surnameTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( surnameTextField);
+       if (surnameTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( surnameTextField, "Apellido vacío");
        else hideErrorMessage(surnameTextField);
        
-       if (tlfTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( tlfTextField);
+       if (tlfTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( tlfTextField, "Teléfono vacío");
        else hideErrorMessage(tlfTextField);
        
-       if (pwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( pwTextField);
+       if (pwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( pwTextField, "Contraseña vacía");
        else hideErrorMessage(pwTextField);
        
-       if (repeatPwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( repeatPwTextField);
+       if (repeatPwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( repeatPwTextField, "Pw mismatch");
        else hideErrorMessage(repeatPwTextField);
        
        if (creditCardTextField.textProperty().getValueSafe().isEmpty() || cvcTextField.textProperty().getValueSafe().isEmpty()){
-           showErrorMessage( creditCardTextField);
-           showErrorMessage( cvcTextField);
+           showErrorMessage( creditCardTextField,"Número vacío o CVC vacío" );
+           showErrorMessage( cvcTextField, "");
 
        } else{
            hideErrorMessage(creditCardTextField);
@@ -161,20 +161,20 @@ public class FXMLRegistroController implements Initializable {
 
     }
    
-    private void showErrorMessage ( TextField field) {
+    private void showErrorMessage ( TextField field, String msg) {
         String source = field.getId();
         field.requestFocus();
         badInputLabel.visibleProperty().setValue(true);
         field.styleProperty().setValue("-fx-background-color: #FCE5E0;"
                 + "-fx-border-color: red;"
                 + "-fx-border-radius: 5 5 5 5;"
-                + "-fx-text-fill: red");
-        switch(source) {
-            case "nickTextField":
-                nickTextField.setPromptText("");
+                + "-fx-text-fill: red;"
+                + "-fx-prompt-text-fill: red");
+       
+                field.setPromptText(msg);
         }
        
-    }
+    
     
      private void hideErrorMessage(TextField field){
         
