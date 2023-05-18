@@ -9,7 +9,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -30,60 +33,85 @@
       </ToolBar>
    </top>
    <center>
-      <VBox id="cajita" fx:id="vBoxPrincipal" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="455.0" prefWidth="337.0" styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="485.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fx:id="columnaPrincipal" hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="490.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <VBox prefHeight="111.0" prefWidth="345.0">
+            <VBox id="cajita" fx:id="vBoxPrincipal" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="436.0" prefWidth="516.0" styleClass="vBoxPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesión">
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="34.0" />
-                     </font>
-                  </Text>
-                  <Label fx:id="debugLabel" prefHeight="18.0" prefWidth="316.0" text="Label" />
-               </children>
-            </VBox>
-            <VBox prefHeight="17.0" prefWidth="257.0">
-               <children>
-                  <Label text="Usuario" />
-                  <TextField fx:id="userTextField" prefHeight="26.0" prefWidth="287.0" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox prefHeight="46.0" prefWidth="102.0">
-               <children>
-                  <Label text="Contraseña" />
-                  <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="332.0" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="40.0" left="30.0" right="30.0" top="10.0" />
-               </VBox.margin>
-            </VBox>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="42.0" prefWidth="114.0" text="Iniciar sesión" />
-            <HBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="338.0" spacing="40.0">
-               <children>
-                  <VBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="169.0">
+                  <VBox prefHeight="111.0" prefWidth="345.0">
                      <children>
-                        <Label text="¿Aún no estás registrado?" />
-                        <Button mnemonicParsing="false" text="Registrarse" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar sesión">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Text>
+                        <Label fx:id="debugLabel" prefHeight="18.0" prefWidth="316.0" text="Label" />
                      </children>
                   </VBox>
+                  <VBox prefHeight="17.0" prefWidth="257.0">
+                     <children>
+                        <Label text="Usuario" />
+                        <TextField fx:id="userTextField" prefHeight="26.0" prefWidth="287.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="46.0" prefWidth="102.0">
+                     <children>
+                        <Label text="Contraseña" />
+                        <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="332.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="40.0" left="30.0" right="30.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="42.0" prefWidth="114.0" text="Iniciar sesión" />
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="338.0" spacing="40.0">
+                     <children>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="76.0" prefWidth="169.0">
+                           <children>
+                              <Label text="¿Aún no estás registrado?" />
+                              <Button mnemonicParsing="false" onAction="#registrarButtonOnAction" text="Registrarse" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
                </children>
                <padding>
-                  <Insets left="30.0" />
+                  <Insets left="10.0" right="10.0" />
                </padding>
-            </HBox>
+            </VBox>
          </children>
-         <BorderPane.margin>
-            <Insets bottom="50.0" top="50.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets left="10.0" right="10.0" />
-         </padding>
-      </VBox>
+      </GridPane>
    </center>
 </BorderPane>
