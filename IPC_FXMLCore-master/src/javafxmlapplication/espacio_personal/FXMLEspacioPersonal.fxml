@@ -3,8 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,82 +14,62 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLEspacioPersonalController">
    <top>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
-          <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0" styleClass="back-button">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagenes/left-arrow_1.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-        </items>
-      </ToolBar>
-   </top>
-   <center>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
+      <VBox prefHeight="106.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="700.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="160.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: papayawhip;">
                <children>
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="220.0">
-                     <children>
-                        <ImageView fx:id="profilePicture" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="500.0">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                     <children>
-                        <Label fx:id="name" text="Nombre Apellido Apellido">
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="nickName" text="nickName">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="5.0" right="5.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Label text="123 45 67 89">
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="450.0" prefWidth="500.0">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <children>
-                              <Button fx:id="modificarButton" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#modificarButtonOnAction" styleClass="back-button" text="Modificar">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <ImageView fx:id="profilePicture" fitHeight="106.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="nameLabel" text="Hector Bernal Martí">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
                </children>
+               <padding>
+                  <Insets bottom="20.0" left="25.0" top="20.0" />
+               </padding>
             </HBox>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="700.0" />
          </children>
+      </VBox>
+   </top>
+   <left>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="409.0" prefWidth="144.0" spacing="20.0" style="-fx-background-color: seagreen;">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="100.0" text="Mis reservas" />
+                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="100.0" text="Modificar datos" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" style="-fx-background-color: green; -fx-border-color: green;" />
+         </children>
+      </HBox>
+   </left>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: seagreen; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Mis Reservas">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="378.0" prefWidth="635.0" style="-fx-background-color: papayawhip;">
+              <columns>
+                <TableColumn prefWidth="132.80005490779877" text="Fecha" />
+                <TableColumn minWidth="0.0" prefWidth="72.0" text="Hora" />
+                  <TableColumn prefWidth="388.80000610351567" text="Pista" />
+              </columns>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </TableView>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </VBox>
    </center>
 </BorderPane>
