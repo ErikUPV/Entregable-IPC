@@ -33,15 +33,9 @@ public class FXMLEspacioPersonalController implements Initializable {
 
     @FXML
     private Button backButton;
-    Member member;
+    private Member member;
     @FXML
     private ImageView profilePicture;
-    @FXML
-    private Label name;
-    @FXML
-    private Label nickName;
-    @FXML
-    private Button modificarButton;
     
     public void initMember(Member m) {
         member = m;
@@ -60,7 +54,6 @@ public class FXMLEspacioPersonalController implements Initializable {
         JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
 
-    @FXML
     private void modificarButtonOnAction(ActionEvent event) throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLDocument.fxml"));
         Parent root = cargador.load();
