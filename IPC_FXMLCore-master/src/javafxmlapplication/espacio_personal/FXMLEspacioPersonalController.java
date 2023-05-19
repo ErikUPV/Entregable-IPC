@@ -33,15 +33,15 @@ public class FXMLEspacioPersonalController implements Initializable {
 
     @FXML
     private Button backButton;
-    Member member;
+    private Member member;
     @FXML
     private ImageView profilePicture;
     @FXML
-    private Label name;
+    private Button reservarPista;
     @FXML
-    private Label nickName;
+    private Button misReservas;
     @FXML
-    private Button modificarButton;
+    private Button modificarPerfil;
     
     public void initMember(Member m) {
         member = m;
@@ -60,7 +60,6 @@ public class FXMLEspacioPersonalController implements Initializable {
         JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
 
-    @FXML
     private void modificarButtonOnAction(ActionEvent event) throws IOException {
         FXMLLoader cargador = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLDocument.fxml"));
         Parent root = cargador.load();
@@ -72,6 +71,18 @@ public class FXMLEspacioPersonalController implements Initializable {
         stage.setTitle("Ventana de modificación");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+    }
+
+    @FXML
+    private void reservarPistaOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void misReservasOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void modificarPerfilOnAction(ActionEvent event) {
     }
     
 }
