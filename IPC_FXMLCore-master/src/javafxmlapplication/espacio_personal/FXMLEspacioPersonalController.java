@@ -36,6 +36,12 @@ public class FXMLEspacioPersonalController implements Initializable {
     private Member member;
     @FXML
     private ImageView profilePicture;
+    @FXML
+    private Button reservarPista;
+    @FXML
+    private Button misReservas;
+    @FXML
+    private Button modificarPerfil;
     
     public void initMember(Member m) {
         member = m;
@@ -65,6 +71,18 @@ public class FXMLEspacioPersonalController implements Initializable {
         stage.setTitle("Ventana de modificación");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+    }
+
+    @FXML
+    private void reservarPistaOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void misReservasOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void modificarPerfilOnAction(ActionEvent event) {
     }
     
 }
