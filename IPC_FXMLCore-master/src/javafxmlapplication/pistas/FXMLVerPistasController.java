@@ -14,20 +14,35 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
-
+import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.espacio_personal.FXMLEspacioPersonalController;
+import model.*;
 /**
  * FXML Controller class
  *
  * @author Héctor
  */
+
+
 public class FXMLVerPistasController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    
+    protected Member member;
+    
+    
+    
+    
+    public void initMember(Member m) {
+        member = m;
+        
+       
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        member = FXMLAutenticacionController.getMember();
+        System.out.println("ver pistas: " + member.getNickName());
+        System.out.println(member.toString());
     }    
 
     @FXML

@@ -80,7 +80,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .tool-bar {
     -fx-background-color: papayawhip;
-            -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.6, 0.0, 0.0);
+/*            -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.6, 0.0, 0.0);*/
 
 }
 
@@ -102,6 +102,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     
 }
 
+.combo-box {
+    -fx-background-color: papayawhip;
+    -fx-cursor: hand;
+    -fx-prompt-text-font-style: bold
+}
 
 
 
