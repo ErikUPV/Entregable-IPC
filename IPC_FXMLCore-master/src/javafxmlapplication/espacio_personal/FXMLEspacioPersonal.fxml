@@ -106,7 +106,7 @@
             </Separator>
             <VBox HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Nombre Apellido1 Apellido2">
+                  <Label fx:id="nameLabel" text="Nombre Apellido1 Apellido2">
                      <font>
                         <Font size="40.0" />
                      </font>

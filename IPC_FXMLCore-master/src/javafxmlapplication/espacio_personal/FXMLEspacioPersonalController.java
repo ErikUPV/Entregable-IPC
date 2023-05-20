@@ -36,11 +36,19 @@ public class FXMLEspacioPersonalController implements Initializable {
     private ImageView profilePicture;
     @FXML
     private Label nameLabel;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button reservarPista;
+    @FXML
+    private Button misReservas;
+    @FXML
+    private Button modificarPerfil;
     
     public void initMember(Member m) {
         member = m;
-        profilePicture.setImage(member.getImage());
-         nameLabel.setText(member.getName() + " " + member.getSurname());
+        if (member.getImage() != null)profilePicture.setImage(member.getImage());
+        nameLabel.setText(member.getName() + " " + member.getSurname());
        
     }
     /**
@@ -50,9 +58,12 @@ public class FXMLEspacioPersonalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //profilePicture.setImage(member.getImage());
     }
-    private void backButtonOnAction(ActionEvent event) {
+    @FXML
+    private void backButtonOnAction(ActionEvent event) throws IOException {
          FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
-        JavaFXMLApplication.setRoot(miCargador.getRoot());
+         Parent root = miCargador.getRoot();
+         if (root == null) root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
 
     private void modificarButtonOnAction(ActionEvent event) throws IOException {
@@ -66,6 +77,18 @@ public class FXMLEspacioPersonalController implements Initializable {
         stage.setTitle("Ventana de modificación");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+    }
+
+    @FXML
+    private void reservarPistaOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void misReservasOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void modificarPerfilOnAction(ActionEvent event) {
     }
     
 }
