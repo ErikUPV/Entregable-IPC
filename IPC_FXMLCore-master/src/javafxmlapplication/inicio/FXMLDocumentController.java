@@ -10,7 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -71,18 +73,27 @@ public class FXMLDocumentController implements Initializable {
     }    
 
     @FXML
-    private void IniciarSesionOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.AUTENTICACION);
+    private void IniciarSesionOnAction(ActionEvent event)throws IOException {
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.AUTENTICACION);
+        Parent root = miCargador.getRoot();
+         if (root == null) root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
-    private void registrarseOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.REGISTRO);
+    private void registrarseOnAction(ActionEvent event) throws IOException {
+         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
+         Parent root = miCargador.getRoot();
+         if (root == null) root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
-    private void accederInvOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.PISTAS);
+    private void accederInvOnAction(ActionEvent event) throws IOException {
+         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
+         Parent root = miCargador.getRoot();
+         if (root == null) root = miCargador.load();
+        JavaFXMLApplication.setRoot(miCargador.getRoot());
     }
     
 }

@@ -39,6 +39,8 @@ public class FXMLEspacioPersonalController implements Initializable {
     
     public void initMember(Member m) {
         member = m;
+        profilePicture.setImage(member.getImage());
+         nameLabel.setText(member.getName() + " " + member.getSurname());
        
     }
     /**
@@ -47,14 +49,10 @@ public class FXMLEspacioPersonalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //profilePicture.setImage(member.getImage());
-        try {
-            profilePicture.setImage(member.getImage());
-        } catch (NullPointerException e) {}
-        nameLabel.setText(member.getName() + " " + member.getSurname());
-    }    
-
+    }
     private void backButtonOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.INICIO);
+         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+        JavaFXMLApplication.setRoot(miCargador.getRoot());
     }
 
     private void modificarButtonOnAction(ActionEvent event) throws IOException {
