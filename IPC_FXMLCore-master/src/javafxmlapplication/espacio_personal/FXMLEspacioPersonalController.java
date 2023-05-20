@@ -31,15 +31,21 @@ import model.Member;
  */
 public class FXMLEspacioPersonalController implements Initializable {
 
-    Member member;
+    @FXML
+    private Button backButton;
+    private Member member;
     @FXML
     private ImageView profilePicture;
     @FXML
-    private Label nameLabel;
+    private Button reservarPista;
+    @FXML
+    private Button misReservas;
+    @FXML
+    private Button modificarPerfil;
     
     public void initMember(Member m) {
         member = m;
-       
+        profilePicture.setImage(member.getImage());
     }
     /**
      * Initializes the controller class.
@@ -47,12 +53,9 @@ public class FXMLEspacioPersonalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //profilePicture.setImage(member.getImage());
-        try {
-            profilePicture.setImage(member.getImage());
-        } catch (NullPointerException e) {}
-        nameLabel.setText(member.getName() + " " + member.getSurname());
     }    
 
+    @FXML
     private void backButtonOnAction(ActionEvent event) {
         JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
@@ -68,6 +71,18 @@ public class FXMLEspacioPersonalController implements Initializable {
         stage.setTitle("Ventana de modificación");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+    }
+
+    @FXML
+    private void reservarPistaOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void misReservasOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void modificarPerfilOnAction(ActionEvent event) {
     }
     
 }
