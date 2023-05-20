@@ -19,7 +19,7 @@ import model.Club;
 
 
 public class JavaFXMLApplication extends Application {
-    private static HashMap<Paginas, Parent> roots = new HashMap<>();
+    private static HashMap<Paginas, FXMLLoader> roots = new HashMap<>();
     
     private static Scene scene; 
     
@@ -36,14 +36,9 @@ public class JavaFXMLApplication extends Application {
         
     }
     
-    public static void setRoot(Paginas clave) {
-       
-        Parent root = roots.get(clave);
-        if (root != null) {
-        setRoot(root);
-        } else {
-            System.out.println("No se pudo encontrar la escena");
-        }
+  
+    public static FXMLLoader getLoader(Paginas clave){
+        return roots.get(clave);
     }
     @Override
     public void start(Stage stage) throws Exception {
@@ -57,25 +52,28 @@ public class JavaFXMLApplication extends Application {
         
         loader= new  FXMLLoader(getClass().getResource("inicio/FXMLDocument.fxml"));
         root = loader.load();
-        roots.put(Paginas.INICIO, root);
+        roots.put(Paginas.INICIO, loader);
         scene = new Scene(root);
         loader = new FXMLLoader(getClass().getResource("autenticacion/FXMLAutenticacion.fxml"));
-        root = loader.load();
-        roots.put(Paginas.AUTENTICACION, root);
+        
+        roots.put(Paginas.AUTENTICACION, loader);
         loader = new FXMLLoader(getClass().getResource("registro/FXMLRegistro.fxml"));
-        root = loader.load();
-        roots.put(Paginas.REGISTRO, root);
+        roots.put(Paginas.REGISTRO, loader);
+        loader = new FXMLLoader(getClass().getResource("registro/FXMLRegistro_1.fxml"));
+        roots.put(Paginas.REGISTRO2, loader);
         loader = new FXMLLoader(getClass().getResource("pistas/FXMLVerPistas.fxml"));
-        root = loader.load();
-        roots.put(Paginas.PISTAS, root);
+        roots.put(Paginas.PISTAS, loader);
         loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLEspacioPersonal.fxml"));
-        root = loader.load();
-        roots.put(Paginas.ESPACIO_PERSONAL, root);
+        roots.put(Paginas.ESPACIO_PERSONAL, loader);
+        loader = new FXMLLoader(getClass().getResource("inicio2/FXMLDocument.fxml"));
+        roots.put(Paginas.INICIO2, loader);
+        loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarDatos.fxml"));
+        roots.put(Paginas.MODIFICAR_DATOS, loader);
         
         
         Image img = new Image(new FileInputStream("src\\javafxmlapplication\\imagenes\\tennis.png"));
         
-        setRoot(Paginas.INICIO);
+        setRoot(root);
         
         String css;
         css = this.getClass().getResource("estilos.css").toExternalForm();

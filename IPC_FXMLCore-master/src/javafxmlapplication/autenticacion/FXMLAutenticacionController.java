@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
@@ -49,6 +50,8 @@ public class FXMLAutenticacionController implements Initializable {
     private Member member;
     @FXML
     private Label debugLabel;
+    @FXML
+    private ColumnConstraints columnaPrincipal;
 
     /**
      * Initializes the controller class.
@@ -59,7 +62,7 @@ public class FXMLAutenticacionController implements Initializable {
         
         try {
             club = Club.getInstance();
-            File f = new File("src/javafxmlapplication/imagenes/tennis.png");
+            File f = new File("src/javafxmlapplication/imagenes/home.png");
             Image i = new Image(f.toURI().toString());
             club.registerMember("nombre", "apellido", "999999999", "admin", "admin", "51555555555", 333, i);
             userTextField.setText("admin"); passwordField.setText("admin");
@@ -70,16 +73,19 @@ public class FXMLAutenticacionController implements Initializable {
         debugLabel.setText(""+ club.getCourts().toString());
         
         // TODO
-        borderPane.widthProperty().addListener(
+          columnaPrincipal.minWidthProperty().set(400);
+        // TODO
+          borderPane.widthProperty().addListener(
                 (observable, oldV, newV) -> {
-                    if (newV.intValue() < 1000) vBoxPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.35));
-                    else vBoxPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.3));
+                    if (newV.intValue() <= 800) columnaPrincipal.maxWidthProperty().bind(columnaPrincipal.minWidthProperty());
+                    else columnaPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.3));
                 });
-    }    
+    }
 
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.INICIO);
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+        JavaFXMLApplication.setRoot(miCargador.getRoot());
         
     }
 
@@ -88,15 +94,29 @@ public class FXMLAutenticacionController implements Initializable {
         try {
             member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
              if ( member != null){
+                 System.out.println("login exitoso");
             debugLabel.textProperty().set("Bienvenido " + member.getNickName());
-            FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLEspacioPersonal.fxml")); 
-            Parent root = miCargador.load();
+            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
+            Parent root = miCargador.getRoot();
+            if (root == null) root = miCargador.load();
+                 System.out.println(root.toString());
             FXMLEspacioPersonalController controlador = miCargador.getController();
+                 System.out.println(controlador.toString());
             controlador.initMember(member);
+                 System.out.println(member.getName() + " " + member.getSurname());
             JavaFXMLApplication.setRoot(root);
+                 
             } 
         } catch (NullPointerException e) {
             debugLabel.setText("Por favor introduzca unas credenciales válidas");
         }
+    }
+
+    @FXML
+    private void registrarButtonOnAction(ActionEvent event) throws IOException {
+         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
+         Parent root = miCargador.getRoot();
+         if (root == null) root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
 }

@@ -10,27 +10,38 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.beans.Observable;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Duration;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import model.*;
+
 
 /**
  * FXML Controller class
@@ -69,12 +80,22 @@ public class FXMLRegistroController implements Initializable {
     private Button registerButton;
     
     private Club club;
+    
+    boolean pwMatch;
+    @FXML
+    private GridPane labelsGridPane;
+    @FXML
+    private Label nickLabel;
+    
+    Image imagen;
+    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        pwMatch = true;
         // Listeners de los TextFields
         try {
             club = Club.getInstance();
@@ -82,26 +103,69 @@ public class FXMLRegistroController implements Initializable {
             
         }
         
+        nickTextField.requestFocus();
+       
+        repeatPwTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) { // When focus is lost from the second field
+                String password1 = pwTextField.getText();
+                String password2 = repeatPwTextField.getText();
+                if (!password1.equals(password2)) {
+                    showErrorMessage(pwTextField, "Passwords do not match!");
+                    showErrorMessage(repeatPwTextField, "Passwords do not match!");
+                    badInputLabel.setText("Passwords don't match");
+                    repeatPwTextField.setText("");
+                    badInputLabel.visibleProperty().setValue(true);
+                    pwMatch = false;
+                } else {
+                    hideErrorMessage(pwTextField );
+                    hideErrorMessage(repeatPwTextField );
+                    badInputLabel.visibleProperty().setValue(false);
+                    pwMatch = true;
+                    
+                }
+            }
+        });
         
+      
         
-        
+        cvcTextField.setTextFormatter(getTextFormatter(3));
+        creditCardTextField.setTextFormatter(getTextFormatter(16));
+        tlfTextField.setTextFormatter(getTextFormatter(11));
+
+
+
+        repeatPwTextField.maxWidthProperty().bind(pwTextField.widthProperty());
         
         columnaPrincipal.minWidthProperty().set(400);
         // TODO
-          borderPane.widthProperty().addListener(
-                (observable, oldV, newV) -> {
-                    if (newV.intValue() <= 800) columnaPrincipal.maxWidthProperty().bind(columnaPrincipal.minWidthProperty());
-                    else columnaPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.3));
-                });
+//          borderPane.widthProperty().addListener(
+//                (observable, oldV, newV) -> {
+//                    if (newV.intValue() <= 800) columnaPrincipal.maxWidthProperty().bind(columnaPrincipal.minWidthProperty());
+//                    else columnaPrincipal.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.3));
+//                });
           
     }    
 
+    
+    private  TextFormatter<String> getTextFormatter(int e) {
+        TextFormatter<String> formatter2 = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d{0,"+ e + "}")) {
+                return change;
+            }
+            return null;
+        });
+        return formatter2;
+    }
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.INICIO);
+         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+        JavaFXMLApplication.setRoot(miCargador.getRoot());
         
     
     }
+    
+    
 
     @FXML
     private void elegirImagenOnAction(ActionEvent event) {
@@ -116,13 +180,17 @@ public class FXMLRegistroController implements Initializable {
              
         if (selectedFile != null) {
             Path imgPath = selectedFile.toPath();
-            perfilImageView.setImage(new Image(imgPath.toString()));
+            Image img = new Image(imgPath.toString());
+            perfilImageView.setImage(img);
+            imagen = img;
         }
+        
     }
 
     @FXML
-    private void registerOnAction(ActionEvent event) {
-       registerButton.disableProperty().setValue(true);
+    private void registerOnAction(ActionEvent event) throws IOException {
+        
+        
        if (nickTextField.textProperty().getValueSafe().isEmpty() || nickTextField.textProperty().getValueSafe().isBlank()) showErrorMessage(nickTextField, "Nick vacío");
        else hideErrorMessage(nickTextField);
        
@@ -136,12 +204,12 @@ public class FXMLRegistroController implements Initializable {
        else hideErrorMessage(tlfTextField);
        
        if (pwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( pwTextField, "Contraseña vacía");
-       else hideErrorMessage(pwTextField);
+       else if (!repeatPwTextField.getText().isEmpty())hideErrorMessage(pwTextField);
        
        if (repeatPwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( repeatPwTextField, "Pw mismatch");
        else hideErrorMessage(repeatPwTextField);
        
-       if (creditCardTextField.textProperty().getValueSafe().isEmpty() || cvcTextField.textProperty().getValueSafe().isEmpty()){
+       if ( (creditCardTextField.textProperty().getValueSafe().isEmpty() && !  cvcTextField.textProperty().getValueSafe().isEmpty()) ||(!creditCardTextField.textProperty().getValueSafe().isEmpty() &&   cvcTextField.textProperty().getValueSafe().isEmpty()) ){
            showErrorMessage( creditCardTextField,"Número vacío o CVC vacío" );
            showErrorMessage( cvcTextField, "");
 
@@ -149,21 +217,54 @@ public class FXMLRegistroController implements Initializable {
            hideErrorMessage(creditCardTextField);
            hideErrorMessage(cvcTextField);
        }
-       registerButton.setDisable(false);
-       
-       
+       if(cvcTextField.getText().isEmpty() && creditCardTextField.getText().isEmpty()) cvcTextField.setText("0");
+       boolean b = nickTextField.getText().isEmpty()
+               || nameTextField.getText().isEmpty()
+               || surnameTextField.getText().isEmpty()
+               || tlfTextField.getText().isEmpty()
+               || pwTextField.getText().isEmpty()
+               || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().equals("0"))
+               || !pwMatch;
+      if(!b){ 
        try {
+           System.out.println("usuario registrado");
+           if (club.existsLogin(nickTextField.getText())) {
+               badInputLabel.textProperty().setValue("Ya existe este usuario");
+               return;
+           }
            club.registerMember(nameTextField.textProperty().getValue(),surnameTextField.textProperty().getValue(), tlfTextField.textProperty().getValue(),
-                   nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(), Integer.parseInt(cvcTextField.textProperty().getValue()), null);
+                   nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(),Integer.parseInt(cvcTextField.textProperty().getValue()), imagen);
        } catch (ClubDAOException e) {
-           
-       }
-
+           badInputLabel.textProperty().setValue("Valores Incorrectos");
+      
+      }
+         Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0),
+                        event2 -> { FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
+                                    Parent root = miCargador.getRoot();
+                                    if (root == null) try {
+                                        root = miCargador.load();
+                        } catch (IOException ex) {
+                            Logger.getLogger(FXMLRegistroController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                                    JavaFXMLApplication.setRoot(root);}),
+                new KeyFrame(Duration.seconds(1.5),
+                        event2 -> {
+                                    FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+                                    
+                                    JavaFXMLApplication.setRoot(miCargador.getRoot());})
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+    
+      
+        
+    
     }
    
     private void showErrorMessage ( TextField field, String msg) {
         String source = field.getId();
-        field.requestFocus();
         badInputLabel.visibleProperty().setValue(true);
         field.styleProperty().setValue("-fx-background-color: #FCE5E0;"
                 + "-fx-border-color: red;"
@@ -171,7 +272,7 @@ public class FXMLRegistroController implements Initializable {
                 + "-fx-text-fill: red;"
                 + "-fx-prompt-text-fill: red");
        
-                field.setPromptText(msg);
+                //field.setPromptText(msg);
         }
        
     
@@ -181,7 +282,7 @@ public class FXMLRegistroController implements Initializable {
         field.styleProperty().setValue(""); 
     }
 
-    
+   
  
     }
     
