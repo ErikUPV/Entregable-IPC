@@ -43,6 +43,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-translate-y: 1px;
 }
 
+#invisibleButton {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#invisibleButton:hover {
+    -fx-background-color: rgb(184, 184, 184);
+}
 
 #backButton {
     
