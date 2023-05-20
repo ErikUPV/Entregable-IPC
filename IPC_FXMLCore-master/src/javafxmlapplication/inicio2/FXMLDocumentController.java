@@ -71,19 +71,19 @@ public class FXMLDocumentController implements Initializable {
         
     }    
 
-    @FXML
-    private void IniciarSesionOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.AUTENTICACION);
-    }
-
-    @FXML
-    private void registrarseOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.REGISTRO);
-    }
-
-    @FXML
-    private void accederInvOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.PISTAS);
-    }
+//    @FXML
+//    private void IniciarSesionOnAction(ActionEvent event) {
+//        JavaFXMLApplication.setRoot(Paginas.AUTENTICACION);
+//    }
+//
+//    @FXML
+//    private void registrarseOnAction(ActionEvent event) {
+//        JavaFXMLApplication.setRoot(Paginas.REGISTRO);
+//    }
+//
+//    @FXML
+//    private void accederInvOnAction(ActionEvent event) {
+//        JavaFXMLApplication.setRoot(Paginas.PISTAS);
+//    }
     
 }

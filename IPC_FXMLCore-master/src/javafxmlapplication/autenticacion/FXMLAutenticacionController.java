@@ -84,7 +84,8 @@ public class FXMLAutenticacionController implements Initializable {
 
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.INICIO);
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+        JavaFXMLApplication.setRoot(miCargador.getRoot());
         
     }
 
@@ -95,8 +96,9 @@ public class FXMLAutenticacionController implements Initializable {
              if ( member != null){
                  System.out.println("login exitoso");
             debugLabel.textProperty().set("Bienvenido " + member.getNickName());
-            FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLEspacioPersonal.fxml")); 
-            Parent root = JavaFXMLApplication.getRoot(Paginas.ESPACIO_PERSONAL);
+            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
+            Parent root = miCargador.load();
+            
             FXMLEspacioPersonalController controlador = miCargador.getController();
             controlador.initMember(member);
             JavaFXMLApplication.setRoot(root);
@@ -108,7 +110,10 @@ public class FXMLAutenticacionController implements Initializable {
     }
 
     @FXML
-    private void registrarButtonOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.REGISTRO);
+    private void registrarButtonOnAction(ActionEvent event) throws IOException {
+         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
+         Parent root = miCargador.getRoot();
+         if (root == null) root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
 }
