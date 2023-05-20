@@ -61,6 +61,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 }
 
+.vBoxPrincipal > .label {
+    -fx-text-fill: seagreen;
+    -fx-text-effect: bold
+}
+
+.registro-label {
+    -fx-font-weight: bold
+}
+
 .tool-bar {
     -fx-background-color: papayawhip;
             -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.6, 0.0, 0.0);
@@ -73,5 +82,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-radius: 5 5 5 5
     
 }
+
+
+
+.text-field {
+    -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 5 5 5 5; 
+    -fx-border-color: seagreen;
+    -fx-background-color: white
+   
+    
+}
+
+
+
 
 

@@ -36,6 +36,10 @@ public class JavaFXMLApplication extends Application {
         
     }
     
+    public static Parent getRoot(Paginas clave) {
+        return roots.get(clave);
+    }
+    
     public static void setRoot(Paginas clave) {
        
         Parent root = roots.get(clave);
@@ -65,12 +69,18 @@ public class JavaFXMLApplication extends Application {
         loader = new FXMLLoader(getClass().getResource("registro/FXMLRegistro.fxml"));
         root = loader.load();
         roots.put(Paginas.REGISTRO, root);
+        loader = new FXMLLoader(getClass().getResource("registro/FXMLRegistro_1.fxml"));
+        root = loader.load();
+        roots.put(Paginas.REGISTRO2, root);
         loader = new FXMLLoader(getClass().getResource("pistas/FXMLVerPistas.fxml"));
         root = loader.load();
         roots.put(Paginas.PISTAS, root);
         loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLEspacioPersonal.fxml"));
         root = loader.load();
         roots.put(Paginas.ESPACIO_PERSONAL, root);
+        loader = new FXMLLoader(getClass().getResource("inicio2/FXMLDocument.fxml"));
+        root = loader.load();
+        roots.put(Paginas.INICIO2, root);
         
         
         Image img = new Image(new FileInputStream("src\\javafxmlapplication\\imagenes\\tennis.png"));

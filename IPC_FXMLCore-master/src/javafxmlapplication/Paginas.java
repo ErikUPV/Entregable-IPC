@@ -10,8 +10,10 @@ package javafxmlapplication;
  */
 public enum Paginas {
     INICIO,
+    INICIO2,
     AUTENTICACION,
     REGISTRO,
+    REGISTRO2,
     PISTAS,
     ESPACIO_PERSONAL
     
