@@ -10,6 +10,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -17,8 +19,10 @@ import javafx.beans.Observable;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -155,7 +159,8 @@ public class FXMLRegistroController implements Initializable {
     }
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.INICIO);
+         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+        JavaFXMLApplication.setRoot(miCargador.getRoot());
         
     
     }
@@ -183,7 +188,9 @@ public class FXMLRegistroController implements Initializable {
     }
 
     @FXML
-    private void registerOnAction(ActionEvent event) {
+    private void registerOnAction(ActionEvent event) throws IOException {
+        
+        
        if (nickTextField.textProperty().getValueSafe().isEmpty() || nickTextField.textProperty().getValueSafe().isBlank()) showErrorMessage(nickTextField, "Nick vacío");
        else hideErrorMessage(nickTextField);
        
@@ -197,7 +204,7 @@ public class FXMLRegistroController implements Initializable {
        else hideErrorMessage(tlfTextField);
        
        if (pwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( pwTextField, "Contraseña vacía");
-       else hideErrorMessage(pwTextField);
+       else if (!repeatPwTextField.getText().isEmpty())hideErrorMessage(pwTextField);
        
        if (repeatPwTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( repeatPwTextField, "Pw mismatch");
        else hideErrorMessage(repeatPwTextField);
@@ -221,6 +228,10 @@ public class FXMLRegistroController implements Initializable {
       if(!b){ 
        try {
            System.out.println("usuario registrado");
+           if (club.existsLogin(nickTextField.getText())) {
+               badInputLabel.textProperty().setValue("Ya existe este usuario");
+               return;
+           }
            club.registerMember(nameTextField.textProperty().getValue(),surnameTextField.textProperty().getValue(), tlfTextField.textProperty().getValue(),
                    nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(),Integer.parseInt(cvcTextField.textProperty().getValue()), imagen);
        } catch (ClubDAOException e) {
@@ -229,9 +240,19 @@ public class FXMLRegistroController implements Initializable {
       }
          Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0),
-                        event2 -> JavaFXMLApplication.setRoot(Paginas.REGISTRO2)),
+                        event2 -> { FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
+                                    Parent root = miCargador.getRoot();
+                                    if (root == null) try {
+                                        root = miCargador.load();
+                        } catch (IOException ex) {
+                            Logger.getLogger(FXMLRegistroController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                                    JavaFXMLApplication.setRoot(root);}),
                 new KeyFrame(Duration.seconds(1.5),
-                        event2 -> JavaFXMLApplication.setRoot(Paginas.INICIO))
+                        event2 -> {
+                                    FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+                                    
+                                    JavaFXMLApplication.setRoot(miCargador.getRoot());})
         );
         timeline.setCycleCount(1);
         timeline.play();

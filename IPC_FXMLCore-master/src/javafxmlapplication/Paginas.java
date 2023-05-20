@@ -15,7 +15,8 @@ public enum Paginas {
     REGISTRO,
     REGISTRO2,
     PISTAS,
-    ESPACIO_PERSONAL
+    ESPACIO_PERSONAL,
+    MODIFICAR_DATOS
     
     
 }
