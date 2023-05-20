@@ -96,7 +96,11 @@ public class FXMLEspacioPersonalController implements Initializable {
     }
 
     @FXML
-    private void reservarPistaOnAction(ActionEvent event) {
+    private void reservarPistaOnAction(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
+         Parent root = miCargador.getRoot();
+         if (root == null) root = miCargador.load();
+        JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
@@ -113,6 +117,5 @@ public class FXMLEspacioPersonalController implements Initializable {
 
         JavaFXMLApplication.setRoot(root);
     }
-
     
 }

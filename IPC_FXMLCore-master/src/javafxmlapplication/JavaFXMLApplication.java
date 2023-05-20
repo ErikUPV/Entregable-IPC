@@ -69,6 +69,8 @@ public class JavaFXMLApplication extends Application {
         roots.put(Paginas.INICIO2, loader);
         loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarDatos.fxml"));
         roots.put(Paginas.MODIFICAR_DATOS, loader);
+        loader = new FXMLLoader(getClass().getResource("pistas/FXMLPistaConcreta.fxml"));
+        roots.put(Paginas.PISTA_CONCRETA, loader);
         
         
         Image img = new Image(new FileInputStream("src\\javafxmlapplication\\imagenes\\tennis.png"));
