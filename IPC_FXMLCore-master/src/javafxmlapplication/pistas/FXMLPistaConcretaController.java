@@ -16,6 +16,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,6 +89,10 @@ public class FXMLPistaConcretaController implements Initializable {
     private ObservableList<CourtDayItem> l;
     
     private List<Booking> list;
+    
+    private Court court;
+    
+    private IntegerProperty nPistaProperty;
     /**
      * Initializes the controller class.
      */
@@ -122,7 +127,9 @@ public class FXMLPistaConcretaController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nPista = FXMLVerPistasController.getNumPista();
+        
+        
+      
         System.out.println("nPista: " + nPista);
         borderPane.widthProperty().addListener( (observable, oldv, newv) -> {
             if (newv.intValue() > 1200) {
@@ -144,6 +151,15 @@ public class FXMLPistaConcretaController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLPistaConcretaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+          FXMLVerPistasController.numPista.addListener((ob, oldv, newv) -> {
+              nPista = newv.intValue();
+              court = club.getCourt("Pista " + newv.intValue());
+              System.out.println("Court: " + court.getName());
+              updateTableView(LocalDate.now());
+          });
+        
+        
         
         comboBox.setPromptText(member.getName() + " " + member.getSurname());
         
@@ -170,7 +186,8 @@ public class FXMLPistaConcretaController implements Initializable {
 
 
         datePicker.valueProperty().setValue(LocalDate.now());
-
+        
+        
         
         
         
@@ -191,11 +208,9 @@ public class FXMLPistaConcretaController implements Initializable {
         );
          
         
-       
         
        
         
-        pistaTableView.setItems(l);
         
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateTableView(newValue);
@@ -226,19 +241,24 @@ public class FXMLPistaConcretaController implements Initializable {
         Parent root = miCargador.getRoot();
         if (root == null) root = miCargador.load();
         JavaFXMLApplication.setRoot(root);
+        
     }
     
     
     private void updateTableView(LocalDate selectedDate) {
+        list = club.getCourtBookings("Pista " + nPista, selectedDate);
+        
         ObservableList<CourtDayItem> filteredData = FXCollections.observableArrayList();
          for (int i = 0; i <= 12; i++) {
             int b = 9;
-            filteredData.add(new CourtDayItem(datePicker.valueProperty().getValue(), LocalTime.of(b + i, 0), true));
+            filteredData.add(new CourtDayItem(selectedDate, LocalTime.of(b + i, 0), true));
                 
         }
-        pistaTableView.setItems(filteredData);
-        checkAvaliability();
         l.setAll(filteredData);
+        checkAvaliability();
+        pistaTableView.setItems(filteredData);
+        
+        
     }
 
     @FXML
@@ -256,9 +276,7 @@ public class FXMLPistaConcretaController implements Initializable {
         List<Court> courts = club.getCourts();
         System.out.println("Num pista: " + nPista);
         if (!creditCard.isEmpty()) paid = true;
-        Court court = club.getCourt("Pista " + nPista);
        
-        System.out.println("Pista: " + court.getName());
         try {
             club.registerBooking(diaYHora, dia, time, paid, court, member);
         } catch (ClubDAOException ex) {
@@ -266,11 +284,10 @@ public class FXMLPistaConcretaController implements Initializable {
         }
         
         
-        list = club.getCourtBookings("Pista " + nPista, dia);
-
         
+
+        updateTableView(dia);
          
-         pistaTableView.refresh();
        
     }
     
@@ -279,12 +296,14 @@ public class FXMLPistaConcretaController implements Initializable {
          l.forEach(elementObs -> {
              LocalDateTime t = elementObs.getMadeForDay().atTime(elementObs.getFromTime());
             list.forEach(e -> {
-                if (t.equals(e.getBookingDate())) {
+                if (t.equals(e.getBookingDate()) && court.equals(e.getCourt())) {
                     elementObs.setStatus(CourtDayItem.OCUPADO);
-                }
+                } 
         });
            
         });
+                  pistaTableView.refresh();
+
     }
 
 }

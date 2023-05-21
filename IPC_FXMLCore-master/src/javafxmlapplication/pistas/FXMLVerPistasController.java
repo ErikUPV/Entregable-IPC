@@ -11,6 +11,9 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,11 +40,9 @@ public class FXMLVerPistasController implements Initializable {
     
     
     
-    protected static int numPista;
+    protected static IntegerProperty numPista;
     
-    public static int getNumPista() {
-        return numPista;
-    }
+    
     @FXML
     private Label pista1;
     @FXML
@@ -64,6 +65,7 @@ public class FXMLVerPistasController implements Initializable {
         System.out.println("ver pistas: " + member.getNickName());
         System.out.println(member.toString());
         
+        numPista = new SimpleIntegerProperty();
         try {
             club = Club.getInstance();
             
@@ -78,10 +80,10 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista1ButtonOnAction(ActionEvent event) throws IOException {
-        numPista = 1;
         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
             Parent root = miCargador.getRoot();
             if (root == null) root = miCargador.load();
+            numPista.setValue(1);
             FXMLPistaConcretaController controlador = miCargador.getController();
             controlador.initPista(1);
             
@@ -90,10 +92,12 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista2ButtonOnAction(ActionEvent event) throws IOException {
-            numPista = 2;
+        
             FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
             Parent root = miCargador.getRoot();
             if (root == null) root = miCargador.load();
+            numPista.setValue(2);
+
             FXMLPistaConcretaController controlador = miCargador.getController();
             controlador.initPista(2);
             
@@ -102,21 +106,25 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista3ButtonOnAction(ActionEvent event) throws IOException {
+                
+
             FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
             Parent root = miCargador.getRoot();
             if (root == null) root = miCargador.load();
+            numPista.setValue(3);
             FXMLPistaConcretaController controlador = miCargador.getController();
             controlador.initPista(3);
-            numPista = 3;
             JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
     private void pista4ButtonOnAction(ActionEvent event) throws IOException {
-            numPista = 4;
+                
+
             FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
             Parent root = miCargador.getRoot();
             if (root == null) root = miCargador.load();
+            numPista.setValue(4);
             FXMLPistaConcretaController controlador = miCargador.getController();
             controlador.initPista(4);
             
@@ -125,22 +133,25 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista5ButtonOnAction(ActionEvent event) throws IOException {
-            numPista = 5;
+                
+
             FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
             Parent root = miCargador.getRoot();
             if (root == null) root = miCargador.load();
+            numPista.setValue(5);
             FXMLPistaConcretaController controlador = miCargador.getController();
             controlador.initPista(5);
-            
             JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
     private void pista6ButtonOnAction(ActionEvent event) throws IOException {
-            numPista = 6;
+            
+
             FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
             Parent root = miCargador.getRoot();
             if (root == null) root = miCargador.load();
+            numPista.setValue(6);
             FXMLPistaConcretaController controlador = miCargador.getController();
             controlador.initPista(6);
             
