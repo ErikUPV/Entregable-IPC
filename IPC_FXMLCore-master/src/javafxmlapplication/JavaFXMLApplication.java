@@ -15,7 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import model.Club;
+import model.*;
 
 
 public class JavaFXMLApplication extends Application {
@@ -25,10 +25,14 @@ public class JavaFXMLApplication extends Application {
     
     private Club club;
     
-    Parent lastRoot;
+    private static Member member;
     
-    public static void getLastRoot() {
-        
+    public static Member getLoggedMember() {
+        return member;
+    }
+    
+    public static void setLoggedMember(Member m){
+        member = m;
     }
     
     public static void setRoot(Parent root) {
@@ -51,11 +55,11 @@ public class JavaFXMLApplication extends Application {
         // 1- creación del grafo de escena a partir del fichero FXML
         
         loader= new  FXMLLoader(getClass().getResource("inicio/FXMLDocument.fxml"));
-        root = loader.load();
+                root = loader.load();
+
         roots.put(Paginas.INICIO, loader);
-        scene = new Scene(root);
-        loader = new FXMLLoader(getClass().getResource("autenticacion/FXMLAutenticacion.fxml"));
         
+        loader = new FXMLLoader(getClass().getResource("autenticacion/FXMLAutenticacion.fxml"));
         roots.put(Paginas.AUTENTICACION, loader);
         loader = new FXMLLoader(getClass().getResource("registro/FXMLRegistro.fxml"));
         roots.put(Paginas.REGISTRO, loader);
@@ -72,6 +76,7 @@ public class JavaFXMLApplication extends Application {
         loader = new FXMLLoader(getClass().getResource("pistas/FXMLPistaConcreta.fxml"));
         roots.put(Paginas.PISTA_CONCRETA, loader);
         
+        scene = new Scene(root);
         
         Image img = new Image(new FileInputStream("src\\javafxmlapplication\\imagenes\\tennis.png"));
         

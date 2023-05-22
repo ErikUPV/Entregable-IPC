@@ -26,6 +26,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
+import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.*;
 /**
  * FXML Controller class
@@ -34,7 +36,7 @@ import model.*;
  */
 public class FXMLEspacioPersonalController implements Initializable {
 
-    Member member;
+    private static Member member;
     @FXML
     private ImageView profilePicture;
     @FXML
@@ -52,8 +54,10 @@ public class FXMLEspacioPersonalController implements Initializable {
     @FXML
     private VBox cambioVBOX;
     
+    
     public void initMember(Member m) {
-        member = m;
+        
+        System.out.println(member.toString());
         if (member.getImage() != null)profilePicture.setImage(member.getImage());
         nameLabel.setText(member.getName() + " " + member.getSurname());
        
@@ -64,14 +68,19 @@ public class FXMLEspacioPersonalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("hy");
+        member = FXMLAutenticacionController.getMember();
+        System.out.println(member.getNickName() + " heyyy");
         try {
             club = Club.getInstance();
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
     }
     @FXML
     private void backButtonOnAction(ActionEvent event) throws IOException {
+        
          FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
          Parent root = miCargador.getRoot();
          if (root == null) root = miCargador.load();
@@ -97,9 +106,15 @@ public class FXMLEspacioPersonalController implements Initializable {
 
     @FXML
     private void reservarPistaOnAction(ActionEvent event) throws IOException {
+        System.out.println("Espacio personal: " + member.toString());
         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
          Parent root = miCargador.getRoot();
+         FXMLVerPistasController controlador = miCargador.getController();
+         
          if (root == null) root = miCargador.load();
+         System.out.println("a");
+         
+         
         JavaFXMLApplication.setRoot(root);
     }
 
@@ -113,9 +128,11 @@ public class FXMLEspacioPersonalController implements Initializable {
          Parent root = miCargador.getRoot();
          if (root == null) root = miCargador.load();
          FXMLModificarDatosController controlador = miCargador.getController();
-                  controlador.initMember(member);
+         controlador.initMember(member);
 
         JavaFXMLApplication.setRoot(root);
     }
+    
+   
     
 }

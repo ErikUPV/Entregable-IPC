@@ -60,7 +60,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label text="Pista 1">
+                  <Label fx:id="pista1" text="Pista 1">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
@@ -81,7 +81,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label text="Pista 2">
+                  <Label fx:id="pista2" text="Pista 2">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
@@ -102,7 +102,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label text="Pista 3">
+                  <Label fx:id="pista3" text="Pista 3">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
@@ -123,7 +123,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label text="Pista 4">
+                  <Label fx:id="pista4" text="Pista 4">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -148,7 +148,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label text="Pista 5">
+                  <Label fx:id="pista5" text="Pista 5">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
@@ -169,7 +169,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label text="Pista 6">
+                  <Label fx:id="pista6" text="Pista 6">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
