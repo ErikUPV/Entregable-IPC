@@ -93,10 +93,10 @@ public class FXMLAutenticacionController implements Initializable {
     private void loginButtonOnAction(ActionEvent event) throws InterruptedException, IOException {
         try {
             member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
-             if ( member != null){
-                 System.out.println("login exitoso");
-            debugLabel.textProperty().set("Bienvenido " + member.getNickName());
-            
+            if (member != null) {
+                System.out.println("login exitoso");
+                debugLabel.textProperty().set("Bienvenido " + member.getNickName());
+
             
             
             FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
@@ -117,9 +117,11 @@ public class FXMLAutenticacionController implements Initializable {
 
     @FXML
     private void registrarButtonOnAction(ActionEvent event) throws IOException {
-         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
-         Parent root = miCargador.getRoot();
-         if (root == null) root = miCargador.load();
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
+        Parent root = miCargador.getRoot();
+        if (root == null) {
+            root = miCargador.load();
+        }
         JavaFXMLApplication.setRoot(root);
     }
     

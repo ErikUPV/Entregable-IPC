@@ -29,6 +29,7 @@ import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.*;
+
 /**
  * FXML Controller class
  *
@@ -49,21 +50,24 @@ public class FXMLEspacioPersonalController implements Initializable {
     private Button misReservas;
     @FXML
     private Button modificarPerfil;
-    
+
     private Club club;
     @FXML
     private VBox cambioVBOX;
-    
-    
+
     public void initMember(Member m) {
-        
+
         System.out.println(member.toString());
-        if (member.getImage() != null)profilePicture.setImage(member.getImage());
+        if (member.getImage() != null) {
+            profilePicture.setImage(member.getImage());
+        }
         nameLabel.setText(member.getName() + " " + member.getSurname());
-       
+
     }
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      */
     @Override
@@ -76,14 +80,17 @@ public class FXMLEspacioPersonalController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }
+
     @FXML
     private void backButtonOnAction(ActionEvent event) throws IOException {
-        
-         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
-         Parent root = miCargador.getRoot();
-         if (root == null) root = miCargador.load();
+
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+        Parent root = miCargador.getRoot();
+        if (root == null) {
+            root = miCargador.load();
+        }
         JavaFXMLApplication.setRoot(root);
     }
 
@@ -100,21 +107,21 @@ public class FXMLEspacioPersonalController implements Initializable {
 //        stage.showAndWait();
 
         cambioVBOX.getChildren().clear();
-        
-        
+
     }
 
     @FXML
     private void reservarPistaOnAction(ActionEvent event) throws IOException {
         System.out.println("Espacio personal: " + member.toString());
         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
-         Parent root = miCargador.getRoot();
-         FXMLVerPistasController controlador = miCargador.getController();
-         
-         if (root == null) root = miCargador.load();
-         System.out.println("a");
-         
-         
+        Parent root = miCargador.getRoot();
+        FXMLVerPistasController controlador = miCargador.getController();
+
+        if (root == null) {
+            root = miCargador.load();
+        }
+        System.out.println("a");
+
         JavaFXMLApplication.setRoot(root);
     }
 
@@ -124,15 +131,15 @@ public class FXMLEspacioPersonalController implements Initializable {
 
     @FXML
     private void modificarPerfilOnAction(ActionEvent event) throws IOException {
-         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.MODIFICAR_DATOS);
-         Parent root = miCargador.getRoot();
-         if (root == null) root = miCargador.load();
-         FXMLModificarDatosController controlador = miCargador.getController();
-         controlador.initMember(member);
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.MODIFICAR_DATOS);
+        Parent root = miCargador.getRoot();
+        if (root == null) {
+            root = miCargador.load();
+        }
+        FXMLModificarDatosController controlador = miCargador.getController();
+        controlador.initMember(member);
 
         JavaFXMLApplication.setRoot(root);
     }
-    
-   
-    
+
 }
