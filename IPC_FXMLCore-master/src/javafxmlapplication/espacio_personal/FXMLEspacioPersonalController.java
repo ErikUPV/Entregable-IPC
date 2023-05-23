@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package javafxmlapplication.espacio_personal;
 
 import java.io.IOException;
@@ -18,10 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafxmlapplication.JavaFXMLApplication;
@@ -53,7 +50,9 @@ public class FXMLEspacioPersonalController implements Initializable {
 
     private Club club;
     @FXML
-    private VBox cambioVBOX;
+    private AnchorPane cambioAnchorPane;
+    @FXML
+    private TableView<?> reservasT;
 
     public void initMember(Member m) {
 
@@ -81,6 +80,9 @@ public class FXMLEspacioPersonalController implements Initializable {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        // Establecer la propiedad de ancho y alto del TableView para que se redimensione con el AnchorPane
+        //reservasT.prefWidthProperty().bind(cambioAnchorPane.widthProperty());
+        //reservasT.prefHeightProperty().bind(cambioAnchorPane.heightProperty());
     }
 
     @FXML
@@ -95,19 +97,7 @@ public class FXMLEspacioPersonalController implements Initializable {
     }
 
     private void modificarButtonOnAction(ActionEvent event) throws IOException {
-//        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLDocument.fxml"));
-//        Parent root = cargador.load();
-//        FXMLDocumentController controladorModif = cargador.getController();
-//        controladorModif.initMember(member);
-//        Scene scene = new Scene(root, 600, 400);
-//        Stage stage = new Stage();
-//        stage.setScene(scene);
-//        stage.setTitle("Ventana de modificación");
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        stage.showAndWait();
-
-        cambioVBOX.getChildren().clear();
-
+        cambioAnchorPane.getChildren().clear();
     }
 
     @FXML
@@ -143,3 +133,4 @@ public class FXMLEspacioPersonalController implements Initializable {
     }
 
 }
+

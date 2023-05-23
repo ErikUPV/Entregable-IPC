@@ -139,7 +139,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <TableView minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="565.0">
+                        <TableView fx:id="reservasT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="565.0">
                            <columns>
                               <TableColumn minWidth="110.0" prefWidth="-1.0" text="Dia" />
                               <TableColumn minWidth="75.0" prefWidth="-1.0" text="Inicio" />
