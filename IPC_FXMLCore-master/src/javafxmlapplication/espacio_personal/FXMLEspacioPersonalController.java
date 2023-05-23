@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package javafxmlapplication.espacio_personal;
 
 import java.io.IOException;
@@ -9,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +15,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -52,8 +53,25 @@ public class FXMLEspacioPersonalController implements Initializable {
     private Button modificarPerfil;
 
     private Club club;
+    private AnchorPane cambioAnchorPane;
+    @FXML
+    private TableView<?> reservasT;
     @FXML
     private VBox cambioVBOX;
+    @FXML
+    private TableColumn<?, ?> col1;
+    @FXML
+    private TableColumn<?, ?> col2;
+    @FXML
+    private TableColumn<?, ?> col3;
+    @FXML
+    private TableColumn<?, ?> col4;
+    @FXML
+    private TableColumn<?, ?> col5;
+    @FXML
+    private TableColumn<?, ?> col6;
+    @FXML
+    private Label nicknameLabel;
 
     public void initMember(Member m) {
 
@@ -80,7 +98,49 @@ public class FXMLEspacioPersonalController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        nameLabel.setText(member.getName() + " " + member.getSurname()); 
+        nicknameLabel.setText(member.getNickName());
+        
+        col1.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
+        col2.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
+        col3.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
+        col4.maxWidthProperty().bind(reservasT.widthProperty().multiply(.17));
+        col5.maxWidthProperty().bind(reservasT.widthProperty().multiply(.18));
+        col6.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
+        
+        col1.minWidthProperty().bind(reservasT.widthProperty().multiply(.195));
+        col2.minWidthProperty().bind(reservasT.widthProperty().multiply(.13));
+        col3.minWidthProperty().bind(reservasT.widthProperty().multiply(.13));
+        col4.minWidthProperty().bind(reservasT.widthProperty().multiply(.17));
+        col5.minWidthProperty().bind(reservasT.widthProperty().multiply(.18));
+        col6.minWidthProperty().bind(reservasT.widthProperty().multiply(.195));
 
+        //col1.setCellValueFactory(new PropertyValueFactory<>("Dia"));
+        //col2.setCellValueFactory(new PropertyValueFactory<>("Inicio"));
+        //col3.setCellValueFactory(new PropertyValueFactory<>("Final"));
+        //col4.setCellValueFactory(new PropertyValueFactory<>("Pista"));
+        //col5.setCellValueFactory(new PropertyValueFactory<>("Pagado"));
+        //col6.setCellValueFactory(new PropertyValueFactory<>("Cancelar"));
+
+        //reservasT.setColumnResizePolicy((TableView.ResizeFeatures param) -> {
+        //    if (param.getColumn() == null )return false;
+        //    double delta = param.getDelta();
+        //    ObservableList<TableColumn> cols = param.getTable().getColumns();
+        //    int colIdx = cols.indexOf(param.getColumn());
+          //  param.getColumn().setMinWidth(param.getColumn().getWidth() + delta);
+          //  param.getColumn().setMaxWidth(param.getColumn().getWidth() + delta);
+          //  if (colIdx < cols.size() -1){
+          //      cols.get(colIdx+1).setMinWidth(cols.get(colIdx+1).getWidth() - delta);
+          //      cols.get(colIdx+1).setMaxWidth(cols.get(colIdx+1).getWidth() - delta);
+          //  } 
+            
+          //  return true;
+        //});
+        
+        // Establecer la propiedad de ancho y alto del TableView para que se redimensione con el AnchorPane
+        //reservasT.prefWidthProperty().bind(cambioAnchorPane.widthProperty());
+        //reservasT.prefHeightProperty().bind(cambioAnchorPane.heightProperty());
     }
 
     @FXML
@@ -95,19 +155,7 @@ public class FXMLEspacioPersonalController implements Initializable {
     }
 
     private void modificarButtonOnAction(ActionEvent event) throws IOException {
-//        FXMLLoader cargador = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLDocument.fxml"));
-//        Parent root = cargador.load();
-//        FXMLDocumentController controladorModif = cargador.getController();
-//        controladorModif.initMember(member);
-//        Scene scene = new Scene(root, 600, 400);
-//        Stage stage = new Stage();
-//        stage.setScene(scene);
-//        stage.setTitle("Ventana de modificación");
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        stage.showAndWait();
-
-        cambioVBOX.getChildren().clear();
-
+        cambioAnchorPane.getChildren().clear();
     }
 
     @FXML
@@ -143,3 +191,4 @@ public class FXMLEspacioPersonalController implements Initializable {
     }
 
 }
+
