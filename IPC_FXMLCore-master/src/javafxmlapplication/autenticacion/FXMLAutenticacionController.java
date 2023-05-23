@@ -47,7 +47,7 @@ public class FXMLAutenticacionController implements Initializable {
     @FXML
     private PasswordField passwordField;
     
-    private Member member;
+    private static Member member;
     @FXML
     private Label debugLabel;
     @FXML
@@ -93,17 +93,20 @@ public class FXMLAutenticacionController implements Initializable {
     private void loginButtonOnAction(ActionEvent event) throws InterruptedException, IOException {
         try {
             member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
-             if ( member != null){
-                 System.out.println("login exitoso");
-            debugLabel.textProperty().set("Bienvenido " + member.getNickName());
+            if (member != null) {
+                System.out.println("login exitoso");
+                debugLabel.textProperty().set("Bienvenido " + member.getNickName());
+
+            
+            
             FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
+            FXMLEspacioPersonalController controlador = miCargador.getController();
+           
             Parent root = miCargador.getRoot();
             if (root == null) root = miCargador.load();
-                 System.out.println(root.toString());
-            FXMLEspacioPersonalController controlador = miCargador.getController();
-                 System.out.println(controlador.toString());
-            controlador.initMember(member);
-                 System.out.println(member.getName() + " " + member.getSurname());
+            
+            
+            System.out.println(member.getName() + " " + member.getSurname());
             JavaFXMLApplication.setRoot(root);
                  
             } 
@@ -114,9 +117,15 @@ public class FXMLAutenticacionController implements Initializable {
 
     @FXML
     private void registrarButtonOnAction(ActionEvent event) throws IOException {
-         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
-         Parent root = miCargador.getRoot();
-         if (root == null) root = miCargador.load();
+        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
+        Parent root = miCargador.getRoot();
+        if (root == null) {
+            root = miCargador.load();
+        }
         JavaFXMLApplication.setRoot(root);
+    }
+    
+    public static Member getMember() {
+        return member;
     }
 }
