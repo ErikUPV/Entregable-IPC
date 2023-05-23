@@ -24,13 +24,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .button {
     -fx-background-color: seagreen;    -fx-text-fill: white;
-    -fx-text-bold: true;
+    -fx-font-size: 13;
     -fx-font-family: Helvetica;
     
-    /*Make edges rounder but not round*/
     -fx-background-radius: 5 5 5 5;
 }
 
+.myAlert:header .header-panel {
+    -fx-background-color: seagreen;
+}
+
+.myAlert:header .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold
+}
+
+.myAlert {
+    -fx-background-color: papayawhip
+}
 .back-button {
     -fx-border-width: 3;
 }
@@ -48,7 +59,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-color: transparent;
 }
 
-#invisibleButton:hover {
+#invisibleButton:hover, #invisibleButton:focused {
     -fx-background-color: rgb(184, 184, 184);
 }
 
@@ -80,7 +91,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .tool-bar {
     -fx-background-color: papayawhip;
-/*            -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.6, 0.0, 0.0);*/
+           -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0.6, 0.0, 0.0);
 
 }
 
@@ -102,12 +113,65 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     
 }
 
-.combo-box {
-    -fx-background-color: papayawhip;
-    -fx-cursor: hand;
-  
+
+
+.table-view {
+    -fx-font-size: 15.5;
+    -fx-text-alignment: center;
+    -fx-alignment: center
+    
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header {
+    -fx-background-color: seagreen
 }
 
 
+#pistaTableView .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+}
+
+/* Hide the corner region between vertical and horizontal scrollbars */
+#pistaTableView .scroll-bar:vertical .increment-button,
+#pistaTableView .scroll-bar:vertical .decrement-button,
+#pistaTableView .scroll-bar:vertical .thumb {
+    -fx-padding: 0;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+    -fx-background-insets: 0;
+}
+
+/* Hide the horizontal scrollbar of the TableView */
+#pistaTableView .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+/* Hide the corner region between horizontal and vertical scrollbars */
+#pistaTableView .scroll-bar:horizontal .increment-button,
+#pistaTableView .scroll-bar:horizontal .decrement-button,
+#pistaTableView .scroll-bar:horizontal .thumb {
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+    -fx-background-insets: 0;
+}
+
+#mainGridPane {
+    -fx-border-radius: 5 5 5 5;
+    -fx-border-color: seagreen
+}
 
 

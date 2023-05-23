@@ -6,6 +6,9 @@ package javafxmlapplication.pistas;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import model.Member;
 
 /**
  *
@@ -19,11 +22,15 @@ public class CourtDayItem {
     private LocalDate madeForDay;
     private LocalTime fromTime;
     private boolean status;
+    private BooleanProperty statusProperty;
+    private Member user;
     
     public CourtDayItem(LocalDate date, LocalTime time, boolean st) {
         madeForDay = date;
         fromTime = time;
         status = st;
+        statusProperty = new SimpleBooleanProperty(status);
+        user = null;
     }
 
     public LocalDate getMadeForDay() {
@@ -42,6 +49,17 @@ public class CourtDayItem {
         this.status = status;
     }
     
+    public BooleanProperty statusProperty() {
+        return statusProperty;
+    }
+    
+    public void setUser(Member member) {
+        user = member;
+    }
+    
+    public Member getUser(){
+        return user;
+    }
     
     
 }
