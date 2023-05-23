@@ -11,12 +11,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,14 +30,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
@@ -70,7 +80,7 @@ public class FXMLPistaConcretaController implements Initializable {
 
     private Club club;
     @FXML
-    private ComboBox<?> comboBox;
+    private ComboBox<String> comboBox;
     @FXML
     private Label dayLabel;
 
@@ -94,56 +104,63 @@ public class FXMLPistaConcretaController implements Initializable {
 
     private IntegerProperty nPistaProperty;
 
+    private boolean quiereReservar;
+    @FXML
+    private Button bReservar;
+    @FXML
+    private TableColumn<CourtDayItem, String> userCol;
+
+    private ObjectProperty memberProperty;
+
+    private List<String> comboList;
+    private ObservableList<String> comboObsList;
+
     /**
      * Initializes the controller class.
      */
-
-    public void initPista(int pista) {
-        title.setText("Reservar pista " + pista);
-
-        File f;
-        switch (pista) {
-            case 1:
-                f = new File("src/javafxmlapplication/imagenes/courtImage-v1.png");
-                break;
-            case 2:
-                f = new File("src/javafxmlapplication/imagenes/courtImage-v2.png");
-                break;
-            case 3:
-                f = new File("src/javafxmlapplication/imagenes/courtImage-v3.png");
-                break;
-            case 4:
-                f = new File("src/javafxmlapplication/imagenes/courtImage-v4.png");
-                break;
-            case 5:
-                f = new File("src/javafxmlapplication/imagenes/courtImage-v5.png");
-                break;
-            default:
-                f = new File("src/javafxmlapplication/imagenes/courtImage-v6.png");
-                break;
-        }
-        Image i = new Image(f.toURI().toString());
-        imagenPista.setImage(i);
-    }
-
+//    public void initPista(int pista) {
+//        title.setText("Reservar pista " + pista);
+//
+//        File f;
+//        switch (pista) {
+//            case 1:
+//                f = new File("src/javafxmlapplication/imagenes/courtImage-v1.png");
+//                break;
+//            case 2:
+//                f = new File("src/javafxmlapplication/imagenes/courtImage-v2.png");
+//                break;
+//            case 3:
+//                f = new File("src/javafxmlapplication/imagenes/courtImage-v3.png");
+//                break;
+//            case 4:
+//                f = new File("src/javafxmlapplication/imagenes/courtImage-v4.png");
+//                break;
+//            case 5:
+//                f = new File("src/javafxmlapplication/imagenes/courtImage-v5.png");
+//                break;
+//            default:
+//                f = new File("src/javafxmlapplication/imagenes/courtImage-v6.png");
+//                break;
+//        }
+//        Image i = new Image(f.toURI().toString());
+//        imagenPista.setImage(i);
+//    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         System.out.println("nPista: " + nPista);
-        borderPane.widthProperty().addListener((observable, oldv, newv) -> {
-            if (newv.intValue() > 1200) {
+//        borderPane.widthProperty().addListener((observable, oldv, newv) -> {
+//            if (newv.intValue() > 1200) {
+//
+//                );
+////                mainVBox.minWidthProperty().setValue(1200);
+////            } else {
+////                mainVBox.minWidthProperty().setValue(600);
+////
+//            }
+//        });
+        mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
 
-                mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.6));
-                mainVBox.minWidthProperty().setValue(1200);
-            } else {
-                mainVBox.maxWidthProperty().bind(borderPane.widthProperty());
-                mainVBox.minWidthProperty().setValue(800);
-
-            }
-        });
-
-        member = FXMLAutenticacionController.getMember();
-        System.out.println("pista concreta: " + member.getNickName());
         try {
             // TODO
             club = Club.getInstance();
@@ -152,16 +169,59 @@ public class FXMLPistaConcretaController implements Initializable {
         }
 
         FXMLVerPistasController.numPista.addListener((ob, oldv, newv) -> {
+            title.setText("Reservar pista " + newv);
+
+            File f;
+            switch (newv.intValue()) {
+                case 1:
+                    f = new File("src/javafxmlapplication/imagenes/courtImage-v1.png");
+                    break;
+                case 2:
+                    f = new File("src/javafxmlapplication/imagenes/courtImage-v2.png");
+                    break;
+                case 3:
+                    f = new File("src/javafxmlapplication/imagenes/courtImage-v3.png");
+                    break;
+                case 4:
+                    f = new File("src/javafxmlapplication/imagenes/courtImage-v4.png");
+                    break;
+                case 5:
+                    f = new File("src/javafxmlapplication/imagenes/courtImage-v5.png");
+                    break;
+                default:
+                    f = new File("src/javafxmlapplication/imagenes/courtImage-v6.png");
+                    break;
+            }
+            Image i = new Image(f.toURI().toString());
+            imagenPista.setImage(i);
+
             nPista = newv.intValue();
             court = club.getCourt("Pista " + newv.intValue());
             System.out.println("Court: " + court.getName());
             updateTableView(LocalDate.now());
+            datePicker.valueProperty().setValue(LocalDate.now());
+
+        });
+        memberProperty = FXMLAutenticacionController.memberProperty();
+
+        memberProperty.addListener((ob, oldv, newv) -> {
+            member = (Member) newv;
+            comboBox.promptTextProperty().setValue(member.getName() + " " + member.getSurname());
+            System.out.println(member.getName() + " " + member.getSurname());
         });
 
-        comboBox.setPromptText(member.getName() + " " + member.getSurname());
+        comboList = new ArrayList<String>();
 
+        comboObsList = FXCollections.observableArrayList(comboList);
+        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+
+        comboBox.setItems(comboObsList);
+        comboBox.setCellFactory(c -> new ComboListCell());
+
+        mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         borderPane.heightProperty().addListener((observable, oldv, newv) -> {
             if (newv.intValue() > 700) {
+
                 dibujoVBox.alignmentProperty().set(Pos.BASELINE_CENTER);
                 pistaTableView.minHeightProperty().bind(mainVBox.heightProperty().multiply(0.67));
 
@@ -190,8 +250,37 @@ public class FXMLPistaConcretaController implements Initializable {
         estadoCol.setCellValueFactory(cellData -> {
             CourtDayItem item = cellData.getValue();
             String status = item.getStatus() ? "Libre" : "Reservada";
+
             return new SimpleStringProperty(status);
         });
+
+        userCol.setCellValueFactory(cellData -> {
+            CourtDayItem item = cellData.getValue();
+            boolean status = item.getStatus();
+            if (status == CourtDayItem.OCUPADO) {
+                return new SimpleStringProperty(item.getUser().getNickName());
+            }
+            return new SimpleStringProperty("");
+        });
+
+        pistaTableView.setRowFactory(tv -> new TableRow<CourtDayItem>() {
+            @Override
+            protected void updateItem(CourtDayItem item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setStyle("");
+                } else {
+                    if (!item.getStatus()) {
+                        setStyle("-fx-background-color: rgb(146, 199, 169);");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+
+        });
+
         l = FXCollections.observableArrayList();
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -215,29 +304,56 @@ public class FXMLPistaConcretaController implements Initializable {
             dayLabel.textProperty().setValue("Pistas disponibles a " + diaDeLaSemana[numDayNow] + ", " + newv.getDayOfMonth() + " de " + mesDelAño[month] + " del " + newv.getYear());
         });
 
+        pistaTableView.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+            if (newv == null) {
+                bReservar.disableProperty().setValue(true);
+                return;
+            }
+            if (newv.getStatus() == CourtDayItem.OCUPADO) {
+                bReservar.disableProperty().setValue(true);
+            } else {
+                bReservar.disableProperty().setValue(false);
+            }
+        });
+
+        horaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.2));
+        estadoCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.4));
+        userCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.399));
+
+        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+            if (newv == null) return;
+            if (newv.equals("Cerrar sesión")) {
+                FXMLAutenticacionController.cerrarSesion();
+
+            } else if (newv.equals("Mis reservas")) {
+                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+            }
+
+        });
+
     }
 
     @FXML
     private void backButtonOnAction(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
-        Parent root = miCargador.getRoot();
-        if (root == null) {
-            root = miCargador.load();
-        }
-        JavaFXMLApplication.setRoot(root);
+//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
+//        Parent root = miCargador.getRoot();
+//        if (root == null) {
+//            root = miCargador.load();
+//        }
+        JavaFXMLApplication.setRoot(Paginas.PISTAS);
 
     }
 
     private void updateTableView(LocalDate selectedDate) {
-        list = club.getCourtBookings("Pista " + nPista, selectedDate);
+        list = club.getCourtBookings(court.getName(), selectedDate);
 
         ObservableList<CourtDayItem> filteredData = FXCollections.observableArrayList();
         for (int i = 0; i <= 12; i++) {
             int b = 9;
-            filteredData.add(new CourtDayItem(selectedDate, LocalTime.of(b + i, 0), true));
+            filteredData.add(new CourtDayItem(selectedDate, LocalTime.of(b + i, 0), CourtDayItem.LIBRE));
 
         }
-        l.setAll(filteredData);
+        l = FXCollections.observableArrayList(filteredData);
         checkAvaliability();
         pistaTableView.setItems(filteredData);
 
@@ -245,6 +361,23 @@ public class FXMLPistaConcretaController implements Initializable {
 
     @FXML
     private void reservarButtonOnAction(ActionEvent event) {
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        startAlert(alert);
+        alert.setHeaderText("Reservar pista");
+        alert.setContentText("¿Está seguro de que quiere reservar la pista?");
+        Optional<ButtonType> res;
+        res = alert.showAndWait();
+        res.ifPresent(e -> {
+            if (!e.equals(ButtonType.OK)) {
+                quiereReservar = false;
+            } else {
+                quiereReservar = true;
+            }
+        });
+        if (!quiereReservar) {
+            return;
+        }
         CourtDayItem aReservar = pistaTableView.getSelectionModel().getSelectedItem();
         LocalDate dia = aReservar.getMadeForDay();
         System.out.println("Dia: " + dia);
@@ -260,9 +393,10 @@ public class FXMLPistaConcretaController implements Initializable {
         if (!creditCard.isEmpty()) {
             paid = true;
         }
-
+        checkAvaliability();
         try {
             club.registerBooking(diaYHora, dia, time, paid, court, member);
+
         } catch (ClubDAOException ex) {
             Logger.getLogger(FXMLPistaConcretaController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -275,8 +409,11 @@ public class FXMLPistaConcretaController implements Initializable {
         l.forEach(elementObs -> {
             LocalDateTime t = elementObs.getMadeForDay().atTime(elementObs.getFromTime());
             list.forEach(e -> {
-                if (t.equals(e.getBookingDate()) && court.equals(e.getCourt())) {
+//                System.out.println(t);
+//                System.out.println("System booking: " + e.getBookingDate());
+                if (t.equals(e.getMadeForDay().atTime(e.getFromTime())) && court.equals(e.getCourt())) {
                     elementObs.setStatus(CourtDayItem.OCUPADO);
+                    elementObs.setUser(e.getMember());
                 }
             });
 
@@ -285,4 +422,24 @@ public class FXMLPistaConcretaController implements Initializable {
 
     }
 
+    private void startAlert(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
+        dialogPane.getStyleClass().add("myAlert");
+    }
+
+}
+
+class ComboListCell<String> extends ListCell<String> {
+
+    protected void updateItem(String s, boolean empty) {
+        super.updateItem(s, empty);
+
+        if (empty || s == null) {
+            setText(null);
+        } else {
+            setText(s.toString());
+            setStyle("-fx-underline: true;");
+        }
+    }
 }

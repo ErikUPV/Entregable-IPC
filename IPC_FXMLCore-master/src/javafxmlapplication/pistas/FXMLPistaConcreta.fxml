@@ -15,44 +15,8 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.pistas.FXMLPistaConcretaController">
-   <top>
-      <HBox maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-background-color: papayawhip;" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="418.0">
-               <children>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagenes/left-arrow_1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Button>
-               </children>
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="396.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <ComboBox fx:id="comboBox" prefWidth="150.0" />
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-         </children>
-      </HBox>
-   </top>
    <center>
-      <VBox fx:id="mainVBox" alignment="TOP_CENTER" prefHeight="534.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox fx:id="mainVBox" alignment="TOP_CENTER" prefHeight="534.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: papayawhip;" styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="title" text="Reservar Pista X">
                <font>
@@ -81,26 +45,30 @@
                         <Insets />
                      </opaqueInsets>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="tableViewVBox" alignment="TOP_CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label fx:id="dayLabel" />
-                        <TableView fx:id="pistaTableView" prefHeight="373.0" prefWidth="458.0">
+                        <TableView fx:id="pistaTableView" prefHeight="154.0" prefWidth="478.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn fx:id="horaCol" prefWidth="100.0" text="Hora" />
-                            <TableColumn fx:id="estadoCol" prefWidth="400.0" text="Estado" />
+                            <TableColumn fx:id="horaCol" editable="false" prefWidth="84.80004692077637" resizable="false" text="Hora" />
+                            <TableColumn fx:id="estadoCol" editable="false" prefWidth="172.00000762939453" resizable="false" text="Estado" />
+                              <TableColumn fx:id="userCol" editable="false" minWidth="0.0" prefWidth="220.79998779296875" resizable="false" text="Usuario" />
                           </columns>
                            <VBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              <Insets />
                            </VBox.margin>
                         </TableView>
-                        <Button mnemonicParsing="false" onAction="#reservarButtonOnAction" text="Reservar">
+                        <VBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="478.0">
                            <VBox.margin>
-                              <Insets right="20.0" />
+                              <Insets />
                            </VBox.margin>
-                        </Button>
+                           <children>
+                              <Button fx:id="bReservar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reservarButtonOnAction" prefHeight="50.0" prefWidth="478.0" text="Reservar" />
+                           </children>
+                        </VBox>
                      </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="20.0" left="20.0" right="20.0" />
                      </padding>
                   </VBox>
                </children>
@@ -109,6 +77,36 @@
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </center>
+   <top>
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="746.0" styleClass="tool-bar" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="510.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/left-arrow_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="495.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ComboBox fx:id="comboBox" prefWidth="150.0" promptText="efdf" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

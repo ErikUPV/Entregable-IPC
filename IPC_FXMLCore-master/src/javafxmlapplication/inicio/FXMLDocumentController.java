@@ -7,6 +7,8 @@ package javafxmlapplication.inicio;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,57 +45,70 @@ public class FXMLDocumentController implements Initializable {
     private VBox inicioVBOX;
     @FXML
     private HBox inicioHBOX;
-    
+
     private Club club;
-    
+
     //=========================================================
     // event handler, fired when button is clicked or 
     //                      when the button has the focus and enter is pressed
-   
     //=========================================================
     // you must initialize here all related with the object 
     @Override
-    public void initialize(URL url, ResourceBundle rb)  {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        try {  club = Club.getInstance();
-        
-        } catch (ClubDAOException | IOException e) {
+
+        try {
+            club = Club.getInstance();
             
+
+        } catch (ClubDAOException | IOException e) {
+
         }
-       
         
+        List<Booking> l = club.getForDayBookings(LocalDate.now());
+        
+        
+        for(Booking b : l) {
+            System.out.println("Day booking: " + b.getMadeForDay() + " " + b.getFromTime() + " Court: " + b.getCourt().getName());
+        }
+
 //        BackgroundImage myBI= new BackgroundImage(new Image("/imagenes/pexels-pixabay-209977.jpg",32,32,false,true),
 //        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 //        BackgroundSize.DEFAULT);
 ////then you set to your node
 //        loginStackpane.setBackground(new Background(myBI));
-       inicioVBOX.maxWidthProperty().bind(inicioHBOX.prefWidthProperty().multiply(0.5));
-        
-    }    
+        inicioVBOX.maxWidthProperty().bind(inicioHBOX.prefWidthProperty().multiply(0.5));
+
+    }
 
     @FXML
-    private void IniciarSesionOnAction(ActionEvent event)throws IOException {
-        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.AUTENTICACION);
-        Parent root = miCargador.getRoot();
-         if (root == null) root = miCargador.load();
-        JavaFXMLApplication.setRoot(root);
+    private void IniciarSesionOnAction(ActionEvent event) throws IOException {
+//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.AUTENTICACION);
+//        Parent root = miCargador.getRoot();
+//        if (root == null) {
+//            root = miCargador.load();
+//        }
+        JavaFXMLApplication.setRoot(Paginas.AUTENTICACION);
     }
 
     @FXML
     private void registrarseOnAction(ActionEvent event) throws IOException {
-         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
-         Parent root = miCargador.getRoot();
-         if (root == null) root = miCargador.load();
-        JavaFXMLApplication.setRoot(root);
+//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO);
+//        Parent root = miCargador.getRoot();
+//        if (root == null) {
+//            root = miCargador.load();
+//        }
+        JavaFXMLApplication.setRoot(Paginas.REGISTRO);
     }
 
     @FXML
     private void accederInvOnAction(ActionEvent event) throws IOException {
-         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
-         Parent root = miCargador.getRoot();
-         if (root == null) root = miCargador.load();
-        JavaFXMLApplication.setRoot(miCargador.getRoot());
+//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
+//        Parent root = miCargador.getRoot();
+//        if (root == null) {
+//            root = miCargador.load();
+//        }
+        JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
-    
+
 }

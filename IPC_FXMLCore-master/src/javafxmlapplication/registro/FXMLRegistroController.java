@@ -159,8 +159,7 @@ public class FXMLRegistroController implements Initializable {
     }
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-         FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
-        JavaFXMLApplication.setRoot(miCargador.getRoot());
+         JavaFXMLApplication.setRoot(Paginas.INICIO);
         
     
     }
@@ -240,19 +239,19 @@ public class FXMLRegistroController implements Initializable {
       }
          Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0),
-                        event2 -> { FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
-                                    Parent root = miCargador.getRoot();
-                                    if (root == null) try {
-                                        root = miCargador.load();
-                        } catch (IOException ex) {
-                            Logger.getLogger(FXMLRegistroController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                                    JavaFXMLApplication.setRoot(root);}),
+                        event2 -> { //FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
+//                                    Parent root = miCargador.getRoot();
+//                                    if (root == null) try {
+//                                        root = miCargador.load();
+
+
+                        
+                                    JavaFXMLApplication.setRoot(Paginas.REGISTRO2);}),
                 new KeyFrame(Duration.seconds(1.5),
                         event2 -> {
-                                    FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+                                    JavaFXMLApplication.setRoot(Paginas.INICIO);
                                     
-                                    JavaFXMLApplication.setRoot(miCargador.getRoot());})
+                                 ;})
         );
         timeline.setCycleCount(1);
         timeline.play();

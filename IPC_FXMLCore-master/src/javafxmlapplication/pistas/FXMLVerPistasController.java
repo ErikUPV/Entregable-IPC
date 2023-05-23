@@ -20,29 +20,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import javafxmlapplication.espacio_personal.FXMLEspacioPersonalController;
 import model.*;
+
 /**
  * FXML Controller class
  *
  * @author Héctor
  */
 
-
 public class FXMLVerPistasController implements Initializable {
 
-    
     protected Member member;
-    
-    
-    
-    
+
     protected static IntegerProperty numPista;
-    
-    
+
     @FXML
     private Label pista1;
     @FXML
@@ -55,107 +53,120 @@ public class FXMLVerPistasController implements Initializable {
     private Label pista5;
     @FXML
     private Label pista6;
-    
-    private Label[] pistas = {pista1,pista2,pista3,pista4,pista5,pista6};
+
+    private Label[] pistas = {pista1, pista2, pista3, pista4, pista5, pista6};
     private Club club;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private GridPane mainGridPane;
+    @FXML
+    private VBox mainVBox;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        member = FXMLAutenticacionController.getMember();
-        System.out.println("ver pistas: " + member.getNickName());
-        System.out.println(member.toString());
-        
+
+        FXMLAutenticacionController.memberProperty().addListener((ob, oldv, newv) -> {
+            member = (Member) newv;
+        });
+        mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
+        mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
+
         numPista = new SimpleIntegerProperty();
         try {
             club = Club.getInstance();
-            
-            
-        
+
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLVerPistasController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    }    
+
+    }
 
     @FXML
     private void pista1ButtonOnAction(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
-            Parent root = miCargador.getRoot();
-            if (root == null) root = miCargador.load();
-            numPista.setValue(1);
-            FXMLPistaConcretaController controlador = miCargador.getController();
-            controlador.initPista(1);
-            
-            JavaFXMLApplication.setRoot(root);
+//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
+//            Parent root = miCargador.getRoot();
+//            if (root == null) root = miCargador.load();
+        numPista.setValue(1);
+//            FXMLPistaConcretaController controlador = miCargador.getController();
+//            controlador.initPista(1);
+
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
     }
 
     @FXML
     private void pista2ButtonOnAction(ActionEvent event) throws IOException {
-        
-            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
-            Parent root = miCargador.getRoot();
-            if (root == null) root = miCargador.load();
-            numPista.setValue(2);
 
-            FXMLPistaConcretaController controlador = miCargador.getController();
-            controlador.initPista(2);
-            
-            JavaFXMLApplication.setRoot(root);
+//            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
+//            Parent root = miCargador.getRoot();
+//            if (root == null) root = miCargador.load();
+        numPista.setValue(2);
+
+//            FXMLPistaConcretaController controlador = miCargador.getController();
+//            controlador.initPista(2);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
     }
 
     @FXML
     private void pista3ButtonOnAction(ActionEvent event) throws IOException {
-                
 
-            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
-            Parent root = miCargador.getRoot();
-            if (root == null) root = miCargador.load();
-            numPista.setValue(3);
-            FXMLPistaConcretaController controlador = miCargador.getController();
-            controlador.initPista(3);
-            JavaFXMLApplication.setRoot(root);
+//            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
+//            Parent root = miCargador.getRoot();
+//            if (root == null) root = miCargador.load();
+        numPista.setValue(3);
+//            FXMLPistaConcretaController controlador = miCargador.getController();
+//            controlador.initPista(3);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
     }
 
     @FXML
     private void pista4ButtonOnAction(ActionEvent event) throws IOException {
-                
 
-            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
-            Parent root = miCargador.getRoot();
-            if (root == null) root = miCargador.load();
-            numPista.setValue(4);
-            FXMLPistaConcretaController controlador = miCargador.getController();
-            controlador.initPista(4);
-            
-            JavaFXMLApplication.setRoot(root);
+//            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
+//            Parent root = miCargador.getRoot();
+//            if (root == null) root = miCargador.load();
+        numPista.setValue(4);
+//            FXMLPistaConcretaController controlador = miCargador.getController();
+//            controlador.initPista(4);
+
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
     }
 
     @FXML
     private void pista5ButtonOnAction(ActionEvent event) throws IOException {
-                
 
-            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
-            Parent root = miCargador.getRoot();
-            if (root == null) root = miCargador.load();
-            numPista.setValue(5);
-            FXMLPistaConcretaController controlador = miCargador.getController();
-            controlador.initPista(5);
-            JavaFXMLApplication.setRoot(root);
+//            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
+//            Parent root = miCargador.getRoot();
+//            if (root == null) root = miCargador.load();
+        numPista.setValue(5);
+//            FXMLPistaConcretaController controlador = miCargador.getController();
+//            controlador.initPista(5);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
     }
 
     @FXML
     private void pista6ButtonOnAction(ActionEvent event) throws IOException {
-            
 
-            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
-            Parent root = miCargador.getRoot();
-            if (root == null) root = miCargador.load();
-            numPista.setValue(6);
-            FXMLPistaConcretaController controlador = miCargador.getController();
-            controlador.initPista(6);
-            
-            JavaFXMLApplication.setRoot(root);
+//            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
+//            Parent root = miCargador.getRoot();
+//            if (root == null) root = miCargador.load();
+        numPista.setValue(6);
+//            FXMLPistaConcretaController controlador = miCargador.getController();
+//            controlador.initPista(6);
+
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
     }
-    
+
+    @FXML
+    private void backButtonOnAction(ActionEvent event) throws IOException {
+
+//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
+//        Parent root = miCargador.getRoot();
+//        if (root == null) {
+//            root = miCargador.load();
+//        }
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
+    }
+
 }
