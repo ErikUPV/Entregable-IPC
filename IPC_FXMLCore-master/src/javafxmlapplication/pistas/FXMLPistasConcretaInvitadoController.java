@@ -58,9 +58,9 @@ import model.*;
 /**
  * FXML Controller class
  *
- * @author Héctor
+ * @author sergio
  */
-public class FXMLPistaConcretaController implements Initializable {
+public class FXMLPistasConcretaInvitadoController implements Initializable {
 
     @FXML
     private ImageView imagenPista;
@@ -79,8 +79,7 @@ public class FXMLPistaConcretaController implements Initializable {
     private Member member = null;
 
     private Club club;
-    @FXML
-    private ComboBox<String> comboBox;
+    //private ComboBox<String> comboBox;
     @FXML
     private Label dayLabel;
 
@@ -204,23 +203,24 @@ public class FXMLPistaConcretaController implements Initializable {
             System.out.println("Court: " + court.getName());
             updateTableView(LocalDate.now());
             datePicker.valueProperty().setValue(LocalDate.now());
-
+            datePicker.disableProperty().setValue(true);
+            bReservar.disableProperty().setValue(true);
         });
         memberProperty = FXMLAutenticacionController.memberProperty();
 
-        memberProperty.addListener((ob, oldv, newv) -> {
-            member = (Member) newv;
-            comboBox.promptTextProperty().setValue(member.getName() + " " + member.getSurname());
-            System.out.println(member.getName() + " " + member.getSurname());
-        });
+        //memberProperty.addListener((ob, oldv, newv) -> {
+        //    member = (Member) newv;
+        //    comboBox.promptTextProperty().setValue(member.getName() + " " + member.getSurname());
+        //    System.out.println(member.getName() + " " + member.getSurname());
+        //});
 
-        comboList = new ArrayList<String>();
+        //comboList = new ArrayList<String>();
 
-        comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+        //comboObsList = FXCollections.observableArrayList(comboList);
+        //comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
-        comboBox.setItems(comboObsList);
-        comboBox.setCellFactory(c -> new ComboListCell());
+        //comboBox.setItems(comboObsList);
+        //comboBox.setCellFactory(c -> new ComboListCell());
 
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         borderPane.heightProperty().addListener((observable, oldv, newv) -> {
@@ -243,7 +243,7 @@ public class FXMLPistaConcretaController implements Initializable {
 //               dibujoVBox.alignmentProperty().set(Pos.TOP_CENTER);
 //           }
 //        });
-        datePicker.valueProperty().setValue(LocalDate.now());
+        //datePicker.valueProperty().setValue(LocalDate.now());
 
         horaCol.setCellValueFactory(cellData -> {
             CourtDayItem item = cellData.getValue();
@@ -324,16 +324,16 @@ public class FXMLPistaConcretaController implements Initializable {
         estadoCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.4));
         userCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.399));
 
-        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
-            if (newv == null) return;
-            if (newv.equals("Cerrar sesión")) {
-                FXMLAutenticacionController.cerrarSesion();
+        //comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+        //    if (newv == null) return;
+        //    if (newv.equals("Cerrar sesión")) {
+        //        FXMLAutenticacionController.cerrarSesion();
 
-            } else if (newv.equals("Mis reservas")) {
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-            }
+        //    } else if (newv.equals("Mis reservas")) {
+        //        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+        //    }
 
-        });
+        //});
 
     }
 
@@ -344,7 +344,7 @@ public class FXMLPistaConcretaController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
-        JavaFXMLApplication.setRoot(Paginas.PISTAS);
+        JavaFXMLApplication.setRoot(Paginas.PISTAS_INVITADO);
 
     }
 
@@ -434,16 +434,16 @@ public class FXMLPistaConcretaController implements Initializable {
 
 }
 
-class ComboListCell<String> extends ListCell<String> {
+//class ComboListCell<String> extends ListCell<String> {
 
-    protected void updateItem(String s, boolean empty) {
-        super.updateItem(s, empty);
+//    protected void updateItem(String s, boolean empty) {
+//      super.updateItem(s, empty);
 
-        if (empty || s == null) {
-            setText(null);
-        } else {
-            setText(s.toString());
-            setStyle("-fx-underline: true;");
-        }
-    }
-}
+//        if (empty || s == null) {
+//            setText(null);
+//        } else {
+//            setText(s.toString());
+//            setStyle("-fx-underline: true;");
+//        }
+//    }
+//}

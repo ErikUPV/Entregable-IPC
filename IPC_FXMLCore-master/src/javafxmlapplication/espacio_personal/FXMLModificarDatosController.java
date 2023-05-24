@@ -4,6 +4,7 @@
  */
 package javafxmlapplication.espacio_personal;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import static javafxmlapplication.autenticacion.FXMLAutenticacionController.cerrarSesion;
 import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.*;
 
@@ -66,6 +68,8 @@ public class FXMLModificarDatosController implements Initializable {
     private Member member;
     @FXML
     private Label nicknameLabel;
+    @FXML
+    private Button cerrar;
     /**
      * Initializes the controller class.
      */
@@ -150,10 +154,16 @@ public class FXMLModificarDatosController implements Initializable {
 
     @FXML
     private void cancelarButtonOnAction(ActionEvent event) {
+        
     }
 
     @FXML
     private void aceptarButtonOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void cerrarMOnAction(ActionEvent event) {
+        cerrarSesion();
     }
     
 }
