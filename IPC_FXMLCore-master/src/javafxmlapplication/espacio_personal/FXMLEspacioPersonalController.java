@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import static javafxmlapplication.autenticacion.FXMLAutenticacionController.cerrarSesion;
 import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.*;
 
@@ -87,6 +88,10 @@ public class FXMLEspacioPersonalController implements Initializable {
 //        nameLabel.setText(member.getName() + " " + member.getSurname());
 //
 //    }
+    @FXML
+    private Button cancelar;
+    @FXML
+    private Button cerrarS;
 
     /**
      * Initializes the controller class.
@@ -195,6 +200,17 @@ public class FXMLEspacioPersonalController implements Initializable {
 //        controlador.initMember(member);
 
         JavaFXMLApplication.setRoot(Paginas.MODIFICAR_DATOS);
+    }
+
+    @FXML
+    private void cancelarButtonOnAction(ActionEvent event) {
+       
+       
+    }
+
+    @FXML
+    private void cerrarSOnAction(ActionEvent event) {
+        cerrarSesion();
     }
 
 }
