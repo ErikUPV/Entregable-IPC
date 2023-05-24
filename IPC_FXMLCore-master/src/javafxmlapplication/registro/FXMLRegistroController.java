@@ -272,7 +272,7 @@ public class FXMLRegistroController implements Initializable {
                 + "-fx-prompt-text-fill: red");
        
                 //field.setPromptText(msg);
-        }
+    }
        
     
     
