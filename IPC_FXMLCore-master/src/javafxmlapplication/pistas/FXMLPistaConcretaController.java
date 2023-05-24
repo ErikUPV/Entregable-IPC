@@ -243,7 +243,6 @@ public class FXMLPistaConcretaController implements Initializable {
 //               dibujoVBox.alignmentProperty().set(Pos.TOP_CENTER);
 //           }
 //        });
-        datePicker.valueProperty().setValue(LocalDate.now());
 
         horaCol.setCellValueFactory(cellData -> {
             CourtDayItem item = cellData.getValue();
@@ -286,6 +285,15 @@ public class FXMLPistaConcretaController implements Initializable {
         });
 
         l = FXCollections.observableArrayList();
+        
+         WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        datePicker.valueProperty().addListener((ob, oldv, newv) -> {
+            int numDayNow = newv.get(weekFields.dayOfWeek());
+            int month = newv.getMonthValue();
+            dayLabel.textProperty().setValue("Pistas disponibles a " + diaDeLaSemana[numDayNow] + ", " + newv.getDayOfMonth() + " de " + mesDelAño[month] + " del " + newv.getYear());
+        });
+        
+                datePicker.valueProperty().setValue(LocalDate.now());
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateTableView(newValue);
@@ -301,12 +309,8 @@ public class FXMLPistaConcretaController implements Initializable {
                 }
             };
         });
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        datePicker.valueProperty().addListener((ob, oldv, newv) -> {
-            int numDayNow = newv.get(weekFields.dayOfWeek());
-            int month = newv.getMonthValue();
-            dayLabel.textProperty().setValue("Pistas disponibles a " + diaDeLaSemana[numDayNow] + ", " + newv.getDayOfMonth() + " de " + mesDelAño[month] + " del " + newv.getYear());
-        });
+       
+
 
         pistaTableView.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
             if (newv == null) {
