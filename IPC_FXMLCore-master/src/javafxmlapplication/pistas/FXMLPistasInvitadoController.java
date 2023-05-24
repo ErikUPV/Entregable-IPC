@@ -33,10 +33,10 @@ import model.*;
 /**
  * FXML Controller class
  *
- * @author Héctor
+ * @author sergio
  */
 
-public class FXMLVerPistasController implements Initializable {
+public class FXMLPistasInvitadoController implements Initializable {
 
     protected Member member;
 
@@ -95,7 +95,7 @@ public class FXMLVerPistasController implements Initializable {
 //            FXMLPistaConcretaController controlador = miCargador.getController();
 //            controlador.initPista(1);
 
-        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA_INVITADO);
     }
 
     @FXML
@@ -108,7 +108,7 @@ public class FXMLVerPistasController implements Initializable {
 
 //            FXMLPistaConcretaController controlador = miCargador.getController();
 //            controlador.initPista(2);
-        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA_INVITADO);
     }
 
     @FXML
@@ -120,7 +120,7 @@ public class FXMLVerPistasController implements Initializable {
         numPista.setValue(3);
 //            FXMLPistaConcretaController controlador = miCargador.getController();
 //            controlador.initPista(3);
-        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA_INVITADO);
     }
 
     @FXML
@@ -133,7 +133,7 @@ public class FXMLVerPistasController implements Initializable {
 //            FXMLPistaConcretaController controlador = miCargador.getController();
 //            controlador.initPista(4);
 
-        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA_INVITADO);
     }
 
     @FXML
@@ -145,7 +145,7 @@ public class FXMLVerPistasController implements Initializable {
         numPista.setValue(5);
 //            FXMLPistaConcretaController controlador = miCargador.getController();
 //            controlador.initPista(5);
-        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA_INVITADO);
     }
 
     @FXML
@@ -158,7 +158,7 @@ public class FXMLVerPistasController implements Initializable {
 //            FXMLPistaConcretaController controlador = miCargador.getController();
 //            controlador.initPista(6);
 
-        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA);
+        JavaFXMLApplication.setRoot(Paginas.PISTA_CONCRETA_INVITADO);
     }
 
     @FXML
@@ -169,7 +169,7 @@ public class FXMLVerPistasController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+        JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
 
 }

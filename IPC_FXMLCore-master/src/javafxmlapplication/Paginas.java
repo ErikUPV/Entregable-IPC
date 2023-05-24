@@ -17,7 +17,9 @@ public enum Paginas {
     PISTAS,
     ESPACIO_PERSONAL,
     MODIFICAR_DATOS,
-    PISTA_CONCRETA
+    PISTA_CONCRETA, 
+    PISTAS_INVITADO, 
+    PISTA_CONCRETA_INVITADO
     
     
 }
