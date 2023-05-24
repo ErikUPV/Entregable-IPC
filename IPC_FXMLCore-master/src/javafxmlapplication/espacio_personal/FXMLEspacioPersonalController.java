@@ -110,13 +110,13 @@ public class FXMLEspacioPersonalController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-<<<<<<< Updated upstream
-        
-        nameLabel.setText(member.getName() + " " + member.getSurname()); 
-        nicknameLabel.setText(member.getNickName());
-=======
 
->>>>>>> Stashed changes
+        
+       // nameLabel.setText(member.getName() + " " + member.getSurname()); 
+       // nicknameLabel.setText(member.getNickName());
+
+
+
         
         col1.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
         col2.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
