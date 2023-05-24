@@ -87,8 +87,6 @@ public class FXMLEspacioPersonalController implements Initializable {
 //        nameLabel.setText(member.getName() + " " + member.getSurname());
 //
 //    }
-    @FXML
-    private Button cancelar;
 
     /**
      * Initializes the controller class.
@@ -102,29 +100,25 @@ public class FXMLEspacioPersonalController implements Initializable {
             member = (Member) newv;
             profilePicture.setImage(member.getImage());
             nameLabel.setText(member.getName() + " " + member.getSurname());
+            nicknameLabel.setText(member.getNickName());
+
         });
         System.out.println("hy");
-      
+
         try {
             club = Club.getInstance();
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
-       // nameLabel.setText(member.getName() + " " + member.getSurname()); 
-       // nicknameLabel.setText(member.getNickName());
 
-
-
-        
         col1.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
         col2.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
         col3.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
         col4.maxWidthProperty().bind(reservasT.widthProperty().multiply(.17));
         col5.maxWidthProperty().bind(reservasT.widthProperty().multiply(.18));
         col6.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
-        
+
         col1.minWidthProperty().bind(reservasT.widthProperty().multiply(.195));
         col2.minWidthProperty().bind(reservasT.widthProperty().multiply(.13));
         col3.minWidthProperty().bind(reservasT.widthProperty().multiply(.13));
@@ -137,27 +131,20 @@ public class FXMLEspacioPersonalController implements Initializable {
         //col3.setCellValueFactory(new PropertyValueFactory<>("Final"));
         //col4.setCellValueFactory(new PropertyValueFactory<>("Pista"));
         //col5.setCellValueFactory(new PropertyValueFactory<>("Pagado"));
-<<<<<<< Updated upstream
         //col6.setCellValueFactory(new PropertyValueFactory<>("Cancelar"));
-
-=======
-        //col6.setCellValueFactory(new PropertyValueFactory<>("Estado"));
->>>>>>> Stashed changes
         //reservasT.setColumnResizePolicy((TableView.ResizeFeatures param) -> {
         //    if (param.getColumn() == null )return false;
         //    double delta = param.getDelta();
         //    ObservableList<TableColumn> cols = param.getTable().getColumns();
         //    int colIdx = cols.indexOf(param.getColumn());
-          //  param.getColumn().setMinWidth(param.getColumn().getWidth() + delta);
-          //  param.getColumn().setMaxWidth(param.getColumn().getWidth() + delta);
-          //  if (colIdx < cols.size() -1){
-          //      cols.get(colIdx+1).setMinWidth(cols.get(colIdx+1).getWidth() - delta);
-          //      cols.get(colIdx+1).setMaxWidth(cols.get(colIdx+1).getWidth() - delta);
-          //  } 
-            
-          //  return true;
+        //  param.getColumn().setMinWidth(param.getColumn().getWidth() + delta);
+        //  param.getColumn().setMaxWidth(param.getColumn().getWidth() + delta);
+        //  if (colIdx < cols.size() -1){
+        //      cols.get(colIdx+1).setMinWidth(cols.get(colIdx+1).getWidth() - delta);
+        //      cols.get(colIdx+1).setMaxWidth(cols.get(colIdx+1).getWidth() - delta);
+        //  } 
+        //  return true;
         //});
-        
         // Establecer la propiedad de ancho y alto del TableView para que se redimensione con el AnchorPane
         //reservasT.prefWidthProperty().bind(cambioAnchorPane.widthProperty());
         //reservasT.prefHeightProperty().bind(cambioAnchorPane.heightProperty());
@@ -210,9 +197,4 @@ public class FXMLEspacioPersonalController implements Initializable {
         JavaFXMLApplication.setRoot(Paginas.MODIFICAR_DATOS);
     }
 
-    @FXML
-    private void cancelarButtonOnAction(ActionEvent event) {
-    }
-
 }
-

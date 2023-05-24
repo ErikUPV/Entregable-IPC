@@ -80,68 +80,68 @@ public class FXMLModificarDatosController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        System.out.println("hy");
-        member = FXMLAutenticacionController.getMember();
-        System.out.println(member.getNickName() + " heyyy");
+//        // TODO
+//        System.out.println("hy");
+//        member = FXMLAutenticacionController.getMember();
+//        System.out.println(member.getNickName() + " heyyy");
         try {
             club = Club.getInstance();
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        nameLabel.setText(member.getName() + " " + member.getSurname()); 
-        nicknameLabel.setText(member.getNickName());
+//        nameLabel.setText(member.getName() + " " + member.getSurname()); 
+//        nicknameLabel.setText(member.getNickName());
        
     }    
 
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
-        Parent root = miCargador.getRoot();
-        if (root == null) {
-            try {
-                root = miCargador.load();
-            } catch (IOException ex) {
-                Logger.getLogger(FXMLModificarDatosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        JavaFXMLApplication.setRoot(root);
+        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+//        Parent root = miCargador.getRoot();
+//        if (root == null) {
+//            try {
+//                root = miCargador.load();
+//            } catch (IOException ex) {
+//                Logger.getLogger(FXMLModificarDatosController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
     private void reservarPistaOnAction(ActionEvent event) {
         System.out.println("Espacio personal: " + member.toString());
-        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
-        Parent root = miCargador.getRoot();
-        FXMLVerPistasController controlador = miCargador.getController();
-
-        if (root == null) {
-            try {
-                root = miCargador.load();
-            } catch (IOException ex) {
-                Logger.getLogger(FXMLModificarDatosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        System.out.println("a");
-
-        JavaFXMLApplication.setRoot(root);
+        JavaFXMLApplication.setRoot(Paginas.PISTAS);
+//        Parent root = miCargador.getRoot();
+//        FXMLVerPistasController controlador = miCargador.getController();
+//
+//        if (root == null) {
+//            try {
+//                root = miCargador.load();
+//            } catch (IOException ex) {
+//                Logger.getLogger(FXMLModificarDatosController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        System.out.println("a");
+//
+//        JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
     private void misReservasOnAction(ActionEvent event) {
-        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
-        Parent root = miCargador.getRoot();
-        if (root == null) {
-            try {
-                root = miCargador.load();
-            } catch (IOException ex) {
-                Logger.getLogger(FXMLModificarDatosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        FXMLModificarDatosController controlador = miCargador.getController();
-        controlador.initMember(member);
-
-        JavaFXMLApplication.setRoot(root);
+        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+//        Parent root = miCargador.getRoot();
+//        if (root == null) {
+//            try {
+//                root = miCargador.load();
+//            } catch (IOException ex) {
+//                Logger.getLogger(FXMLModificarDatosController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        FXMLModificarDatosController controlador = miCargador.getController();
+//        controlador.initMember(member);
+//
+//        JavaFXMLApplication.setRoot(root);
     }
 
     @FXML
