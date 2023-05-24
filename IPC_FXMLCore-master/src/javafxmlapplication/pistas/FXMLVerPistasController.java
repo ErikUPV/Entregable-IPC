@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -34,7 +35,6 @@ import model.*;
  *
  * @author Héctor
  */
-
 public class FXMLVerPistasController implements Initializable {
 
     protected Member member;
@@ -62,6 +62,18 @@ public class FXMLVerPistasController implements Initializable {
     private GridPane mainGridPane;
     @FXML
     private VBox mainVBox;
+    @FXML
+    private ImageView iv1;
+    @FXML
+    private ImageView iv2;
+    @FXML
+    private ImageView iv3;
+    @FXML
+    private ImageView iv4;
+    @FXML
+    private ImageView iv5;
+    @FXML
+    private ImageView iv6;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,6 +84,8 @@ public class FXMLVerPistasController implements Initializable {
         });
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
+        
+        mainGridPane.minHeightProperty().bind(mainVBox.heightProperty().multiply(0.8));
 
         numPista = new SimpleIntegerProperty();
         try {
@@ -81,8 +95,15 @@ public class FXMLVerPistasController implements Initializable {
             Logger.getLogger(FXMLVerPistasController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        iv1.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv2.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv3.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv4.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv5.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        
+     
     }
-
     @FXML
     private void pista1ButtonOnAction(ActionEvent event) throws IOException {
 //        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
