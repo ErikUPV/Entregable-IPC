@@ -77,7 +77,20 @@ public class FXMLVerPistasController implements Initializable {
     @FXML
     private ImageView iv6;
 
+    @FXML
     private Button volverPista;
+    @FXML
+    private Button pista1B;
+    @FXML
+    private Button pista2B;
+    @FXML
+    private Button pista3B;
+    @FXML
+    private Button pista4B;
+    @FXML
+    private Button pista5B;
+    @FXML
+    private Button pista6B;
 
 
     @Override
@@ -99,7 +112,15 @@ public class FXMLVerPistasController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLVerPistasController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        
+        iv1.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv2.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv3.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv4.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv5.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv6.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        
         iv1.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv2.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv3.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
@@ -107,6 +128,33 @@ public class FXMLVerPistasController implements Initializable {
         iv5.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         
+//        pista1.maxWidthProperty().bind(iv1.fitWidthProperty().multiply(0.3));
+//        pista2.maxWidthProperty().bind(iv2.fitWidthProperty().multiply(0.3));
+//        pista3.maxWidthProperty().bind(iv3.fitWidthProperty().multiply(0.3));
+//        pista4.maxWidthProperty().bind(iv4.fitWidthProperty().multiply(0.3));
+//        pista5.maxWidthProperty().bind(iv5.fitWidthProperty().multiply(0.3));
+//        pista6.maxWidthProperty().bind(iv6.fitWidthProperty().multiply(0.3));
+//
+//        pista1.minWidthProperty().bind(iv1.fitWidthProperty().multiply(0.3));
+//        pista2.minWidthProperty().bind(iv2.fitWidthProperty().multiply(0.3));
+//        pista3.minWidthProperty().bind(iv3.fitWidthProperty().multiply(0.3));
+//        pista4.minWidthProperty().bind(iv4.fitWidthProperty().multiply(0.3));
+//        pista5.minWidthProperty().bind(iv5.fitWidthProperty().multiply(0.3));
+//        pista6.minWidthProperty().bind(iv6.fitWidthProperty().multiply(0.3));
+// 
+//        pista1.maxHeightProperty().bind(iv1.fitHeightProperty().multiply(0.3));
+//        pista2.maxHeightProperty().bind(iv2.fitHeightProperty().multiply(0.3));
+//        pista3.maxHeightProperty().bind(iv3.fitHeightProperty().multiply(0.3));
+//        pista4.maxHeightProperty().bind(iv4.fitHeightProperty().multiply(0.3));
+//        pista5.maxHeightProperty().bind(iv5.fitHeightProperty().multiply(0.3));
+//        pista6.maxHeightProperty().bind(iv6.fitHeightProperty().multiply(0.3));
+//
+//        pista1.minHeightProperty().bind(iv1.fitHeightProperty().multiply(0.3));
+//        pista2.minHeightProperty().bind(iv2.fitHeightProperty().multiply(0.3));
+//        pista3.minHeightProperty().bind(iv3.fitHeightProperty().multiply(0.3));
+//        pista4.minHeightProperty().bind(iv4.fitHeightProperty().multiply(0.3));
+//        pista5.minHeightProperty().bind(iv5.fitHeightProperty().multiply(0.3));
+//        pista6.minHeightProperty().bind(iv6.fitHeightProperty().multiply(0.3));
      
     }
     @FXML

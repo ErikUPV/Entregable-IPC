@@ -22,7 +22,7 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <GridPane fx:id="mainGridPane" prefHeight="502.0" prefWidth="760.0">
+            <GridPane fx:id="mainGridPane" prefHeight="502.0" prefWidth="760.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" />
                   <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -35,7 +35,7 @@
                <children>
                   <VBox alignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista1ButtonOnAction" prefHeight="150.0" prefWidth="180.0">
+                        <Button id="invisibleButton" fx:id="pista1B" mnemonicParsing="false" onAction="#pista1ButtonOnAction" prefHeight="150.0" prefWidth="180.0" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fx:id="iv1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -57,7 +57,7 @@
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista2ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
+                        <Button id="invisibleButton" fx:id="pista2B" mnemonicParsing="false" onAction="#pista2ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fx:id="iv2" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -79,7 +79,7 @@
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista3ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
+                        <Button id="invisibleButton" fx:id="pista3B" mnemonicParsing="false" onAction="#pista3ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fx:id="iv3" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -101,7 +101,7 @@
                   </VBox>
                   <VBox alignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista4ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
+                        <Button id="invisibleButton" fx:id="pista4B" mnemonicParsing="false" onAction="#pista4ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fx:id="iv4" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -126,7 +126,7 @@
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista5ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
+                        <Button id="invisibleButton" fx:id="pista5B" mnemonicParsing="false" onAction="#pista5ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fx:id="iv5" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -148,7 +148,7 @@
                   </VBox>
                   <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <children>
-                        <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista6ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
+                        <Button id="invisibleButton" fx:id="pista6B" mnemonicParsing="false" onAction="#pista6ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
                            <graphic>
                               <ImageView fx:id="iv6" fitHeight="150.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
