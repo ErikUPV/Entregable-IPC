@@ -60,18 +60,10 @@
                   </VBox>
                   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
                      <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>
                      <children>
-                        <Button fx:id="reservarPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#reservarPistaOnAction" prefHeight="50.0" prefWidth="100.0" text="Reservar pista" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                     <children>
-                        <Button fx:id="misReservas" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#misReservasOnAction" prefHeight="50.0" prefWidth="100.0" text="Mis reservas" />
+                        <Button fx:id="reservarPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#reservarPistaOnAction" prefHeight="62.0" prefWidth="125.0" text="Reservar pista" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
@@ -79,15 +71,23 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Button fx:id="modificarPerfil" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#modificarPerfilOnAction" prefHeight="50.0" prefWidth="100.0" text="Modificar perfil" />
+                        <Button fx:id="misReservas" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#misReservasOnAction" prefHeight="62.0" prefWidth="125.0" text="Mis reservas" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Cerrar sesión" />
+                        <Button fx:id="modificarPerfil" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#modificarPerfilOnAction" prefHeight="62.0" prefWidth="125.0" text="Modificar perfil" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="62.0" prefWidth="125.0" text="Cerrar sesión" />
                      </children>
                   </VBox>
                </children>
@@ -132,31 +132,53 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </Separator>
-                  <VBox fx:id="cambioVBOX" alignment="CENTER" prefHeight="470.0" prefWidth="603.0" spacing="10.0">
+                  <VBox VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="Mis reservas">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="reservasT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="565.0">
-                           <columns>
-                              <TableColumn fx:id="col1" minWidth="110.0" prefWidth="110.0" text="Dia" />
-                              <TableColumn fx:id="col2" minWidth="75.0" prefWidth="75.0" text="Inicio" />
-                              <TableColumn fx:id="col3" minWidth="75.0" prefWidth="75.0" text="Final" />
-                              <TableColumn fx:id="col4" minWidth="95.0" prefWidth="95.0" text="Pista" />
-                              <TableColumn fx:id="col5" minWidth="100.0" prefWidth="100.0" text="Pagado" />
-                              <TableColumn fx:id="col6" minWidth="110.0" prefWidth="110.0" text="Cancelar" />
-                           </columns>
-                        </TableView>
+                        <VBox fx:id="cambioVBOX" alignment="CENTER" prefWidth="603.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label text="Mis reservas">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="reservasT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="565.0" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="col1" minWidth="110.0" prefWidth="110.0" text="Dia" />
+                                    <TableColumn fx:id="col2" minWidth="75.0" prefWidth="75.0" text="Inicio" />
+                                    <TableColumn fx:id="col3" minWidth="75.0" prefWidth="75.0" text="Final" />
+                                    <TableColumn fx:id="col4" minWidth="95.0" prefWidth="95.0" text="Pista" />
+                                    <TableColumn fx:id="col5" minWidth="100.0" prefWidth="100.0" text="Pagado" />
+                                    <TableColumn fx:id="col6" minWidth="110.0" prefWidth="110.0" text="Estado" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="35.0" prefWidth="565.0">
+                           <children>
+                              <Button fx:id="cancelar" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarButtonOnAction" prefHeight="35.0" prefWidth="565.0" text="Cancelar">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
                   </VBox>
                </children>
             </VBox>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </HBox>
    </center>
 </BorderPane>

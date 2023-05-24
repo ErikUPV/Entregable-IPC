@@ -87,6 +87,8 @@ public class FXMLEspacioPersonalController implements Initializable {
 //        nameLabel.setText(member.getName() + " " + member.getSurname());
 //
 //    }
+    @FXML
+    private Button cancelar;
 
     /**
      * Initializes the controller class.
@@ -108,9 +110,13 @@ public class FXMLEspacioPersonalController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
+<<<<<<< Updated upstream
         
         nameLabel.setText(member.getName() + " " + member.getSurname()); 
         nicknameLabel.setText(member.getNickName());
+=======
+
+>>>>>>> Stashed changes
         
         col1.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
         col2.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
@@ -131,8 +137,12 @@ public class FXMLEspacioPersonalController implements Initializable {
         //col3.setCellValueFactory(new PropertyValueFactory<>("Final"));
         //col4.setCellValueFactory(new PropertyValueFactory<>("Pista"));
         //col5.setCellValueFactory(new PropertyValueFactory<>("Pagado"));
+<<<<<<< Updated upstream
         //col6.setCellValueFactory(new PropertyValueFactory<>("Cancelar"));
 
+=======
+        //col6.setCellValueFactory(new PropertyValueFactory<>("Estado"));
+>>>>>>> Stashed changes
         //reservasT.setColumnResizePolicy((TableView.ResizeFeatures param) -> {
         //    if (param.getColumn() == null )return false;
         //    double delta = param.getDelta();
@@ -198,6 +208,10 @@ public class FXMLEspacioPersonalController implements Initializable {
 //        controlador.initMember(member);
 
         JavaFXMLApplication.setRoot(Paginas.MODIFICAR_DATOS);
+    }
+
+    @FXML
+    private void cancelarButtonOnAction(ActionEvent event) {
     }
 
 }
