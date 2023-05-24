@@ -88,6 +88,12 @@ public class JavaFXMLApplication extends Application {
         root = loader.load();
         roots.put(Paginas.PISTA_CONCRETA, root);
         
+        loader = new FXMLLoader(getClass().getResource("pistas/FXMLVerPistasInvitado.fxml"));
+        root = loader.load();
+        roots.put(Paginas.PISTAS_INVITADO, root);
+        loader = new FXMLLoader(getClass().getResource("pistas/FXMLPistasConcretaInvitado.fxml"));
+        root = loader.load();
+        roots.put(Paginas.PISTA_CONCRETA_INVITADO, root);
         
         scene = new Scene(root);
         
@@ -99,7 +105,7 @@ public class JavaFXMLApplication extends Application {
         String css;
         css = this.getClass().getResource("estilos.css").toExternalForm();
         scene.getStylesheets().add(css);
-        stage.setMinWidth(800);
+        stage.setMinWidth(830);
         stage.setMinHeight(650);
         stage.getIcons().add(img);
         stage.setTitle("Green Ball");

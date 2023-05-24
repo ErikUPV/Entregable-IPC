@@ -47,6 +47,12 @@ public class FXMLDocumentController implements Initializable {
     private HBox inicioHBOX;
 
     private Club club;
+    @FXML
+    private Button ini;
+    @FXML
+    private Button reg;
+    @FXML
+    private Button accederP;
 
     //=========================================================
     // event handler, fired when button is clicked or 
@@ -108,7 +114,7 @@ public class FXMLDocumentController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
-        JavaFXMLApplication.setRoot(Paginas.PISTAS);
+        JavaFXMLApplication.setRoot(Paginas.PISTAS_INVITADO);
     }
 
 }

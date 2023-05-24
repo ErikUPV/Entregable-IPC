@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.pistas.FXMLVerPistasController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.pistas.FXMLPistasInvitadoController">
    <center>
       <VBox fx:id="mainVBox" alignment="CENTER" styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
          <children>
@@ -22,22 +22,22 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <GridPane fx:id="mainGridPane" prefHeight="502.0" prefWidth="760.0">
+            <GridPane fx:id="mainGridPane" prefHeight="541.0" prefWidth="800.0">
               <columnConstraints>
-                <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" />
-                  <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" />
-                <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
                   <VBox alignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                      <children>
                         <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista1ButtonOnAction" prefHeight="150.0" prefWidth="180.0">
                            <graphic>
-                              <ImageView fx:id="iv1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../imagenes/tennis-court-v1.png" />
                                  </image>
@@ -59,7 +59,7 @@
                      <children>
                         <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista2ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
                            <graphic>
-                              <ImageView fx:id="iv2" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../imagenes/tennis-court-v2.png" />
                                  </image>
@@ -81,7 +81,7 @@
                      <children>
                         <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista3ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
                            <graphic>
-                              <ImageView fx:id="iv3" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../imagenes/tennis-court-v3.png" />
                                  </image>
@@ -103,7 +103,7 @@
                      <children>
                         <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista4ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
                            <graphic>
-                              <ImageView fx:id="iv4" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../imagenes/tennis-court-v4.png" />
                                  </image>
@@ -128,7 +128,7 @@
                      <children>
                         <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista5ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
                            <graphic>
-                              <ImageView fx:id="iv5" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../imagenes/tennis-court-v5.png" />
                                  </image>
@@ -150,7 +150,7 @@
                      <children>
                         <Button id="invisibleButton" mnemonicParsing="false" onAction="#pista6ButtonOnAction" prefHeight="150.0" prefWidth="180.0" styleClass="invisibleButton">
                            <graphic>
-                              <ImageView fx:id="iv6" fitHeight="150.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../imagenes/tennis-court-v6.png" />
                                  </image>
