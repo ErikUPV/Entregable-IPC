@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLEspacioPersonalController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLEspacioPersonalController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -30,11 +30,8 @@
         </items>
       </ToolBar>
    </top>
-   <left>
-      <HBox maxWidth="-Infinity" prefWidth="190.0" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+   <center>
+      <HBox styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="200.0">
                <children>
@@ -95,12 +92,6 @@
                   <Insets />
                </HBox.margin>
             </VBox>
-         </children>
-      </HBox>
-   </left>
-   <center>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
             <Separator orientation="VERTICAL" prefHeight="200.0">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
@@ -177,7 +168,7 @@
             </VBox>
          </children>
          <BorderPane.margin>
-            <Insets />
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
          </BorderPane.margin>
       </HBox>
    </center>
