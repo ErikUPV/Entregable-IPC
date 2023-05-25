@@ -148,7 +148,7 @@
                                     <TableColumn fx:id="col3" minWidth="75.0" prefWidth="75.0" text="Final" />
                                     <TableColumn fx:id="col4" minWidth="95.0" prefWidth="95.0" text="Pista" />
                                     <TableColumn fx:id="col5" minWidth="100.0" prefWidth="100.0" text="Pagado" />
-                                    <TableColumn fx:id="col6" minWidth="110.0" prefWidth="110.0" text="Estado" />
+                                    <TableColumn fx:id="col6" minWidth="110.0" prefWidth="110.0" text="Cancelable" />
                                  </columns>
                               </TableView>
                            </children>
