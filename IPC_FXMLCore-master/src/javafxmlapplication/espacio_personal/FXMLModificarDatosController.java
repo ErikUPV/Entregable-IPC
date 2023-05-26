@@ -6,6 +6,7 @@ package javafxmlapplication.espacio_personal;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
@@ -18,7 +19,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -74,17 +79,22 @@ public class FXMLModificarDatosController implements Initializable {
     @FXML
     private Label badInputLabel;
     private boolean contraseñasIguales;
+    @FXML
+    private Button cerrar;
+    @FXML
+    private Button modificar;
     /**
      * Initializes the controller class.
      */
     
-    public void initMember(Member m) {
+    public void initMember(Member m) throws ClubDAOException, IOException {
         System.out.println(member.toString());
+        club = Club.getInstance();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        contraseñasIguales = true;
+        contraseñasIguales = false;
         memberProperty = FXMLAutenticacionController.memberProperty();
         memberProperty.addListener((ob, oldv, newv) -> {
             member = (Member) newv;
@@ -94,19 +104,24 @@ public class FXMLModificarDatosController implements Initializable {
             nombreTextField.setText(member.getName());
             apellidosTextField.setText(member.getSurname());
             telefonoField.setText(member.getTelephone());
+            contrField.setText(member.getPassword());
             if(member.getCreditCard() != "") {
                 numBancoField.setText(member.getCreditCard());
                 cvcField.setText("" + member.getSvc());
             }
+            
+            nameLabel.setText(member.getName() +" "+ member.getSurname());
+            
+            
         });
         repContrField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // When focus is lost from the second field
                 String password1 = contrField.getText();
                 String password2 = repContrField.getText();
-                if (!password1.equals(password2)) {
-                    showErrorMessage(contrField, "Passwords do not match!");
-                    showErrorMessage(repContrField, "Passwords do not match!");
-                    badInputLabel.setText("Passwords don't match");
+                if (!password1.equals(password2) || password1.equals("")) {
+                    showErrorMessage(contrField, "Las contraseñas no coinciden!");
+                    showErrorMessage(repContrField, "Las contraseñas no coinciden!");
+                    badInputLabel.setText("Las contraseñas no coinciden!");
                     repContrField.setText("");
                     badInputLabel.visibleProperty().setValue(true);
                     contraseñasIguales = false;
@@ -122,6 +137,7 @@ public class FXMLModificarDatosController implements Initializable {
         cvcField.setTextFormatter(getTextFormatter(3));
         numBancoField.setTextFormatter(getTextFormatter(16));
         telefonoField.setTextFormatter(getTextFormatter(11));
+        
         
     }    
 
@@ -143,65 +159,6 @@ public class FXMLModificarDatosController implements Initializable {
 
     @FXML
     private void modificarPerfilOnAction(ActionEvent event) {
-       
-       if (nombreTextField.textProperty().getValueSafe().isEmpty() || nombreTextField.textProperty().getValueSafe().isBlank()) showErrorMessage( nombreTextField, "Nombre vacío");
-       else hideErrorMessage(nombreTextField);
-       
-       if (apellidosTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( apellidosTextField, "Apellido vacío");
-       else hideErrorMessage(apellidosTextField);
-       
-       if (telefonoField.textProperty().getValueSafe().isEmpty()) showErrorMessage( telefonoField, "Teléfono vacío");
-       else hideErrorMessage(telefonoField);
-       
-       if (contrField.textProperty().getValueSafe().isEmpty()) showErrorMessage( contrField, "Contraseña vacía");
-       else if (!repContrField.getText().isEmpty())hideErrorMessage(contrField);
-       
-       if (repContrField.textProperty().getValueSafe().isEmpty()) showErrorMessage( repContrField, "Pw mismatch");
-       else hideErrorMessage(repContrField);
-       
-       if ( (numBancoField.textProperty().getValueSafe().isEmpty() && !  cvcField.textProperty().getValueSafe().isEmpty()) ||(!numBancoField.textProperty().getValueSafe().isEmpty() &&   cvcField.textProperty().getValueSafe().isEmpty()) ){
-           showErrorMessage( numBancoField,"Número vacío o CVC vacío" );
-           showErrorMessage( cvcField, "");
-
-       } else{
-           hideErrorMessage(numBancoField);
-           hideErrorMessage(cvcField);
-       }
-       if(cvcField.getText().isEmpty() && numBancoField.getText().isEmpty()) cvcField.setText("0");
-       boolean b = nombreTextField.getText().isEmpty()
-               || apellidosTextField.getText().isEmpty()
-               || telefonoField.getText().isEmpty()
-               || contrField.getText().isEmpty()
-               || !contraseñasIguales;
-      if(!b){ 
-            member.setName(nombreTextField.getText());
-            member.setSurname(apellidosTextField.getText());
-            member.setTelephone(telefonoField.getText());
-            member.setPassword(contrField.getText());
-            if ((numBancoField.getText().isEmpty() && !cvcField.getText().equals("0"))) {
-                member.setCreditCard(numBancoField.getText());
-                member.setSvc(Integer.parseInt(cvcField.getText()));
-            }
-      }
-        /* Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0),
-                        event2 -> { //FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
-//                                    Parent root = miCargador.getRoot();
-//                                    if (root == null) try {
-//                                        root = miCargador.load();
-
-
-                        
-                                    JavaFXMLApplication.setRoot(Paginas.REGISTRO2);}),
-                new KeyFrame(Duration.seconds(1.5),
-                        event2 -> {
-                                    JavaFXMLApplication.setRoot(Paginas.INICIO);
-                                    
-                                 ;})
-        );
-        timeline.setCycleCount(1);
-        timeline.play();*/
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
     }
     
     private void showErrorMessage ( TextField field, String msg) {
@@ -231,4 +188,93 @@ public class FXMLModificarDatosController implements Initializable {
         });
         return formatter2;
     }
+
+    @FXML
+    private void cerrarMOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void modificarOnAction(ActionEvent event) {
+       
+       if (nombreTextField.textProperty().getValueSafe().isEmpty() || nombreTextField.textProperty().getValueSafe().isBlank()) showErrorMessage( nombreTextField, "Nombre vacío");
+       else hideErrorMessage(nombreTextField);
+       
+       if (apellidosTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( apellidosTextField, "Apellido vacío");
+       else hideErrorMessage(apellidosTextField);
+       
+       if (telefonoField.textProperty().getValueSafe().isEmpty()) showErrorMessage( telefonoField, "Teléfono vacío");
+       else hideErrorMessage(telefonoField);
+       
+       if (contrField.textProperty().getValueSafe().isEmpty()) showErrorMessage( contrField, "Contraseña vacía"); 
+       else if (!repContrField.getText().isEmpty())hideErrorMessage(contrField);
+       
+       if (repContrField.textProperty().getValueSafe().isEmpty()) { showErrorMessage( repContrField, "Las contraseñas no coinciden"); badInputLabel.setText("La contraseñas no coinciden!"); }
+       else hideErrorMessage(repContrField);
+       
+       if ( (numBancoField.textProperty().getValueSafe().isEmpty() && !  cvcField.textProperty().getValueSafe().isEmpty()) ||(!numBancoField.textProperty().getValueSafe().isEmpty() &&   cvcField.textProperty().getValueSafe().isEmpty()) ){
+           showErrorMessage( numBancoField,"Número vacío o CVC vacío" );
+           showErrorMessage( cvcField, "");
+
+       } else{
+           hideErrorMessage(numBancoField);
+           hideErrorMessage(cvcField);
+       }
+       
+       if(cvcField.getText().isEmpty() && numBancoField.getText().isEmpty()) cvcField.setText("0");
+       boolean b = nombreTextField.getText().isEmpty()
+               || apellidosTextField.getText().isEmpty()
+               || telefonoField.getText().isEmpty()
+               || contrField.getText().isEmpty()
+               || !contraseñasIguales;
+       if(!b) {
+            Alert a = new Alert(AlertType.CONFIRMATION);
+            startAlert(a);
+            a.setTitle("Confirmación");
+            a.setHeaderText("ATENCIÓN");
+            a.setContentText("¿Está seguro que desea modificar los datos de su cuenta?");
+            Optional<ButtonType> result = a.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK && !b) {
+                member.setName(nombreTextField.getText());
+                member.setSurname(apellidosTextField.getText());
+                member.setTelephone(telefonoField.getText());
+                member.setPassword(contrField.getText());
+                if (!member.getCreditCard().isEmpty()) {
+                    member.setCreditCard(numBancoField.getText());
+                    member.setSvc(Integer.parseInt(cvcField.getText()));
+                }
+                memberProperty.setValue(member);
+                nameLabel.setText(member.getName() + " " + member.getSurname());
+                repContrField.setText("");
+                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+            }
+       }
+        /* Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0),
+                        event2 -> { //FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
+//                                    Parent root = miCargador.getRoot();
+//                                    if (root == null) try {
+//                                        root = miCargador.load();
+
+
+                        
+                                    JavaFXMLApplication.setRoot(Paginas.REGISTRO2);}),
+                new KeyFrame(Duration.seconds(1.5),
+                        event2 -> {
+                                    JavaFXMLApplication.setRoot(Paginas.INICIO);
+                                    
+                                 ;})
+        );
+        timeline.setCycleCount(1);
+        timeline.play();*/
+    }
+    private void startAlert(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
+        dialogPane.getStyleClass().add("myAlert");
+    }
+
+    @FXML
+    private void elegirImagenOnAction(ActionEvent event) {
+    }
+    
 }

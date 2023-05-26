@@ -157,11 +157,10 @@ public class FXMLRegistroController implements Initializable {
         });
         return formatter2;
     }
+    
     @FXML
     private void backButtonOnAction(ActionEvent event) {
          JavaFXMLApplication.setRoot(Paginas.INICIO);
-        
-    
     }
     
     
@@ -259,6 +258,14 @@ public class FXMLRegistroController implements Initializable {
     
       
         
+    nameTextField.setText("");
+    nickTextField.setText("");
+    surnameTextField.setText("");
+    pwTextField.setText("");
+    repeatPwTextField.setText("");
+    tlfTextField.setText("");
+    cvcTextField.setText("");
+    creditCardTextField.setText("");
     
     }
    

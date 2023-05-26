@@ -99,7 +99,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color: #FCE5E0;
     -fx-border-color: red;
     -fx-border-radius: 5 5 5 5
-    
 }
 
 
@@ -174,4 +173,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-color: seagreen
 }
 
+#vBoxEncerrona {
+    -fx-border-radius: 5%;
+    -fx-border-color: seagreen; /*#e7cda7*/
+}
+
+#sobreVerde {
+    -fx-text-fill: black;
+}
 
