@@ -12,15 +12,19 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -152,6 +156,8 @@ public class FXMLPistaConcretaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        bReservar.setDisable(true);
+
         System.out.println("nPista: " + nPista);
 //        borderPane.widthProperty().addListener((observable, oldv, newv) -> {
 //            if (newv.intValue() > 1200) {
@@ -212,6 +218,7 @@ public class FXMLPistaConcretaController implements Initializable {
             member = (Member) newv;
             comboBox.promptTextProperty().setValue(member.getName() + " " + member.getSurname());
             System.out.println(member.getName() + " " + member.getSurname());
+
         });
 
         comboList = new ArrayList<String>();
@@ -243,7 +250,6 @@ public class FXMLPistaConcretaController implements Initializable {
 //               dibujoVBox.alignmentProperty().set(Pos.TOP_CENTER);
 //           }
 //        });
-
         horaCol.setCellValueFactory(cellData -> {
             CourtDayItem item = cellData.getValue();
             String hour = item.getFromTime().toString();
@@ -274,10 +280,18 @@ public class FXMLPistaConcretaController implements Initializable {
                 if (item == null || empty) {
                     setStyle("");
                 } else {
+
                     if (!item.getStatus()) {
                         setStyle("-fx-background-color: rgb(146, 199, 169);");
+                        setOpacity(1);
                     } else {
                         setStyle("");
+                    }
+                    if (item.isOldForDay()) {
+                        setOpacity(0.7);
+                        setStyle("-fx-background-color: lightgrey;"
+                                + "-fx-text-fill: white");
+
                     }
                 }
             }
@@ -285,15 +299,15 @@ public class FXMLPistaConcretaController implements Initializable {
         });
 
         l = FXCollections.observableArrayList();
-        
-         WeekFields weekFields = WeekFields.of(Locale.getDefault());
+
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
         datePicker.valueProperty().addListener((ob, oldv, newv) -> {
             int numDayNow = newv.get(weekFields.dayOfWeek());
             int month = newv.getMonthValue();
             dayLabel.textProperty().setValue("Pistas disponibles a " + diaDeLaSemana[numDayNow] + ", " + newv.getDayOfMonth() + " de " + mesDelAño[month] + " del " + newv.getYear());
         });
-        
-                datePicker.valueProperty().setValue(LocalDate.now());
+
+        datePicker.valueProperty().setValue(LocalDate.now());
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateTableView(newValue);
@@ -309,15 +323,13 @@ public class FXMLPistaConcretaController implements Initializable {
                 }
             };
         });
-       
-
 
         pistaTableView.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
             if (newv == null) {
                 bReservar.disableProperty().setValue(true);
                 return;
             }
-            if (newv.getStatus() == CourtDayItem.OCUPADO) {
+            if (newv.getStatus() == CourtDayItem.OCUPADO || memberProperty.getValue() == null || newv.isOldForDay()) {
                 bReservar.disableProperty().setValue(true);
             } else {
                 bReservar.disableProperty().setValue(false);
@@ -329,7 +341,9 @@ public class FXMLPistaConcretaController implements Initializable {
         userCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.399));
 
         comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
-            if (newv == null) return;
+            if (newv == null) {
+                return;
+            }
             if (newv.equals("Cerrar sesión")) {
                 FXMLAutenticacionController.cerrarSesion();
 
@@ -339,6 +353,8 @@ public class FXMLPistaConcretaController implements Initializable {
 
         });
 
+//        Set userBookings = Set.copyOf(club.getUserBookings(member.getNickName()));
+//        Set dayBookings = Set.copyOf(club.getCourtBookings("Pista " + nPista,datePicker.getValue()));
     }
 
     @FXML
@@ -404,24 +420,31 @@ public class FXMLPistaConcretaController implements Initializable {
         checkAvaliability();
         try {
             club.registerBooking(diaYHora, dia, time, paid, court, member);
+            JavaFXMLApplication.updatedProperty().setValue(true);
 
         } catch (ClubDAOException ex) {
             Logger.getLogger(FXMLPistaConcretaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         updateTableView(dia);
+        JavaFXMLApplication.updatedProperty().setValue(false);
 
     }
 
     private void checkAvaliability() {
         l.forEach(elementObs -> {
             LocalDateTime t = elementObs.getMadeForDay().atTime(elementObs.getFromTime());
+            if (elementObs.getFromTime().compareTo(LocalTime.now().plusHours(1)) < 0 && elementObs.statusProperty().getValue() != CourtDayItem.OCUPADO) {
+                elementObs.setOldForDay(true);
+            }
+
             list.forEach(e -> {
 //                System.out.println(t);
 //                System.out.println("System booking: " + e.getBookingDate());
                 if (t.equals(e.getMadeForDay().atTime(e.getFromTime())) && court.equals(e.getCourt())) {
                     elementObs.setStatus(CourtDayItem.OCUPADO);
                     elementObs.setUser(e.getMember());
+
                 }
             });
 

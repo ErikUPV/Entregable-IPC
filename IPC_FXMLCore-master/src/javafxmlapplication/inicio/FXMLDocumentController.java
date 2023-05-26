@@ -114,7 +114,7 @@ public class FXMLDocumentController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
-        JavaFXMLApplication.setRoot(Paginas.PISTAS_INVITADO);
+        JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 
 }

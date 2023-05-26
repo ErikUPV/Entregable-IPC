@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -63,7 +64,7 @@ public class FXMLEspacioPersonalController implements Initializable {
     private Button misReservas;
     @FXML
     private Button modificarPerfil;
-    
+
     private Club club;
     private AnchorPane cambioAnchorPane;
     @FXML
@@ -83,9 +84,9 @@ public class FXMLEspacioPersonalController implements Initializable {
     private TableColumn<Booking, String> col5;
     @FXML
     private TableColumn<Booking, String> col6;
-    
+
     private ObservableList<Booking> reservaObsList;
-    
+
     private List<Booking> reservaList;
     @FXML
     private Label nicknameLabel;
@@ -110,8 +111,6 @@ public class FXMLEspacioPersonalController implements Initializable {
      *
      * @param url
      */
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         memberProperty = FXMLAutenticacionController.memberProperty();
@@ -120,10 +119,16 @@ public class FXMLEspacioPersonalController implements Initializable {
             profilePicture.setImage(member.getImage());
             nameLabel.setText(member.getName() + " " + member.getSurname());
             nicknameLabel.setText(member.getNickName());
-            reservaList = club.getUserBookings(member.getNickName());
+            reservaList = new ArrayList<>();
             reservaObsList = FXCollections.observableList(reservaList);
+            reservaObsList.addAll(club.getUserBookings(member.getNickName()));
             reservasT.setItems(reservaObsList);
 
+        });
+        
+        
+        JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
+            reservaObsList.addAll(club.getUserBookings(member.getNickName()));
         });
         System.out.println("hy");
 
@@ -132,7 +137,6 @@ public class FXMLEspacioPersonalController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
         col1.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
         col2.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
@@ -172,39 +176,42 @@ public class FXMLEspacioPersonalController implements Initializable {
         //reservasT.prefHeightProperty().bind(cambioAnchorPane.heightProperty());
         col1.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
-            String day = item.getBookingDate().toString();
+            String day = item.getBookingDate().toLocalDate().toString();
             return new SimpleStringProperty(day);
         });
-        
+
         col2.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
             String hourF = item.getFromTime().toString();
             return new SimpleStringProperty(hourF);
         });
-        
+
         col3.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
             String hourT = item.getFromTime().plusHours(1).toString();
             return new SimpleStringProperty(hourT);
         });
-        
+
         col4.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
-            String pista = item.getCourt().toString();
+            String pista = item.getCourt().getName().substring(5);
             return new SimpleStringProperty(pista);
         });
-        
+
         col5.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
             String pagado = item.getPaid().toString();
             return new SimpleStringProperty(pagado);
         });
-        
+
         col6.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
             String cancelar;
-            if (LocalDateTime.now().compareTo(item.getMadeForDay().atTime(item.getFromTime()).minusHours(24))<0){
-                cancelar = "SI";} else {cancelar = "NO";}
+            if (LocalDateTime.now().compareTo(item.getMadeForDay().atTime(item.getFromTime()).minusHours(24)) < 0) {
+                cancelar = "SI";
+            } else {
+                cancelar = "NO";
+            }
             return new SimpleStringProperty(cancelar);
         });
         //modificar pa image
@@ -216,8 +223,8 @@ public class FXMLEspacioPersonalController implements Initializable {
 //            return new SimpleStringProperty(cancelar);
 //        });
         // 
-        
-    }    
+
+    }
 
     @FXML
     private void backButtonOnAction(ActionEvent event) throws IOException {
@@ -268,13 +275,14 @@ public class FXMLEspacioPersonalController implements Initializable {
 
     @FXML
     private void cancelarButtonOnAction(ActionEvent event) {
-       
-       
+
     }
 
     @FXML
     private void cerrarSOnAction(ActionEvent event) {
         cerrarSesion();
     }
+
+    
 
 }

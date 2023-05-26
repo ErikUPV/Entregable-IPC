@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +30,10 @@ public class JavaFXMLApplication extends Application {
     
     private static Member member;
     
+    private static BooleanProperty updated;
+
+    
+    
     public static Member getLoggedMember() {
         return member;
     }
@@ -41,6 +47,8 @@ public class JavaFXMLApplication extends Application {
         
     }
     
+    
+    
   
     public static void setRoot(Paginas clave){
         scene.setRoot(roots.get(clave));
@@ -51,8 +59,10 @@ public class JavaFXMLApplication extends Application {
         club.setInitialData();
         club.addSimpleData();
         
+        updated = new SimpleBooleanProperty(false);
         
         
+       
         System.out.println();
         //======================================================================
         Parent root;
@@ -119,6 +129,10 @@ public class JavaFXMLApplication extends Application {
     public static void main(String[] args) {
         launch(args);
         
+    }
+    
+    public static BooleanProperty updatedProperty(){
+        return updated;
     }
 
 
