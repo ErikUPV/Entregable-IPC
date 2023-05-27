@@ -95,7 +95,7 @@ public class FXMLAutenticacionController implements Initializable {
     @FXML
     private void loginButtonOnAction(ActionEvent event) throws InterruptedException, IOException {
         try {
-            member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
+             member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
 
             if (member != null) {
                 System.out.println("login exitoso");

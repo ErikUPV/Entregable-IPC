@@ -2,11 +2,19 @@ package javafxmlapplication.espacio_personal;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 
 import javafx.collections.ObservableList;
 
@@ -20,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +42,7 @@ import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import static javafxmlapplication.autenticacion.FXMLAutenticacionController.cerrarSesion;
+import javafxmlapplication.pistas.CourtDayItem;
 import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.*;
 
@@ -60,21 +70,26 @@ public class FXMLEspacioPersonalController implements Initializable {
     private Club club;
     private AnchorPane cambioAnchorPane;
     @FXML
-    private TableView<?> reservasT;
+    private TableView<Booking> reservasT;
     @FXML
     private VBox cambioVBOX;
+    private String imagenPath;
     @FXML
-    private TableColumn<?, ?> col1;
+    private TableColumn<Booking, String> col1;
     @FXML
-    private TableColumn<?, ?> col2;
+    private TableColumn<Booking, String> col2;
     @FXML
-    private TableColumn<?, ?> col3;
+    private TableColumn<Booking, String> col3;
     @FXML
-    private TableColumn<?, ?> col4;
+    private TableColumn<Booking, String> col4;
     @FXML
-    private TableColumn<?, ?> col5;
+    private TableColumn<Booking, String> col5;
     @FXML
-    private TableColumn<?, ?> col6;
+    private TableColumn<Booking, String> col6;
+
+    private ObservableList<Booking> reservaObsList;
+
+    private List<Booking> reservaList;
     @FXML
     private Label nicknameLabel;
 
@@ -106,7 +121,26 @@ public class FXMLEspacioPersonalController implements Initializable {
             profilePicture.setImage(member.getImage());
             nameLabel.setText(member.getName() + " " + member.getSurname());
             nicknameLabel.setText(member.getNickName());
+            reservaList = new ArrayList<>();
+            reservaObsList = FXCollections.observableList(reservaList);
+            reservaObsList.addAll(club.getUserBookings(member.getNickName()));
+            reservasT.setItems(reservaObsList);
 
+        });
+        
+        
+        JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
+           if (newv) {
+               
+               List<Booking> aux = club.getUserBookings(member.getNickName());
+                
+            
+            for (Booking b : aux) {
+                if (reservaObsList.indexOf(b) == -1) {
+                    reservaObsList.add(b);
+                }
+            }
+           }
         });
         System.out.println("hy");
 
@@ -115,7 +149,6 @@ public class FXMLEspacioPersonalController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
         col1.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
         col2.maxWidthProperty().bind(reservasT.widthProperty().multiply(.13));
@@ -153,6 +186,56 @@ public class FXMLEspacioPersonalController implements Initializable {
         // Establecer la propiedad de ancho y alto del TableView para que se redimensione con el AnchorPane
         //reservasT.prefWidthProperty().bind(cambioAnchorPane.widthProperty());
         //reservasT.prefHeightProperty().bind(cambioAnchorPane.heightProperty());
+        col1.setCellValueFactory(cellData -> {
+            Booking item = cellData.getValue();
+            String day = item.getBookingDate().toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            return new SimpleStringProperty(day);
+        });
+
+        col2.setCellValueFactory(cellData -> {
+            Booking item = cellData.getValue();
+            String hourF = item.getFromTime().toString();
+            return new SimpleStringProperty(hourF);
+        });
+
+        col3.setCellValueFactory(cellData -> {
+            Booking item = cellData.getValue();
+            String hourT = item.getFromTime().plusHours(1).toString();
+            return new SimpleStringProperty(hourT);
+        });
+
+        col4.setCellValueFactory(cellData -> {
+            Booking item = cellData.getValue();
+            String pista = item.getCourt().getName().substring(5);
+            return new SimpleStringProperty(pista);
+        });
+
+        col5.setCellValueFactory(cellData -> {
+            Booking item = cellData.getValue();
+            String pagado = item.getPaid() ? "SI" : "NO";
+            return new SimpleStringProperty(pagado);
+        });
+
+        col6.setCellValueFactory(cellData -> {
+            Booking item = cellData.getValue();
+            String cancelar;
+            if (LocalDateTime.now().compareTo(item.getMadeForDay().atTime(item.getFromTime()).minusHours(24)) < 0) {
+                cancelar = "SI";
+            } else {
+                cancelar = "NO";
+            }
+            return new SimpleStringProperty(cancelar);
+        });
+        //modificar pa image
+//        col6.setCellValueFactory(cellData -> {
+//            Booking item = cellData.getValue();
+//            String cancelar;
+//            if (LocalDateTime.now().compareTo(item.getMadeForDay().atTime(item.getFromTime()).minusHours(24))<0){
+//                cancelar = "SI";} else {cancelar = "NO";}
+//            return new SimpleStringProperty(cancelar);
+//        });
+        // 
+
     }
 
     @FXML
@@ -204,13 +287,14 @@ public class FXMLEspacioPersonalController implements Initializable {
 
     @FXML
     private void cancelarButtonOnAction(ActionEvent event) {
-       
-       
+
     }
 
     @FXML
     private void cerrarSOnAction(ActionEvent event) {
         cerrarSesion();
     }
+
+    
 
 }

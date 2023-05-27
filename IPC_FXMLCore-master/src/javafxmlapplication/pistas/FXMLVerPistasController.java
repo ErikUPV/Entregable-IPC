@@ -6,6 +6,7 @@ package javafxmlapplication.pistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -20,6 +21,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -77,8 +80,36 @@ public class FXMLVerPistasController implements Initializable {
     @FXML
     private ImageView iv6;
 
+    @FXML
     private Button volverPista;
-
+    @FXML
+    private Button pista1B;
+    @FXML
+    private Button pista2B;
+    @FXML
+    private Button pista3B;
+    @FXML
+    private Button pista4B;
+    @FXML
+    private Button pista5B;
+    @FXML
+    private Button pista6B;
+      @FXML
+    private ComboBox<?> comboBox;
+    @FXML
+    private Label disp1;
+    @FXML
+    private Label disp2;
+    @FXML
+    private Label disp3;
+    @FXML
+    private Label disp4;
+    @FXML
+    private Label disp5;
+    @FXML
+    private Label disp6;
+    @FXML
+    private Button buscarUserButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,7 +120,7 @@ public class FXMLVerPistasController implements Initializable {
         });
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
-        
+
         mainGridPane.minHeightProperty().bind(mainVBox.heightProperty().multiply(0.8));
 
         numPista = new SimpleIntegerProperty();
@@ -100,15 +131,27 @@ public class FXMLVerPistasController implements Initializable {
             Logger.getLogger(FXMLVerPistasController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        iv1.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv2.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv3.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv4.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv5.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        iv6.fitWidthProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+
         iv1.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv2.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv3.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv4.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv5.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+
+       
         
-     
+        
+        
+
     }
+
     @FXML
     private void pista1ButtonOnAction(ActionEvent event) throws IOException {
 //        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
@@ -193,6 +236,10 @@ public class FXMLVerPistasController implements Initializable {
 //            root = miCargador.load();
 //        }
         JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+    }
+
+    @FXML
+    private void buscarUserButtonOnAction(ActionEvent event) {
     }
 
 }

@@ -24,6 +24,8 @@ public class CourtDayItem {
     private boolean status;
     private BooleanProperty statusProperty;
     private Member user;
+    private boolean oldForDay;
+    private BooleanProperty oldForDayProperty;
     
     public CourtDayItem(LocalDate date, LocalTime time, boolean st) {
         madeForDay = date;
@@ -31,6 +33,16 @@ public class CourtDayItem {
         status = st;
         statusProperty = new SimpleBooleanProperty(status);
         user = null;
+        oldForDay = false;
+        oldForDayProperty = new SimpleBooleanProperty(oldForDay);
+    }
+
+    public void setOldForDay(boolean oldForDay) {
+        this.oldForDay = oldForDay;
+    }
+
+    public boolean isOldForDay() {
+        return oldForDay;
     }
 
     public LocalDate getMadeForDay() {
@@ -52,6 +64,11 @@ public class CourtDayItem {
     public BooleanProperty statusProperty() {
         return statusProperty;
     }
+    
+    public BooleanProperty oldForDayProperty() {
+        return oldForDayProperty;
+    }
+    
     
     public void setUser(Member member) {
         user = member;
