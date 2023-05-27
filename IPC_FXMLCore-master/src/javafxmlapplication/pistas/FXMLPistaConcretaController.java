@@ -100,7 +100,7 @@ public class FXMLPistaConcretaController implements Initializable {
     @FXML
     private TableColumn<CourtDayItem, String> estadoCol;
 
-    private ObservableList<CourtDayItem> l;
+    private ObservableList<CourtDayItem> courtDayItemList;
 
     private List<Booking> list;
 
@@ -122,6 +122,8 @@ public class FXMLPistaConcretaController implements Initializable {
     private Button volverPista;
     @FXML
     private VBox tableViewVBox;
+
+    private List<Booking> bookingList;
 
     /**
      * Initializes the controller class.
@@ -219,6 +221,12 @@ public class FXMLPistaConcretaController implements Initializable {
             comboBox.promptTextProperty().setValue(member.getName() + " " + member.getSurname());
             System.out.println(member.getName() + " " + member.getSurname());
 
+            bookingList = new ArrayList<>(club.getUserBookings(member.getNickName()));
+            Collections.sort(bookingList);
+            for (Booking b : bookingList) {
+                System.out.println(b.getMadeForDay() + " a las " + b.getFromTime());
+            }
+
         });
 
         comboList = new ArrayList<String>();
@@ -289,8 +297,10 @@ public class FXMLPistaConcretaController implements Initializable {
                     }
                     if (item.isOldForDay()) {
                         setOpacity(0.7);
-                        setStyle("-fx-background-color: lightgrey;"
-                                + "-fx-text-fill: white");
+                        if (getStyle().isEmpty()) {
+                            setStyle("-fx-background-color: lightgrey;"
+                                    + "-fx-text-fill: white");
+                        }
 
                     }
                 }
@@ -298,7 +308,7 @@ public class FXMLPistaConcretaController implements Initializable {
 
         });
 
-        l = FXCollections.observableArrayList();
+        courtDayItemList = FXCollections.observableArrayList();
 
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         datePicker.valueProperty().addListener((ob, oldv, newv) -> {
@@ -311,6 +321,7 @@ public class FXMLPistaConcretaController implements Initializable {
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateTableView(newValue);
+            noDosRepetidas(false);
         });
 
         datePicker.setDayCellFactory((DatePicker picker) -> {
@@ -329,11 +340,13 @@ public class FXMLPistaConcretaController implements Initializable {
                 bReservar.disableProperty().setValue(true);
                 return;
             }
+
             if (newv.getStatus() == CourtDayItem.OCUPADO || memberProperty.getValue() == null || newv.isOldForDay()) {
                 bReservar.disableProperty().setValue(true);
             } else {
                 bReservar.disableProperty().setValue(false);
             }
+
         });
 
         horaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.2));
@@ -377,14 +390,73 @@ public class FXMLPistaConcretaController implements Initializable {
             filteredData.add(new CourtDayItem(selectedDate, LocalTime.of(b + i, 0), CourtDayItem.LIBRE));
 
         }
-        l = FXCollections.observableArrayList(filteredData);
+        courtDayItemList = FXCollections.observableArrayList(filteredData);
         checkAvaliability();
-        pistaTableView.setItems(filteredData);
+        pistaTableView.setItems(courtDayItemList);
 
     }
 
     @FXML
     private void reservarButtonOnAction(ActionEvent event) {
+
+        CourtDayItem aReservar = pistaTableView.getSelectionModel().getSelectedItem();
+        int indexOf = courtDayItemList.indexOf(aReservar);
+        System.out.println("Index of: " + indexOf);
+
+        if (indexOf >= 1 && indexOf <= courtDayItemList.size() - 2) {
+            CourtDayItem elDeAntes = courtDayItemList.get(indexOf - 1);
+            CourtDayItem elDeDespues = courtDayItemList.get(indexOf + 1);
+            if (!elDeAntes.getStatus() && !elDeDespues.getStatus() && (elDeAntes.getUser().equals(member) && elDeDespues.getUser().equals(member))) {
+                Alert alerta = new Alert(AlertType.ERROR);
+                startAlert(alerta);
+                alerta.setTitle("Error en la reserva");
+                alerta.setHeaderText("No puede reservar 3 seguidas, intercaladas");
+                alerta.setContentText("Debido a que ya ha reservado dos pistas seguidas, no puede seguir reservando hoy");
+                alerta.showAndWait();
+                return;
+            }
+
+        }
+
+        
+
+        if (indexOf >= 2) {
+            CourtDayItem elDeAntes = courtDayItemList.get(indexOf - 1);
+
+            CourtDayItem elDeAntes2 = courtDayItemList.get(indexOf - 2);
+
+            
+            if ((!elDeAntes.getStatus() && !elDeAntes2.getStatus())) {
+                if ((elDeAntes.getUser().equals(member) && elDeAntes2.getUser().equals(member))){
+                Alert alerta = new Alert(AlertType.ERROR);
+                startAlert(alerta);
+                alerta.setTitle("Error en la reserva");
+                alerta.setHeaderText("No puede reservar 3 seguidas, ya tiene 2");
+                alerta.setContentText("Debido a que ya ha reservado dos pistas seguidas, no puede seguir reservando hoy");
+                alerta.showAndWait();
+                return;
+                }
+            }
+
+        }
+
+        if (indexOf < courtDayItemList.size() - 2) {
+            CourtDayItem elDeDespues = courtDayItemList.get(indexOf + 1);
+
+            CourtDayItem elDeDespues2 = courtDayItemList.get(indexOf + 2);
+            if ((!elDeDespues.getStatus() && !elDeDespues2.getStatus())) {
+                if ((elDeDespues.getUser().equals(member) && elDeDespues2.getUser().equals(member))) {
+                    Alert alerta = new Alert(AlertType.ERROR);
+                    startAlert(alerta);
+                    alerta.setTitle("Error en la reserva");
+                    alerta.setHeaderText("No puede reservar 3 seguidas, ya tiene 2");
+                    alerta.setContentText("Debido a que ya ha reservado dos pistas seguidas, no puede seguir reservando hoy");
+                    alerta.showAndWait();
+                    return;
+                }
+            }
+
+        }
 
         Alert alert = new Alert(AlertType.CONFIRMATION);
         startAlert(alert);
@@ -402,7 +474,7 @@ public class FXMLPistaConcretaController implements Initializable {
         if (!quiereReservar) {
             return;
         }
-        CourtDayItem aReservar = pistaTableView.getSelectionModel().getSelectedItem();
+
         LocalDate dia = aReservar.getMadeForDay();
         System.out.println("Dia: " + dia);
         LocalTime time = aReservar.getFromTime();
@@ -432,11 +504,11 @@ public class FXMLPistaConcretaController implements Initializable {
     }
 
     private void checkAvaliability() {
-        l.forEach(elementObs -> {
+        courtDayItemList.forEach(elementObs -> {
             LocalDateTime t = elementObs.getMadeForDay().atTime(elementObs.getFromTime());
-            if (elementObs.getFromTime().compareTo(LocalTime.now().plusHours(1)) < 0 && elementObs.statusProperty().getValue() != CourtDayItem.OCUPADO) {
-                elementObs.setOldForDay(true);
-            }
+//            if (elementObs.getFromTime().compareTo(LocalTime.now().plusHours(1)) < 0 && elementObs.statusProperty().getValue() != CourtDayItem.OCUPADO) {
+//                elementObs.setOldForDay(true);
+//            }
 
             list.forEach(e -> {
 //                System.out.println(t);
@@ -459,6 +531,38 @@ public class FXMLPistaConcretaController implements Initializable {
         dialogPane.getStyleClass().add("myAlert");
     }
 
+    private boolean noDosRepetidas(boolean showAlert) {
+        bookingList = new ArrayList<>(club.getUserBookings(member.getNickName()));
+        Collections.sort(bookingList);
+        if (bookingList.size() >= 2) {
+            for (int i = 0; i < bookingList.size(); i++) {
+                try {
+                    if (bookingList.get(i).getFromTime().equals(bookingList.get(i + 1).getFromTime().minusHours(1)) && bookingList.get(i).getMadeForDay().equals(datePicker.valueProperty().getValue())) {
+
+                        if (showAlert) {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            startAlert(alert);
+                            alert.setTitle("Error en la reserva");
+                            alert.setHeaderText("Máximo de reservas alcanzado");
+                            alert.setContentText("Debido a que ya ha reservado dos pistas seguidas, no puede seguir reservando hoy");
+                            alert.showAndWait();
+                            return true;
+                        }
+
+                    } else {
+                        bReservar.disableProperty().setValue(false);
+                        bReservar.setText("Reservar");
+                        pistaTableView.disableProperty().setValue(false);
+
+                    }
+                } catch (IndexOutOfBoundsException e) {
+
+                }
+            }
+        }
+        return false;
+    }
+
 }
 
 class ComboListCell<String> extends ListCell<String> {
@@ -468,9 +572,11 @@ class ComboListCell<String> extends ListCell<String> {
 
         if (empty || s == null) {
             setText(null);
+            setStyle("-fx-underline: true");
+
         } else {
             setText(s.toString());
-            setStyle("-fx-underline: true;");
+            setStyle("");
         }
     }
 }

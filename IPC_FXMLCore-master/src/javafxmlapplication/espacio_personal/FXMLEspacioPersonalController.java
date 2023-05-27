@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -128,7 +130,17 @@ public class FXMLEspacioPersonalController implements Initializable {
         
         
         JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
-            reservaObsList.addAll(club.getUserBookings(member.getNickName()));
+           if (newv) {
+               
+               List<Booking> aux = club.getUserBookings(member.getNickName());
+                
+            
+            for (Booking b : aux) {
+                if (reservaObsList.indexOf(b) == -1) {
+                    reservaObsList.add(b);
+                }
+            }
+           }
         });
         System.out.println("hy");
 
@@ -176,7 +188,7 @@ public class FXMLEspacioPersonalController implements Initializable {
         //reservasT.prefHeightProperty().bind(cambioAnchorPane.heightProperty());
         col1.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
-            String day = item.getBookingDate().toLocalDate().toString();
+            String day = item.getBookingDate().toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             return new SimpleStringProperty(day);
         });
 
@@ -200,7 +212,7 @@ public class FXMLEspacioPersonalController implements Initializable {
 
         col5.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
-            String pagado = item.getPaid().toString();
+            String pagado = item.getPaid() ? "SI" : "NO";
             return new SimpleStringProperty(pagado);
         });
 
