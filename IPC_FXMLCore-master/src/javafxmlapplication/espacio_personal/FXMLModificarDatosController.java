@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafxmlapplication.JavaFXMLApplication;
@@ -55,8 +56,6 @@ public class FXMLModificarDatosController implements Initializable {
     private Button modificarPerfil;
     @FXML
     private Label nameLabel;
-    @FXML
-    private VBox cambioVBOX;
     private Club club;
     private Member member;
     @FXML
@@ -81,6 +80,8 @@ public class FXMLModificarDatosController implements Initializable {
     private boolean contraseñasIguales;
     @FXML
     private Button cerrar;
+    @FXML
+    private VBox cambioVBOX;
     @FXML
     private Button modificar;
     /**
@@ -276,5 +277,6 @@ public class FXMLModificarDatosController implements Initializable {
     @FXML
     private void elegirImagenOnAction(ActionEvent event) {
     }
+
     
 }

@@ -182,3 +182,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-text-fill: black;
 }
 
+#linkButton {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-underline: true;
+    -fx-text-fill: seagreen;
+}
