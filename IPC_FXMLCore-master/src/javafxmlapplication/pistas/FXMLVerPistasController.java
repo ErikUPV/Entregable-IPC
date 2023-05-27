@@ -94,9 +94,7 @@ public class FXMLVerPistasController implements Initializable {
     private Button pista5B;
     @FXML
     private Button pista6B;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
+      @FXML
     private ComboBox<?> comboBox;
     @FXML
     private Label disp1;
@@ -110,6 +108,8 @@ public class FXMLVerPistasController implements Initializable {
     private Label disp5;
     @FXML
     private Label disp6;
+    @FXML
+    private Button buscarUserButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -147,11 +147,8 @@ public class FXMLVerPistasController implements Initializable {
 
        
         
-        datePicker.valueProperty().addListener((ob, oldv, newv) -> {
-            disp1.setText("Disponibles: " + club.getBookingSlots());
-        });
         
-        datePicker.valueProperty().setValue(LocalDate.now());
+        
 
     }
 
@@ -239,6 +236,10 @@ public class FXMLVerPistasController implements Initializable {
 //            root = miCargador.load();
 //        }
         JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+    }
+
+    @FXML
+    private void buscarUserButtonOnAction(ActionEvent event) {
     }
 
 }

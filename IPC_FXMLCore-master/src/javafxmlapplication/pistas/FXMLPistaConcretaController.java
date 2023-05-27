@@ -572,9 +572,11 @@ class ComboListCell<String> extends ListCell<String> {
 
         if (empty || s == null) {
             setText(null);
+            setStyle("-fx-underline: true");
+
         } else {
             setText(s.toString());
-            setStyle("-fx-underline: true;");
+            setStyle("");
         }
     }
 }
