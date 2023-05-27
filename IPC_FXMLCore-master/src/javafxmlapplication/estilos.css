@@ -178,6 +178,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .combo-box{
 }
 
+#linkButton {
+    -fx-background-color: transparent;
+    -fx-underline: true;
+    -fx-text-fill: seagreen;
+}
 
 
 

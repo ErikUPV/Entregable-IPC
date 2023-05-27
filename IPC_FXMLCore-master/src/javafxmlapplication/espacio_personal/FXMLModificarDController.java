@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -43,6 +44,8 @@ public class FXMLModificarDController implements Initializable {
     private Label badInputLabel;
     @FXML
     private Button modificar;
+    @FXML
+    private Pane paneModif;
 
     /**
      * Initializes the controller class.

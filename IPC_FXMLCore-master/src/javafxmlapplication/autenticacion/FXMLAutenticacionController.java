@@ -51,11 +51,11 @@ public class FXMLAutenticacionController implements Initializable {
 
     private static Member member;
     @FXML
-    private Label debugLabel;
-    @FXML
     private ColumnConstraints columnaPrincipal;
 
     private static ObjectProperty memberProperty;
+    @FXML
+    private Label debugLabel;
 
     /**
      * Initializes the controller class.
@@ -75,7 +75,7 @@ public class FXMLAutenticacionController implements Initializable {
             System.err.println("Error hallado: " + e);
         }
 
-        debugLabel.setText("" + club.getCourts().toString());
+        //debugLabel.setText("" + club.getCourts().toString());
 
         // TODO
         columnaPrincipal.minWidthProperty().set(400);
@@ -99,7 +99,7 @@ public class FXMLAutenticacionController implements Initializable {
 
             if (member != null) {
                 System.out.println("login exitoso");
-                debugLabel.textProperty().set("Bienvenido " + member.getNickName());
+                //debugLabel.textProperty().set("Bienvenido " + member.getNickName());
 
 //                FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
 //                FXMLEspacioPersonalController controlador = miCargador.getController();
@@ -115,7 +115,7 @@ public class FXMLAutenticacionController implements Initializable {
 
             }
         } catch (NullPointerException e) {
-            debugLabel.setText("Por favor introduzca unas credenciales válidas");
+            //debugLabel.setText("Por favor introduzca unas credenciales válidas");
         }
     }
 

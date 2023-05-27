@@ -84,7 +84,7 @@ public class FXMLEspacioPController implements Initializable {
     @FXML
     private void modificarPerfilOnAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarD.fxml"));
-        paneEscena = (Pane) loader.load();
+        
     }
 
     @FXML
