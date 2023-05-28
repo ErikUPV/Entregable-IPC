@@ -16,6 +16,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.*;
@@ -85,21 +87,12 @@ public class JavaFXMLApplication extends Application {
         loader = new FXMLLoader(getClass().getResource("pistas/FXMLVerPistas.fxml"));
         root = loader.load();
         roots.put(Paginas.PISTAS, root);
-        loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLEspacioPersonal.fxml"));
-        root = loader.load();
-        roots.put(Paginas.ESPACIO_PERSONAL, root);
         loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLEspacioP.fxml"));
         root = loader.load();
         roots.put(Paginas.ESPACIO_P, root);
-        loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarD.fxml"));
-        root = loader.load();
-        roots.put(Paginas.MODIFICAR_D, root);
         loader = new FXMLLoader(getClass().getResource("inicio2/FXMLDocument.fxml"));
         root = loader.load();
         roots.put(Paginas.INICIO2, root);
-        loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarDatos.fxml"));
-        root = loader.load();
-        roots.put(Paginas.MODIFICAR_DATOS, root);
         loader = new FXMLLoader(getClass().getResource("pistas/FXMLPistaConcreta.fxml"));
         root = loader.load();
         roots.put(Paginas.PISTA_CONCRETA, root);
@@ -108,6 +101,7 @@ public class JavaFXMLApplication extends Application {
         roots.put(Paginas.BUSQUEDA_USUARIO, root);
      
    
+
         
         scene = new Scene(root);
         
@@ -139,7 +133,12 @@ public class JavaFXMLApplication extends Application {
         return updated;
     }
 
-    
+
+    public static void borrarTextField(TextField... textFill) {
+        for(TextField t : textFill) {
+            t.setText("");
+        }
+    }
 
     
 }

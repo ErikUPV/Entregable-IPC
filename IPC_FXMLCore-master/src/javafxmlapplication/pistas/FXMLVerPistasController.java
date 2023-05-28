@@ -42,7 +42,6 @@ import javafx.util.Duration;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
-import javafxmlapplication.espacio_personal.FXMLEspacioPersonalController;
 import model.*;
 
 /**
