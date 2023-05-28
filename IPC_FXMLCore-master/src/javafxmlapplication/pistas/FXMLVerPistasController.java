@@ -79,8 +79,7 @@ public class FXMLVerPistasController implements Initializable {
     @FXML
     private ImageView iv6;
 
-    @FXML
-    private Button volverPista;
+  
     @FXML
     private Button pista1B;
     @FXML
@@ -236,9 +235,7 @@ public class FXMLVerPistasController implements Initializable {
 //        }
         if (member == null){
             JavaFXMLApplication.setRoot(Paginas.INICIO);
-
-        } else {JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-} 
+        } else {JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);} 
     }
 
     @FXML
