@@ -94,6 +94,7 @@ public class FXMLEspacioPController implements Initializable {
 
     @FXML
     private void backButtonOnAction(ActionEvent event) {
+        JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
 
     @FXML
