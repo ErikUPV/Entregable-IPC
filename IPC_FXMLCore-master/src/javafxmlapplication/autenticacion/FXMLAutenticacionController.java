@@ -68,7 +68,7 @@ public class FXMLAutenticacionController implements Initializable {
             club = Club.getInstance();
             File f = new File("src/javafxmlapplication/imagenes/home.png");
             Image i = new Image(f.toURI().toString());
-            club.registerMember("nombre", "apellido", "999999999", "admin", "admin", "51555555555", 333, i);
+            club.registerMember("ferndando", "alonso diaz", "999999999", "admin", "admin", "1234567890123456", 333, i);
             userTextField.setText("admin");
             passwordField.setText("admin");
         } catch (ClubDAOException | IOException e) {
