@@ -2,9 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -181,9 +180,39 @@
    <top>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="800.0" styleClass="tool-bar" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="271.0" HBox.hgrow="ALWAYS">
+            <GridPane maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints hgrow="NEVER" maxWidth="183.59996337890624" minWidth="10.0" prefWidth="41.400001525878906" />
+                  <ColumnConstraints fx:id="col2" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="219.79997863769532" />
+                  <ColumnConstraints hgrow="NEVER" maxWidth="374.40000610351564" minWidth="10.0" prefWidth="282.39996337890625" />
+                  <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="118.39999999999998" />
+                  <ColumnConstraints hgrow="ALWAYS" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <Button fx:id="volverPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="209.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="136.0" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="5">
+                     <children>
+                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="111.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ChoiceBox fx:id="comboBox" prefWidth="150.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <Button fx:id="volverPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -195,20 +224,9 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Button>
+                  <Button fx:id="buscarUserButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buscarUserButtonOnAction" prefHeight="29.0" prefWidth="223.0" text="Buscar reservas de otro usuario" GridPane.columnIndex="3" />
                </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="5.0">
-               <children>
-                  <Label prefHeight="18.0" prefWidth="154.0" text="Buscar reservas por nick:" />
-                  <TextField promptText="Nickname..." />
-                  <Button fx:id="buscarUserButton" mnemonicParsing="false" onAction="#buscarUserButtonOnAction" prefHeight="27.0" prefWidth="79.0" text="Buscar" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="294.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <ComboBox fx:id="comboBox" prefWidth="150.0" promptText="efdf" styleClass="button" />
-               </children>
-            </HBox>
+            </GridPane>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

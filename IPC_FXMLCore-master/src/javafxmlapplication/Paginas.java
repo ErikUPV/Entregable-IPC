@@ -21,7 +21,8 @@ public enum Paginas {
     PISTAS_INVITADO, 
     PISTA_CONCRETA_INVITADO,
     ESPACIO_P,
-    MODIFICAR_D
+    MODIFICAR_D,
+    BUSQUEDA_USUARIO
     
     
 }
