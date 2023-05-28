@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
@@ -27,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import static javafxmlapplication.autenticacion.FXMLAutenticacionController.cerrarSesion;
 import model.Club;
 import model.ClubDAOException;
 import model.Member;
@@ -59,8 +61,6 @@ public class FXMLEspacioPController implements Initializable {
     private static ObjectProperty memberProperty;
     @FXML
     private Pane paneEscena;
-    @FXML
-    private SubScene subEscena;
 
     /**
      * Initializes the controller class.
@@ -80,8 +80,6 @@ public class FXMLEspacioPController implements Initializable {
             nicknameLabel.setText(member.getNickName());
         });
         
-        //subEscena.widthProperty().bind(paneEscena.widthProperty());
-        //subEscena.heightProperty().bind(paneEscena.heightProperty());
     }    
 
     @FXML
@@ -90,35 +88,45 @@ public class FXMLEspacioPController implements Initializable {
 
     @FXML
     private void reservarPistaOnAction(ActionEvent event) {
+        JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 
     @FXML
-    private void misReservasOnAction(ActionEvent event) {
+    private void misReservasOnAction(ActionEvent event) throws ClubDAOException {
+        paneEscena.getChildren().clear();
+        try {
+            FXMLLoader loader = new  FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLMisReservas.fxml"));
+            Pane modificarD = loader.load();
+            FXMLMisReservasController controlador = loader.getController();
+            controlador.initMember(member);
+            
+            paneEscena.getChildren().add(modificarD);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        misReservas.disableProperty().setValue(true);
+        modificarPerfil.disableProperty().setValue(false);
     }
 
     @FXML
     private void modificarPerfilOnAction(ActionEvent event) throws IOException, ClubDAOException {
-        /*paneEscena.getChildren().clear();
+        paneEscena.getChildren().clear();
         try {
-            FXMLLoader loader = new  FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarD.fxml"));
-            Parent modificarD = loader.load();
-            FXMLModificarDController controlador = loader.getController();
+            FXMLLoader loader = new  FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLModificarDatos.fxml"));
+            Pane modificarD = loader.load();
+            FXMLModificarDatosController controlador = loader.getController();
             controlador.initMember(member);
-
+            
             paneEscena.getChildren().add(modificarD);
         } catch (IOException e) {
             System.out.println(e);
-        }*/
-        memberProperty.setValue(member);
-        JavaFXMLApplication.setRoot(Paginas.MODIFICAR_D);
+        }
+        modificarPerfil.disableProperty().setValue(true);
+        misReservas.disableProperty().setValue(false);
 }
 
     @FXML
     private void cerrarSesionOnAction(ActionEvent event) {
+        cerrarSesion();
     }
-    
-    private void crearAlerta(String accion) {
-        
-    }
-    
 }

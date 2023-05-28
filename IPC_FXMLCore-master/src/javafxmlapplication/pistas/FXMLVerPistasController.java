@@ -31,7 +31,6 @@ import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
-import javafxmlapplication.espacio_personal.FXMLEspacioPersonalController;
 import model.*;
 
 /**
