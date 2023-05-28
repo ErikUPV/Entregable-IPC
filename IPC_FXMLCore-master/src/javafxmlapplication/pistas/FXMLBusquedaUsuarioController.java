@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.DialogPane;
@@ -47,7 +48,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     @FXML
     private Button volverPista;
     @FXML
-    private ComboBox<String> comboBox;
+    private ChoiceBox<String> comboBox;
     @FXML
     private Label title;
     @FXML
@@ -80,12 +81,15 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     private ObservableList<String> comboObsList;
 
     private Member member;
+    
+    private static FXMLBusquedaUsuarioController controlador;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controlador = this;
 
         try {
             club = Club.getInstance();
@@ -95,7 +99,6 @@ public class FXMLBusquedaUsuarioController implements Initializable {
 
         FXMLAutenticacionController.memberProperty().addListener((var ob, var oldv, var newv) -> {
             member = (Member) newv;
-                        comboBox.promptTextProperty().setValue(member.getName());
 
         });
         lista = new ArrayList<>();
@@ -128,27 +131,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             return new SimpleStringProperty(pista);
         });
 
-        comboList = new ArrayList<>();
-
-        comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
-
-        comboBox.setItems(comboObsList);
-        comboBox.setCellFactory(c -> new ComboListCell());
-
-        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
-            if (newv == null) {
-                return;
-            }
-
-            if (newv.equals("Cerrar sesión")) {
-                FXMLAutenticacionController.cerrarSesion();
-
-            } else if (newv.equals("Mis reservas")) {
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-            }
-
-        });
+        
 
     }
 
@@ -188,21 +171,36 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
         dialogPane.getStyleClass().add("myAlert");
     }
+    
+    public void initializeComboBox() {
+        comboBox.setValue(member.getName());
+        comboList = new ArrayList<>();
 
-}
+        comboObsList = FXCollections.observableArrayList(comboList);
+        comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
-class ComboListCell<String> extends ListCell<String> {
+        comboBox.setItems(comboObsList);
 
-    protected void updateItem(String s, boolean empty) {
-        super.updateItem(s, empty);
+        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+            if (newv == null) {
+                return;
+            }
 
-        if (empty || s == null) {
-            setText(null);
-            setStyle("-fx-underline: true");
+            if (newv.equals("Cerrar sesión")) {
+                FXMLAutenticacionController.cerrarSesion();
 
-        } else {
-            setText(s.toString());
-            setStyle("");
-        }
+            } else if (newv.equals("Mis reservas")) {
+                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+            }
+
+        });
+
     }
+    
+     public static FXMLBusquedaUsuarioController getController() {
+        return controlador;
+    }
+
 }
+
+

@@ -29,6 +29,7 @@ import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import static javafxmlapplication.autenticacion.FXMLAutenticacionController.cerrarSesion;
+import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.Club;
 import model.ClubDAOException;
 import model.Member;
@@ -42,7 +43,6 @@ public class FXMLEspacioPController implements Initializable {
 
     @FXML
     private Button backButton;
-    @FXML
     private ImageView profilePicture;
     @FXML
     private Button reservarPista;
@@ -61,6 +61,9 @@ public class FXMLEspacioPController implements Initializable {
     private static ObjectProperty memberProperty;
     @FXML
     private Pane paneEscena;
+    FXMLModificarDatosController controlador;
+    @FXML
+    private ImageView profilePictureImg;
 
     /**
      * Initializes the controller class.
@@ -69,18 +72,25 @@ public class FXMLEspacioPController implements Initializable {
         System.out.println(member.toString());
         club = Club.getInstance();
     }
-    
+
+    public void updateItems() {
+        
+        nameLabel.setText(member.getName() + " " + member.getSurname());
+        nicknameLabel.setText(member.getNickName());
+        profilePictureImg.setImage(member.getImage());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         memberProperty = FXMLAutenticacionController.memberProperty();
         memberProperty.addListener((ob, oldv, newv) -> {
             member = (Member) newv;
-            profilePicture.setImage(member.getImage());
+            profilePictureImg.setImage(member.getImage());
             nameLabel.setText(member.getName() + " " + member.getSurname());
             nicknameLabel.setText(member.getNickName());
         });
-        
-    }    
+
+    }
 
     @FXML
     private void backButtonOnAction(ActionEvent event) {
@@ -88,18 +98,31 @@ public class FXMLEspacioPController implements Initializable {
 
     @FXML
     private void reservarPistaOnAction(ActionEvent event) {
+        if (controlador != null) {
+            if (!controlador.confirmaCambiados()) {
+                return;
+            }
+        }
+        FXMLVerPistasController controlador = FXMLVerPistasController.getController();
+        controlador.initializeComboBox();
         JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 
     @FXML
     private void misReservasOnAction(ActionEvent event) throws ClubDAOException {
+        if (controlador != null) {
+            if (!controlador.confirmaCambiados()) {
+                return;
+            }
+        }
         paneEscena.getChildren().clear();
         try {
-            FXMLLoader loader = new  FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLMisReservas.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLMisReservas.fxml"));
             Pane modificarD = loader.load();
             FXMLMisReservasController controlador = loader.getController();
-            controlador.initMember(member);
             
+            controlador.initMember(member);
+
             paneEscena.getChildren().add(modificarD);
         } catch (IOException e) {
             System.out.println(e);
@@ -112,18 +135,18 @@ public class FXMLEspacioPController implements Initializable {
     private void modificarPerfilOnAction(ActionEvent event) throws IOException, ClubDAOException {
         paneEscena.getChildren().clear();
         try {
-            FXMLLoader loader = new  FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLModificarDatos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLModificarDatos.fxml"));
             Pane modificarD = loader.load();
-            FXMLModificarDatosController controlador = loader.getController();
-            controlador.initMember(member);
-            
+            controlador = loader.getController();
+            controlador.initMember(member, this);
+
             paneEscena.getChildren().add(modificarD);
         } catch (IOException e) {
             System.out.println(e);
         }
         modificarPerfil.disableProperty().setValue(true);
         misReservas.disableProperty().setValue(false);
-}
+    }
 
     @FXML
     private void cerrarSesionOnAction(ActionEvent event) {

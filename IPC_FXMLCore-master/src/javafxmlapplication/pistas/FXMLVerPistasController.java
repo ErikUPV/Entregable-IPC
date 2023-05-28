@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.DialogPane;
@@ -105,7 +106,7 @@ public class FXMLVerPistasController implements Initializable {
     @FXML
     private Button pista6B;
     @FXML
-    private ComboBox<String> comboBox;
+    private ChoiceBox<String> comboBox;
     @FXML
     private Label disp1;
     @FXML
@@ -124,21 +125,19 @@ public class FXMLVerPistasController implements Initializable {
     private String buscarString;
     @FXML
     private ColumnConstraints col2;
-    @FXML
-    private ColumnConstraints col4;
 
     private List<String> comboList;
     private ObservableList<String> comboObsList;
-    
-  
+
+    private static FXMLVerPistasController controlador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        controlador = this;
 
         FXMLAutenticacionController.memberProperty().addListener((ob, oldv, newv) -> {
             member = (Member) newv;
-            comboBox.promptTextProperty().setValue(member.getName());
 
         });
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
@@ -168,31 +167,12 @@ public class FXMLVerPistasController implements Initializable {
         iv5.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
 
-        comboList = new ArrayList<>();
-
-        comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
-
-        comboBox.setItems(comboObsList);
-        comboBox.setCellFactory(c -> new ComboListCell());
-
-        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
-            
-
-            
-            if (newv.equals("Cerrar sesión")) {
-                FXMLAutenticacionController.cerrarSesion();
-
-            } else if (newv.equals("Mis reservas")) {
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-            }
-
-        });
-
     }
 
     @FXML
     private void pista1ButtonOnAction(ActionEvent event) throws IOException {
+        FXMLPistaConcretaController c = FXMLPistaConcretaController.getController();
+        c.initializeComboBox();
 //        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
 //            Parent root = miCargador.getRoot();
 //            if (root == null) root = miCargador.load();
@@ -205,7 +185,8 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista2ButtonOnAction(ActionEvent event) throws IOException {
-
+        FXMLPistaConcretaController c = FXMLPistaConcretaController.getController();
+        c.initializeComboBox();
 //            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
 //            Parent root = miCargador.getRoot();
 //            if (root == null) root = miCargador.load();
@@ -218,7 +199,8 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista3ButtonOnAction(ActionEvent event) throws IOException {
-
+        FXMLPistaConcretaController c = FXMLPistaConcretaController.getController();
+        c.initializeComboBox();
 //            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
 //            Parent root = miCargador.getRoot();
 //            if (root == null) root = miCargador.load();
@@ -230,7 +212,8 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista4ButtonOnAction(ActionEvent event) throws IOException {
-
+        FXMLPistaConcretaController c = FXMLPistaConcretaController.getController();
+        c.initializeComboBox();
 //            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
 //            Parent root = miCargador.getRoot();
 //            if (root == null) root = miCargador.load();
@@ -243,7 +226,8 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista5ButtonOnAction(ActionEvent event) throws IOException {
-
+        FXMLPistaConcretaController c = FXMLPistaConcretaController.getController();
+        c.initializeComboBox();
 //            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
 //            Parent root = miCargador.getRoot();
 //            if (root == null) root = miCargador.load();
@@ -255,7 +239,8 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void pista6ButtonOnAction(ActionEvent event) throws IOException {
-
+        FXMLPistaConcretaController c = FXMLPistaConcretaController.getController();
+        c.initializeComboBox();
 //            FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTA_CONCRETA);
 //            Parent root = miCargador.getRoot();
 //            if (root == null) root = miCargador.load();
@@ -274,11 +259,13 @@ public class FXMLVerPistasController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+        JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
     }
 
     @FXML
     private void buscarUserButtonOnAction(ActionEvent event) {
+        FXMLBusquedaUsuarioController c = FXMLBusquedaUsuarioController.getController();
+        c.initializeComboBox();
         JavaFXMLApplication.setRoot(Paginas.BUSQUEDA_USUARIO);
 
     }
@@ -293,20 +280,36 @@ public class FXMLVerPistasController implements Initializable {
         dialogPane.getStyleClass().add("myAlert");
     }
 
-}
+    public void initializeComboBox() {
 
-class ComboListCell<String> extends ListCell<String> {
+        comboList = new ArrayList<>();
+        comboObsList = FXCollections.observableArrayList(comboList);
+        comboObsList.clear();
 
-    protected void updateItem(String s, boolean empty) {
-        super.updateItem(s, empty);
+        comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
-        if (empty || s == null) {
-            setText(null);
-            setStyle("-fx-underline: true");
+        comboBox.setItems(comboObsList);
+        comboBox.setValue(member.getName());
 
-        } else {
-            setText(s.toString());
-            setStyle("");
-        }
+        comboBox.getSelectionModel().select(-1);
+        
+        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+            if (newv == null) {
+                return;
+            }
+
+            if (newv.equals("Cerrar sesión")) {
+                FXMLAutenticacionController.cerrarSesion();
+
+            } else if (newv.equals("Mis reservas")) {
+                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+            }
+
+        });
+
+    }
+
+    public static FXMLVerPistasController getController() {
+        return controlador;
     }
 }
