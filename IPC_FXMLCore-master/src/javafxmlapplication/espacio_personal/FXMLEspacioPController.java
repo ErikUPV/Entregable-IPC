@@ -4,18 +4,28 @@
  */
 package javafxmlapplication.espacio_personal;
 
+import com.sun.javafx.logging.PlatformLogger.Level;
 import java.io.IOException;
+import java.lang.System.Logger;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafxmlapplication.JavaFXMLApplication;
+import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import model.Club;
 import model.ClubDAOException;
@@ -49,6 +59,8 @@ public class FXMLEspacioPController implements Initializable {
     private static ObjectProperty memberProperty;
     @FXML
     private Pane paneEscena;
+    @FXML
+    private SubScene subEscena;
 
     /**
      * Initializes the controller class.
@@ -67,6 +79,9 @@ public class FXMLEspacioPController implements Initializable {
             nameLabel.setText(member.getName() + " " + member.getSurname());
             nicknameLabel.setText(member.getNickName());
         });
+        
+        //subEscena.widthProperty().bind(paneEscena.widthProperty());
+        //subEscena.heightProperty().bind(paneEscena.heightProperty());
     }    
 
     @FXML
@@ -82,13 +97,28 @@ public class FXMLEspacioPController implements Initializable {
     }
 
     @FXML
-    private void modificarPerfilOnAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarD.fxml"));
-        
-    }
+    private void modificarPerfilOnAction(ActionEvent event) throws IOException, ClubDAOException {
+        /*paneEscena.getChildren().clear();
+        try {
+            FXMLLoader loader = new  FXMLLoader(getClass().getResource("espacio_personal/FXMLModificarD.fxml"));
+            Parent modificarD = loader.load();
+            FXMLModificarDController controlador = loader.getController();
+            controlador.initMember(member);
+
+            paneEscena.getChildren().add(modificarD);
+        } catch (IOException e) {
+            System.out.println(e);
+        }*/
+        memberProperty.setValue(member);
+        JavaFXMLApplication.setRoot(Paginas.MODIFICAR_D);
+}
 
     @FXML
     private void cerrarSesionOnAction(ActionEvent event) {
+    }
+    
+    private void crearAlerta(String accion) {
+        
     }
     
 }
