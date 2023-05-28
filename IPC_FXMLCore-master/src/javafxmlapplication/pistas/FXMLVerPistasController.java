@@ -235,7 +235,11 @@ public class FXMLVerPistasController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+        if (member == null){
+            JavaFXMLApplication.setRoot(Paginas.INICIO);
+
+        } else {JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+} 
     }
 
     @FXML
