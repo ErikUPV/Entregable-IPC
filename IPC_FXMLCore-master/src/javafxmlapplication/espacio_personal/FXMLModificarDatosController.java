@@ -4,279 +4,378 @@
  */
 package javafxmlapplication.espacio_personal;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import javafxmlapplication.JavaFXMLApplication;
-import javafxmlapplication.Paginas;
+import javafx.stage.FileChooser;
+import javafx.util.Pair;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
-import javafxmlapplication.pistas.FXMLVerPistasController;
-import model.*;
+import model.Club;
+import model.ClubDAOException;
+import model.Member;
 
 /**
  * FXML Controller class
  *
- * @author erikb
+ * @author Héctor
  */
 public class FXMLModificarDatosController implements Initializable {
 
     @FXML
-    private Button backButton;
-    @FXML
-    private ImageView profilePicture;
-    @FXML
-    private Button reservarPista;
-    @FXML
-    private Button misReservas;
-    @FXML
-    private Button modificarPerfil;
-    @FXML
-    private Label nameLabel;
-    private Club club;
-    private Member member;
-    @FXML
-    private Label nicknameLabel;
-    @FXML
-    private TextField nombreTextField;
-    @FXML
-    private TextField contrField;
-    @FXML
-    private TextField repContrField;
-    @FXML
-    private TextField apellidosTextField;
-    @FXML
-    private TextField telefonoField;
-    @FXML
-    private TextField numBancoField;
-    @FXML
-    private TextField cvcField;
-    private static ObjectProperty memberProperty;
-    @FXML
-    private Label badInputLabel;
-    private boolean contraseñasIguales;
-    @FXML
-    private Button cerrar;
-    @FXML
     private VBox cambioVBOX;
     @FXML
+    private Label badInputLabel;
+    @FXML
     private Button modificar;
+    @FXML
+    private Pane paneModif;
+    private Member member;
+    private Club club;
+    @FXML
+    private Button editarNombre;
+    @FXML
+    private Button editarTelefono;
+    @FXML
+    private Button editarContraseña;
+    @FXML
+    private Button editarTarjeta;
+    @FXML
+    private Button editarImagen;
+    @FXML
+    private ImageView profilePicture;
+    private static ObjectProperty memberProperty;
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Label surnameLabel;
+    @FXML
+    private Label tlfLabel;
+    @FXML
+    private Label cardLabel;
+    @FXML
+    private Label cvcLabel;
+    @FXML
+    private Label passwordLabel;
+    private String password;
+    
+    public void initMember(Member m) throws ClubDAOException, IOException {
+        member = m;
+        club = Club.getInstance();
+        profilePicture.setImage(member.getImage());
+        nameLabel.setText(member.getName());
+        surnameLabel.setText(member.getSurname());
+        cardLabel.setText(censurar(member.getCreditCard(),false));
+        cvcLabel.setText(""+member.getSvc());
+        tlfLabel.setText(member.getTelephone());
+        passwordLabel.setText(censurar(member.getPassword(), true));
+        password = member.getPassword();
+        editarNombre.requestFocus();
+    }
     /**
      * Initializes the controller class.
      */
-    
-    public void initMember(Member m) throws ClubDAOException, IOException {
-        System.out.println(member.toString());
-        club = Club.getInstance();
-    }
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        contraseñasIguales = false;
-        memberProperty = FXMLAutenticacionController.memberProperty();
-        memberProperty.addListener((ob, oldv, newv) -> {
-            member = (Member) newv;
-            profilePicture.setImage(member.getImage());
-            nameLabel.setText(member.getName() + " " + member.getSurname());
-            nicknameLabel.setText(member.getNickName());
-            nombreTextField.setText(member.getName());
-            apellidosTextField.setText(member.getSurname());
-            telefonoField.setText(member.getTelephone());
-            contrField.setText(member.getPassword());
-            if(member.getCreditCard() != "") {
-                numBancoField.setText(member.getCreditCard());
-                cvcField.setText("" + member.getSvc());
-            }
-            
-            nameLabel.setText(member.getName() +" "+ member.getSurname());
-            
-            
-        });
-        repContrField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) { // When focus is lost from the second field
-                String password1 = contrField.getText();
-                String password2 = repContrField.getText();
-                if (!password1.equals(password2) || password1.equals("")) {
-                    showErrorMessage(contrField, "Las contraseñas no coinciden!");
-                    showErrorMessage(repContrField, "Las contraseñas no coinciden!");
-                    badInputLabel.setText("Las contraseñas no coinciden!");
-                    repContrField.setText("");
-                    badInputLabel.visibleProperty().setValue(true);
-                    contraseñasIguales = false;
-                } else {
-                    hideErrorMessage(contrField );
-                    hideErrorMessage(repContrField );
-                    badInputLabel.visibleProperty().setValue(false);
-                    contraseñasIguales = true;
-                    
-                }
-            }
-        });
-        cvcField.setTextFormatter(getTextFormatter(3));
-        numBancoField.setTextFormatter(getTextFormatter(16));
-        telefonoField.setTextFormatter(getTextFormatter(11));
-        
-        
+        editarNombre.requestFocus();
     }    
-
-    @FXML
-    private void backButtonOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-    }
-
-    @FXML
-    private void reservarPistaOnAction(ActionEvent event) {
-        System.out.println("Espacio personal: " + member.toString());
-        JavaFXMLApplication.setRoot(Paginas.PISTAS);
-    }
-
-    @FXML
-    private void misReservasOnAction(ActionEvent event) {
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-    }
-
-    @FXML
-    private void modificarPerfilOnAction(ActionEvent event) {
-    }
     
-    private void showErrorMessage ( TextField field, String msg) {
-        String source = field.getId();
-        badInputLabel.visibleProperty().setValue(true);
-        field.styleProperty().setValue("-fx-background-color: #FCE5E0;"
-                + "-fx-border-color: red;"
-                + "-fx-border-radius: 5 5 5 5;"
-                + "-fx-text-fill: red;"
-                + "-fx-prompt-text-fill: red");
-       
-                //field.setPromptText(msg);
-    }
-    
-    private void hideErrorMessage(TextField field){
-        
-        field.styleProperty().setValue(""); 
-    }
-    
-    private  TextFormatter<String> getTextFormatter(int e) {
-        TextFormatter<String> formatter2 = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("\\d{0,"+ e + "}")) {
-                return change;
-            }
-            return null;
-        });
-        return formatter2;
-    }
 
-    @FXML
-    private void cerrarMOnAction(ActionEvent event) {
-    }
+
 
     @FXML
     private void modificarOnAction(ActionEvent event) {
-       
-       if (nombreTextField.textProperty().getValueSafe().isEmpty() || nombreTextField.textProperty().getValueSafe().isBlank()) showErrorMessage( nombreTextField, "Nombre vacío");
-       else hideErrorMessage(nombreTextField);
-       
-       if (apellidosTextField.textProperty().getValueSafe().isEmpty()) showErrorMessage( apellidosTextField, "Apellido vacío");
-       else hideErrorMessage(apellidosTextField);
-       
-       if (telefonoField.textProperty().getValueSafe().isEmpty()) showErrorMessage( telefonoField, "Teléfono vacío");
-       else hideErrorMessage(telefonoField);
-       
-       if (contrField.textProperty().getValueSafe().isEmpty()) showErrorMessage( contrField, "Contraseña vacía"); 
-       else if (!repContrField.getText().isEmpty())hideErrorMessage(contrField);
-       
-       if (repContrField.textProperty().getValueSafe().isEmpty()) { showErrorMessage( repContrField, "Las contraseñas no coinciden"); badInputLabel.setText("La contraseñas no coinciden!"); }
-       else hideErrorMessage(repContrField);
-       
-       if ( (numBancoField.textProperty().getValueSafe().isEmpty() && !  cvcField.textProperty().getValueSafe().isEmpty()) ||(!numBancoField.textProperty().getValueSafe().isEmpty() &&   cvcField.textProperty().getValueSafe().isEmpty()) ){
-           showErrorMessage( numBancoField,"Número vacío o CVC vacío" );
-           showErrorMessage( cvcField, "");
-
-       } else{
-           hideErrorMessage(numBancoField);
-           hideErrorMessage(cvcField);
-       }
-       
-       if(cvcField.getText().isEmpty() && numBancoField.getText().isEmpty()) cvcField.setText("0");
-       boolean b = nombreTextField.getText().isEmpty()
-               || apellidosTextField.getText().isEmpty()
-               || telefonoField.getText().isEmpty()
-               || contrField.getText().isEmpty()
-               || !contraseñasIguales;
-       if(!b) {
-            Alert a = new Alert(AlertType.CONFIRMATION);
-            startAlert(a);
-            a.setTitle("Confirmación");
-            a.setHeaderText("ATENCIÓN");
-            a.setContentText("¿Está seguro que desea modificar los datos de su cuenta?");
-            Optional<ButtonType> result = a.showAndWait();
-            if(result.isPresent() && result.get() == ButtonType.OK && !b) {
-                member.setName(nombreTextField.getText());
-                member.setSurname(apellidosTextField.getText());
-                member.setTelephone(telefonoField.getText());
-                member.setPassword(contrField.getText());
-                if (!member.getCreditCard().isEmpty()) {
-                    member.setCreditCard(numBancoField.getText());
-                    member.setSvc(Integer.parseInt(cvcField.getText()));
-                }
-                memberProperty.setValue(member);
-                nameLabel.setText(member.getName() + " " + member.getSurname());
-                repContrField.setText("");
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-            }
-       }
-        /* Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0),
-                        event2 -> { //FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
-//                                    Parent root = miCargador.getRoot();
-//                                    if (root == null) try {
-//                                        root = miCargador.load();
-
-
-                        
-                                    JavaFXMLApplication.setRoot(Paginas.REGISTRO2);}),
-                new KeyFrame(Duration.seconds(1.5),
-                        event2 -> {
-                                    JavaFXMLApplication.setRoot(Paginas.INICIO);
-                                    
-                                 ;})
-        );
-        timeline.setCycleCount(1);
-        timeline.play();*/
     }
-    private void startAlert(Alert alert) {
+
+    @FXML
+    private void editarNombreOnAction(ActionEvent event) {
+        TextField nameField = new TextField();
+        TextField surnameField = new TextField();
+        Label l1 = new Label("Nombre");
+        Label l2 = new Label("Apellidos");
+        
+        HBox hBox1 = new HBox();
+        HBox hBox2 = new HBox();
+        hBox1.setAlignment(Pos.CENTER_RIGHT);
+        hBox2.setAlignment(Pos.CENTER_RIGHT);
+        hBox1.setSpacing(10);
+        hBox2.setSpacing(10);
+        hBox1.setPadding(new Insets(0,10,0,0));
+        hBox2.setPadding(new Insets(0,10,0,0));
+        hBox1.getChildren().addAll(l1, nameField);
+        hBox2.getChildren().addAll(l2, surnameField);
+        hBox1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        hBox2.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setSpacing(10);
+        vBox.getChildren().addAll(hBox1, hBox2);
+        vBox.setPadding(new Insets(10,50,10,0));
+        
+        Dialog<Boolean> dialog = new Dialog();
+        dialog.setTitle("Cambiar nombre");
+        dialog.setHeaderText("ATENCIÓN\nAl aceptar se cambiarán los datos modificados");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialog.getDialogPane().setContent(vBox);
+        startAlert(dialog);
+        
+        dialog.setResultConverter((buttonType) -> {
+            if(buttonType == ButtonType.OK) {
+                return true;
+            }
+            return false;
+        });
+        
+        dialog.showAndWait();
+        
+        if(dialog.getResult()) {
+            if(nameField.getText().equals("") || surnameField.getText().equals("")) {
+                alertaError();
+                editarNombreOnAction(event);
+            } else {
+                member.setName(nameField.getText());
+                member.setSurname(surnameField.getText());
+                nameLabel.setText(nameField.getText());
+                surnameLabel.setText(surnameField.getText());
+                todoBien();
+            }
+        }
+    }
+
+    @FXML
+    private void editarTelefonoOnAction(ActionEvent event) {
+        TextField tlfField = new TextField();
+        Label l1 = new Label("Teléfono");
+        
+        HBox hBox1 = new HBox();
+        hBox1.setAlignment(Pos.CENTER_RIGHT);
+        hBox1.setSpacing(10);
+        hBox1.setPadding(new Insets(0,10,0,0));
+        hBox1.getChildren().addAll(l1, tlfField);
+        hBox1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setSpacing(10);
+        vBox.getChildren().addAll(hBox1);
+        vBox.setPadding(new Insets(10,50,10,0));
+        
+        Dialog<Boolean> dialog = new Dialog();
+        dialog.setTitle("Cambiar teléfono");
+        dialog.setHeaderText("ATENCIÓN\nAl aceptar se cambiarán los datos modificados");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialog.getDialogPane().setContent(vBox);
+        startAlert(dialog);
+        
+        dialog.setResultConverter((buttonType) -> {
+            if(buttonType == ButtonType.OK) {
+                return true;
+            }
+            return false;
+        });
+        
+        dialog.showAndWait();
+        
+        if(dialog.getResult()) {
+            if(tlfField.getText().equals("") || tlfField.getText().length() != 9 || !tlfField.getText().matches("[0-9]+")) {
+                alertaError();
+                editarTelefonoOnAction(event);
+            } else {
+                member.setTelephone(tlfField.getText());
+                tlfLabel.setText(tlfField.getText());
+                todoBien();
+            }
+        }
+    }
+
+    @FXML
+    private void editarContraseñaOnAction(ActionEvent event) {
+        PasswordField passwordField = new PasswordField();
+        PasswordField repPasswordField = new PasswordField();
+        Label l1 = new Label("Contraseña");
+        Label l2 = new Label("Repetir contraseña");
+        
+        
+        HBox hBox1 = new HBox();
+        HBox hBox2 = new HBox();
+        hBox1.setAlignment(Pos.CENTER_RIGHT);
+        hBox2.setAlignment(Pos.CENTER_RIGHT);
+        hBox1.setSpacing(10);
+        hBox2.setSpacing(10);
+        hBox1.setPadding(new Insets(0,10,0,0));
+        hBox2.setPadding(new Insets(0,10,0,0));
+        hBox1.getChildren().addAll(l1, passwordField);
+        hBox2.getChildren().addAll(l2, repPasswordField);
+        hBox1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        hBox2.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setSpacing(10);
+        vBox.getChildren().addAll(hBox1, hBox2);
+        vBox.setPadding(new Insets(10,30,10,0));
+        
+        Dialog<Boolean> dialog = new Dialog();
+        dialog.setTitle("Cambiar contraseña");
+        dialog.setHeaderText("ATENCIÓN\nAl aceptar se cambiarán los datos modificados");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialog.getDialogPane().setContent(vBox);
+        startAlert(dialog);
+        
+        dialog.setResultConverter((buttonType) -> {
+            if(buttonType == ButtonType.OK) {
+                return true;
+            }
+            return false;
+        });
+        
+        dialog.showAndWait();
+        
+        if(dialog.getResult()) {
+            if(passwordField.getText().equals("") || repPasswordField.getText().equals("") || !passwordField.getText().equals(repPasswordField.getText())) {
+                alertaError();
+                editarContraseñaOnAction(event);
+            } else {
+                member.setPassword(passwordField.getText());
+                password = passwordField.getText();
+                passwordLabel.setText(censurar(passwordField.getText(), true));
+                todoBien();
+            }
+        }
+    }
+
+    @FXML
+    private void editarTarjetaOnAction(ActionEvent event) {
+        TextField cardField = new TextField();
+        TextField cvcField = new TextField();
+        Label l1 = new Label("Número de tarjeta");
+        Label l2 = new Label("CVC");
+        
+        HBox hBox1 = new HBox();
+        HBox hBox2 = new HBox();
+        hBox1.setAlignment(Pos.CENTER_RIGHT);
+        hBox2.setAlignment(Pos.CENTER_RIGHT);
+        hBox1.setSpacing(10);
+        hBox2.setSpacing(10);
+        hBox1.setPadding(new Insets(0,10,0,0));
+        hBox2.setPadding(new Insets(0,10,0,0));
+        hBox1.getChildren().addAll(l1, cardField);
+        hBox2.getChildren().addAll(l2, cvcField);
+        hBox1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        hBox2.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setSpacing(10);
+        vBox.getChildren().addAll(hBox1, hBox2);
+        vBox.setPadding(new Insets(10,30,10,0));
+        
+        Dialog<Boolean> dialog = new Dialog();
+        dialog.setTitle("Cambiar nombre");
+        dialog.setHeaderText("ATENCIÓN\nAl aceptar se cambiarán los datos modificados");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialog.getDialogPane().setContent(vBox);
+        startAlert(dialog);
+        
+        dialog.setResultConverter((buttonType) -> {
+            if(buttonType == ButtonType.OK) {
+                return true;
+            }
+            return false;
+        });
+        
+        dialog.showAndWait();
+        
+        if(dialog.getResult()) {
+            if(cardField.getText().equals("") || cvcField.getText().equals("") || cvcField.getText().length() != 3 ||cardField.getText().length() != 16) {
+                alertaError();
+                //editarTarjetaOnAction(event);
+            } else {
+                member.setCreditCard(cardField.getText());
+                member.setSvc(Integer.parseInt(cvcField.getText()));
+                cardLabel.setText(censurar(cardField.getText(),false));
+                cvcLabel.setText(cvcField.getText());
+                todoBien();
+            }
+        }
+    }
+
+    @FXML
+    private void editarImagenOnAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Elegir imagen");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg")
+        );
+        
+        File selectedFile = fileChooser.showOpenDialog(
+                ((Node) event.getSource()).getScene().getWindow());
+             
+        if (selectedFile != null) {
+            Path imgPath = selectedFile.toPath();
+            Image img = new Image(imgPath.toString());
+            profilePicture.setImage(img);
+            member.setImage(img);
+        }
+        
+    }
+    
+    private void alertaError() {
+        Alert a = new Alert(AlertType.ERROR);
+        a.setTitle("Error");
+        a.setHeaderText("Ha ocurrido un error");
+        a.setContentText("Los valores introducidos no son válidos.");
+        startAlert(a);
+        a.showAndWait();
+    }
+    
+    private void todoBien() {
+        Alert a = new Alert(AlertType.INFORMATION);
+        a.setTitle("Confirmación");
+        a.setHeaderText("Todo ha salido según lo planeado");
+        a.setContentText("Los cambios han sido realizados correctamente.");
+        startAlert(a);
+        a.showAndWait();
+    }
+    
+    private String censurar(String s, boolean todo) {
+        String res = "";
+        for(int i = 0; i < s.length(); i++) {
+            if(!todo && i == s.length()-4) {return res += s.substring(i);}
+            else { res += "*"; }
+        }
+        return res;
+    }
+    private void startAlert(Dialog alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
         dialogPane.getStyleClass().add("myAlert");
     }
-
-    @FXML
-    private void elegirImagenOnAction(ActionEvent event) {
-    }
-
-    
 }

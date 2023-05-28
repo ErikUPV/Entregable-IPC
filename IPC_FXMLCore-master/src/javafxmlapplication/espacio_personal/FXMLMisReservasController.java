@@ -51,21 +51,9 @@ import model.*;
  *
  * @author Héctor
  */
-public class FXMLEspacioPersonalController implements Initializable {
+public class FXMLMisReservasController implements Initializable {
 
     private static Member member;
-    @FXML
-    private ImageView profilePicture;
-    @FXML
-    private Label nameLabel;
-    @FXML
-    private Button backButton;
-    @FXML
-    private Button reservarPista;
-    @FXML
-    private Button misReservas;
-    @FXML
-    private Button modificarPerfil;
 
     private Club club;
     private AnchorPane cambioAnchorPane;
@@ -90,8 +78,6 @@ public class FXMLEspacioPersonalController implements Initializable {
     private ObservableList<Booking> reservaObsList;
 
     private List<Booking> reservaList;
-    @FXML
-    private Label nicknameLabel;
 
     private static ObjectProperty memberProperty;
 //    public void initMember(Member m) {
@@ -105,30 +91,22 @@ public class FXMLEspacioPersonalController implements Initializable {
 //    }
     @FXML
     private Button cancelar;
-    @FXML
-    private Button cerrarS;
 
     /**
      * Initializes the controller class.
      *
      * @param url
      */
+    public void initMember(Member m) {
+        member = m;
+        reservaList = new ArrayList<>();
+        reservaObsList = FXCollections.observableList(reservaList);
+        reservaObsList.addAll(club.getUserBookings(member.getNickName()));
+        reservasT.setItems(reservaObsList);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        memberProperty = FXMLAutenticacionController.memberProperty();
-        memberProperty.addListener((ob, oldv, newv) -> {
-            member = (Member) newv;
-            profilePicture.setImage(member.getImage());
-            nameLabel.setText(member.getName() + " " + member.getSurname());
-            nicknameLabel.setText(member.getNickName());
-            reservaList = new ArrayList<>();
-            reservaObsList = FXCollections.observableList(reservaList);
-            reservaObsList.addAll(club.getUserBookings(member.getNickName()));
-            reservasT.setItems(reservaObsList);
-
-        });
-        
-        
+        cancelar.requestFocus();
         JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
            if (newv) {
                
@@ -147,7 +125,7 @@ public class FXMLEspacioPersonalController implements Initializable {
         try {
             club = Club.getInstance();
         } catch (ClubDAOException | IOException ex) {
-            Logger.getLogger(FXMLEspacioPersonalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLMisReservasController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         col1.maxWidthProperty().bind(reservasT.widthProperty().multiply(.195));
@@ -239,62 +217,7 @@ public class FXMLEspacioPersonalController implements Initializable {
     }
 
     @FXML
-    private void backButtonOnAction(ActionEvent event) throws IOException {
-
-//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
-//        Parent root = miCargador.getRoot();
-//        if (root == null) {
-//            root = miCargador.load();
-//        }
-        JavaFXMLApplication.setRoot(Paginas.INICIO);
-    }
-
-    private void modificarButtonOnAction(ActionEvent event) throws IOException {
-        cambioAnchorPane.getChildren().clear();
-    }
-
-    @FXML
-    private void reservarPistaOnAction(ActionEvent event) throws IOException {
-        System.out.println("Espacio personal: " + member.toString());
-//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.PISTAS);
-//        Parent root = miCargador.getRoot();
-//        FXMLVerPistasController controlador = miCargador.getController();
-//
-//        if (root == null) {
-//            root = miCargador.load();
-//        }
-        System.out.println("a");
-
-        JavaFXMLApplication.setRoot(Paginas.PISTAS);
-    }
-
-    @FXML
-    private void misReservasOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void modificarPerfilOnAction(ActionEvent event) throws IOException {
-//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.MODIFICAR_DATOS);
-//        Parent root = miCargador.getRoot();
-//        if (root == null) {
-//            root = miCargador.load();
-//        }
-//        FXMLModificarDatosController controlador = miCargador.getController();
-//        controlador.initMember(member);
-
-        JavaFXMLApplication.setRoot(Paginas.MODIFICAR_DATOS);
-    }
-
-    @FXML
     private void cancelarButtonOnAction(ActionEvent event) {
 
     }
-
-    @FXML
-    private void cerrarSOnAction(ActionEvent event) {
-        cerrarSesion();
-    }
-
-    
-
 }

@@ -26,7 +26,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
-import javafxmlapplication.espacio_personal.FXMLEspacioPersonalController;
 import model.*;
 
 /**
@@ -86,10 +85,8 @@ public class FXMLAutenticacionController implements Initializable {
 
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-//        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
        JavaFXMLApplication.setRoot(Paginas.INICIO);
-
-
+       JavaFXMLApplication.borrarTextField(passwordField, userTextField);
     }
 
     @FXML
@@ -112,7 +109,7 @@ public class FXMLAutenticacionController implements Initializable {
 
                 System.out.println(member.getName() + " " + member.getSurname());
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
-
+                JavaFXMLApplication.borrarTextField(passwordField, userTextField);
             }
         } catch (NullPointerException e) {
             //debugLabel.setText("Por favor introduzca unas credenciales válidas");
@@ -126,7 +123,7 @@ public class FXMLAutenticacionController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
-
+        JavaFXMLApplication.borrarTextField(passwordField, userTextField);
         JavaFXMLApplication.setRoot(Paginas.REGISTRO);
     }
 
@@ -142,5 +139,6 @@ public class FXMLAutenticacionController implements Initializable {
         member = null;
         JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
+    
 
 }
