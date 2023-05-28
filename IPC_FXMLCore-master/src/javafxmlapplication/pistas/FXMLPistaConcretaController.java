@@ -84,7 +84,7 @@ public class FXMLPistaConcretaController implements Initializable {
 
     private Club club;
     @FXML
-    private ComboBox<String> comboBox;
+    private ChoiceBox<String> comboBox;
     @FXML
     private Label dayLabel;
 
@@ -124,9 +124,12 @@ public class FXMLPistaConcretaController implements Initializable {
     private VBox tableViewVBox;
 
     private List<Booking> bookingList;
+    
+    private static FXMLPistaConcretaController controlador;
 
     /**
      * Initializes the controller class.
+     * @param url
      */
 //    public void initPista(int pista) {
 //        title.setText("Reservar pista " + pista);
@@ -157,6 +160,7 @@ public class FXMLPistaConcretaController implements Initializable {
 //    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controlador = this;
 
         bReservar.setDisable(true);
 
@@ -169,7 +173,7 @@ public class FXMLPistaConcretaController implements Initializable {
 ////            } else {
 ////                mainVBox.minWidthProperty().setValue(600);
 ////
-//            }
+//            }ss
 //        });
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
 
@@ -218,8 +222,7 @@ public class FXMLPistaConcretaController implements Initializable {
 
         memberProperty.addListener((ob, oldv, newv) -> {
             member = (Member) newv;
-            comboBox.promptTextProperty().setValue(member.getName() + " " + member.getSurname());
-            System.out.println(member.getName() + " " + member.getSurname());
+            System.out.println(member.getName());
 
             bookingList = new ArrayList<>(club.getUserBookings(member.getNickName()));
             Collections.sort(bookingList);
@@ -229,13 +232,7 @@ public class FXMLPistaConcretaController implements Initializable {
 
         });
 
-        comboList = new ArrayList<String>();
-
-        comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
-
-        comboBox.setItems(comboObsList);
-        comboBox.setCellFactory(c -> new ComboListCell());
+       
 
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         borderPane.heightProperty().addListener((observable, oldv, newv) -> {
@@ -353,18 +350,7 @@ public class FXMLPistaConcretaController implements Initializable {
         estadoCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.4));
         userCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.399));
 
-        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
-            if (newv == null) {
-                return;
-            }
-            if (newv.equals("Cerrar sesión")) {
-                FXMLAutenticacionController.cerrarSesion();
-
-            } else if (newv.equals("Mis reservas")) {
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
-            }
-
-        });
+       
 
 //        Set userBookings = Set.copyOf(club.getUserBookings(member.getNickName()));
 //        Set dayBookings = Set.copyOf(club.getCourtBookings("Pista " + nPista,datePicker.getValue()));
@@ -418,23 +404,20 @@ public class FXMLPistaConcretaController implements Initializable {
 
         }
 
-        
-
         if (indexOf >= 2) {
             CourtDayItem elDeAntes = courtDayItemList.get(indexOf - 1);
 
             CourtDayItem elDeAntes2 = courtDayItemList.get(indexOf - 2);
 
-            
             if ((!elDeAntes.getStatus() && !elDeAntes2.getStatus())) {
-                if ((elDeAntes.getUser().equals(member) && elDeAntes2.getUser().equals(member))){
-                Alert alerta = new Alert(AlertType.ERROR);
-                startAlert(alerta);
-                alerta.setTitle("Error en la reserva");
-                alerta.setHeaderText("No puede reservar 3 seguidas, ya tiene 2");
-                alerta.setContentText("Debido a que ya ha reservado dos pistas seguidas, no puede seguir reservando hoy");
-                alerta.showAndWait();
-                return;
+                if ((elDeAntes.getUser().equals(member) && elDeAntes2.getUser().equals(member))) {
+                    Alert alerta = new Alert(AlertType.ERROR);
+                    startAlert(alerta);
+                    alerta.setTitle("Error en la reserva");
+                    alerta.setHeaderText("No puede reservar 3 seguidas, ya tiene 2");
+                    alerta.setContentText("Debido a que ya ha reservado dos pistas seguidas, no puede seguir reservando hoy");
+                    alerta.showAndWait();
+                    return;
                 }
             }
 
@@ -562,21 +545,37 @@ public class FXMLPistaConcretaController implements Initializable {
         }
         return false;
     }
+    
+     public void initializeComboBox() {
+        comboBox.setValue(member.getName());
+        comboList = new ArrayList<>();
 
-}
+        comboObsList = FXCollections.observableArrayList(comboList);
+        comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
-class ComboListCell<String> extends ListCell<String> {
+        comboBox.setItems(comboObsList);
 
-    protected void updateItem(String s, boolean empty) {
-        super.updateItem(s, empty);
+        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+            if (newv == null) {
+                return;
+            }
 
-        if (empty || s == null) {
-            setText(null);
-            setStyle("-fx-underline: true");
+            if (newv.equals("Cerrar sesión")) {
+                FXMLAutenticacionController.cerrarSesion();
 
-        } else {
-            setText(s.toString());
-            setStyle("");
-        }
+            } else if (newv.equals("Mis reservas")) {
+                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+            }
+
+        });
+
     }
+    
+     public static FXMLPistaConcretaController getController() {
+        return controlador;
+    }
+
+
 }
+
+

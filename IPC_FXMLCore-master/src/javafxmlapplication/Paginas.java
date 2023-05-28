@@ -19,6 +19,7 @@ public enum Paginas {
     MODIFICAR_DATOS,
     PISTA_CONCRETA, 
     ESPACIO_P,
-    MODIFICAR_D
+    MODIFICAR_D,
+    BUSQUEDA_USUARIO
     
 }

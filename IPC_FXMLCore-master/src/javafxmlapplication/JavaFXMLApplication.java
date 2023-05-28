@@ -96,6 +96,12 @@ public class JavaFXMLApplication extends Application {
         loader = new FXMLLoader(getClass().getResource("pistas/FXMLPistaConcreta.fxml"));
         root = loader.load();
         roots.put(Paginas.PISTA_CONCRETA, root);
+        loader = new FXMLLoader(getClass().getResource("pistas/FXMLBusquedaUsuario.fxml"));
+        root = loader.load();
+        roots.put(Paginas.BUSQUEDA_USUARIO, root);
+     
+   
+
         
         scene = new Scene(root);
         
@@ -127,10 +133,12 @@ public class JavaFXMLApplication extends Application {
         return updated;
     }
 
+
     public static void borrarTextField(TextField... textFill) {
         for(TextField t : textFill) {
             t.setText("");
         }
     }
+
     
 }

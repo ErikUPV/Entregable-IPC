@@ -108,8 +108,10 @@ public class FXMLAutenticacionController implements Initializable {
                 memberProperty.setValue(member);
 
                 System.out.println(member.getName() + " " + member.getSurname());
+
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
                 JavaFXMLApplication.borrarTextField(passwordField, userTextField);
+
             }
         } catch (NullPointerException e) {
             //debugLabel.setText("Por favor introduzca unas credenciales válidas");
