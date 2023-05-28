@@ -111,7 +111,7 @@ public class FXMLAutenticacionController implements Initializable {
                 memberProperty.setValue(member);
 
                 System.out.println(member.getName() + " " + member.getSurname());
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
 
             }
         } catch (NullPointerException e) {

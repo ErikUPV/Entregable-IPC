@@ -7,27 +7,38 @@ package javafxmlapplication.pistas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
@@ -94,8 +105,8 @@ public class FXMLVerPistasController implements Initializable {
     private Button pista5B;
     @FXML
     private Button pista6B;
-      @FXML
-    private ComboBox<?> comboBox;
+    @FXML
+    private ComboBox<String> comboBox;
     @FXML
     private Label disp1;
     @FXML
@@ -111,12 +122,25 @@ public class FXMLVerPistasController implements Initializable {
     @FXML
     private Button buscarUserButton;
 
+    private String buscarString;
+    @FXML
+    private ColumnConstraints col2;
+    @FXML
+    private ColumnConstraints col4;
+
+    private List<String> comboList;
+    private ObservableList<String> comboObsList;
+    
+  
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
         FXMLAutenticacionController.memberProperty().addListener((ob, oldv, newv) -> {
             member = (Member) newv;
+            comboBox.promptTextProperty().setValue(member.getName());
+
         });
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
@@ -145,10 +169,26 @@ public class FXMLVerPistasController implements Initializable {
         iv5.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
 
-       
-        
-        
-        
+        comboList = new ArrayList<>();
+
+        comboObsList = FXCollections.observableArrayList(comboList);
+        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+
+        comboBox.setItems(comboObsList);
+        comboBox.setCellFactory(c -> new ComboListCell());
+
+        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+            
+
+            
+            if (newv.equals("Cerrar sesión")) {
+                FXMLAutenticacionController.cerrarSesion();
+
+            } else if (newv.equals("Mis reservas")) {
+                JavaFXMLApplication.setRoot(Paginas.ESPACIO_PERSONAL);
+            }
+
+        });
 
     }
 
@@ -240,6 +280,34 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void buscarUserButtonOnAction(ActionEvent event) {
+        JavaFXMLApplication.setRoot(Paginas.BUSQUEDA_USUARIO);
+
     }
 
+    public String getUser() {
+        return buscarString;
+    }
+
+    private void startAlert(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
+        dialogPane.getStyleClass().add("myAlert");
+    }
+
+}
+
+class ComboListCell<String> extends ListCell<String> {
+
+    protected void updateItem(String s, boolean empty) {
+        super.updateItem(s, empty);
+
+        if (empty || s == null) {
+            setText(null);
+            setStyle("-fx-underline: true");
+
+        } else {
+            setText(s.toString());
+            setStyle("");
+        }
+    }
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane fx:id="borderPane" styleClass="mainContainer" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.pistas.FXMLBusquedaUsuarioController">
+   <center>
+      <VBox fx:id="mainVBox" spacing="10.0" styleClass="vBoxPrincipal" stylesheets="@../estilos.css">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label fx:id="title" text="Buscar reservas de un usuario">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dayLabel">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="45.0" prefWidth="710.0">
+               <children>
+                  <Label text="Nickname del usuario:" />
+                  <HBox prefHeight="0.0" prefWidth="779.0" spacing="5.0">
+                     <children>
+                        <TextField fx:id="buscarTextField" prefHeight="27.0" prefWidth="172.0" />
+                        <Button mnemonicParsing="false" onAction="#buscarButtonOnAction" text="Buscar" />
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="tableViewVBox" alignment="TOP_CENTER" spacing="10.0">
+               <children>
+                  <TableView fx:id="pistaTableView" prefHeight="479.0" prefWidth="739.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="diaCol" editable="false" prefWidth="269.59999084472656" resizable="false" text="Día" />
+                      <TableColumn fx:id="horaCol" editable="false" prefWidth="251.20001220703125" resizable="false" text="Hora" />
+                        <TableColumn fx:id="pistaCol" editable="false" minWidth="0.0" prefWidth="219.19998168945312" resizable="false" text="Pista" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </center>
+   <top>
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="800.0" styleClass="tool-bar" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="347.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="volverPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/left-arrow_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="294.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ComboBox fx:id="comboBox" prefWidth="150.0" promptText="efdf" style="-fx-border-color: seagreen; -fx-background-color: white; -fx-border-radius: 5 5 5 5;" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </top>
+</BorderPane>
