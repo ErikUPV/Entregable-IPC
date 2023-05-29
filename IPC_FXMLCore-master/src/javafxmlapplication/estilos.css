@@ -69,7 +69,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     
     -fx-background-radius: 100%;
 }
-
+#volverPista {
+    
+    -fx-background-radius: 100%;
+}
 #cajita {
     
 }
