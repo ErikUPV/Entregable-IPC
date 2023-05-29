@@ -179,6 +179,11 @@ public class FXMLEspacioPController implements Initializable {
 
     @FXML
     private void cerrarSesionOnAction(ActionEvent event) {
+        if (controlador != null) {
+            if (!controlador.confirmaCambiados()) {
+                return;
+            }
+        }
         cerrarSesion();
     }
 

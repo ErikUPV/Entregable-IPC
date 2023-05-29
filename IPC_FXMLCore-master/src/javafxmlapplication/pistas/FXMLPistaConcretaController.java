@@ -314,7 +314,12 @@ public class FXMLPistaConcretaController implements Initializable {
             }
 
         });
-
+        
+        JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
+            if (newv) {
+                updateTableView(datePicker.getValue());
+            }
+        });
         courtDayItemList = FXCollections.observableArrayList();
 
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
@@ -448,6 +453,8 @@ public class FXMLPistaConcretaController implements Initializable {
             }
 
         }
+        
+        
 
         Alert alert = new Alert(AlertType.CONFIRMATION);
         startAlert(alert);
@@ -502,9 +509,9 @@ public class FXMLPistaConcretaController implements Initializable {
     private void checkAvaliability() {
         courtDayItemList.forEach(elementObs -> {
             LocalDateTime t = elementObs.getMadeForDay().atTime(elementObs.getFromTime());
-//            if (elementObs.getFromTime().compareTo(LocalTime.now().plusHours(1)) < 0 && elementObs.statusProperty().getValue() != CourtDayItem.OCUPADO) {
-//                elementObs.setOldForDay(true);
-//            }
+            if (elementObs.getFromTime().compareTo(LocalTime.now().plusHours(1)) < 0 && elementObs.getMadeForDay().equals(LocalDate.now()) && elementObs.statusProperty().getValue() != CourtDayItem.OCUPADO) {
+                elementObs.setOldForDay(true);
+            }
 
             list.forEach(e -> {
 //                System.out.println(t);
