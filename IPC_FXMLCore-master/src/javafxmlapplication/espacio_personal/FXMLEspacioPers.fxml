@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,7 +14,11 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLEspacioPController">
    <top>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <VBox alignment="CENTER_RIGHT" styleClass="tool-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="cerrar" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#cerrarSesionOnAction" text="Cerrar sesión" />
+         </children>
+      </VBox>
    </top>
    <center>
       <HBox fx:id="mainVBox" styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
@@ -49,37 +52,15 @@
                         <Insets />
                      </VBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
+                  <VBox fx:id="vBoxTocho" alignment="TOP_CENTER" spacing="50.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="reservarPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#reservarPistaOnAction" prefHeight="62.0" prefWidth="125.0" text="Reservar pista" />
+                        <Button fx:id="reservarPista" mnemonicParsing="false" onAction="#reservarPistaOnAction" prefHeight="62.0" prefWidth="125.0" text="Reservar pista" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="misReservas" mnemonicParsing="false" onAction="#misReservasOnAction" prefHeight="62.0" prefWidth="125.0" text="Mis reservas" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="modificarPerfil" mnemonicParsing="false" onAction="#modificarPerfilOnAction" prefHeight="62.0" prefWidth="125.0" text="Modificar perfil" VBox.vgrow="ALWAYS" />
                      </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                     <children>
-                        <Button fx:id="misReservas" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#misReservasOnAction" prefHeight="62.0" prefWidth="125.0" text="Mis reservas" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                     <children>
-                        <Button fx:id="modificarPerfil" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#modificarPerfilOnAction" prefHeight="62.0" prefWidth="125.0" text="Modificar perfil" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="25.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                     <children>
-                        <Button fx:id="cerrar" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#cerrarSesionOnAction" prefHeight="62.0" prefWidth="125.0" text="Cerrar sesión" />
-                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
                   </VBox>
                </children>
                <HBox.margin>

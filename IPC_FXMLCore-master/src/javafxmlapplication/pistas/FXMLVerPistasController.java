@@ -179,7 +179,32 @@ public class FXMLVerPistasController implements Initializable {
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         c = this;
         comboBox.visibleProperty().setValue(false);
-
+        
+        List<Booking> l = club.getCourtBookings("Pista 1", LocalDate.now());
+        int slots = club.getBookingSlots();
+        int d1 = slots - l.size(); 
+        disp1.setText("Disponibles hoy: " + d1);
+        
+        l = club.getCourtBookings("Pista 2", LocalDate.now());
+        d1 = slots - l.size(); 
+        disp5.setText("Disponibles hoy: " + d1);
+        
+        l = club.getCourtBookings("Pista 3", LocalDate.now());
+        d1 = slots - l.size(); 
+        disp3.setText("Disponibles hoy: " + d1);
+        
+        l = club.getCourtBookings("Pista 4", LocalDate.now());
+        d1 = slots - l.size(); 
+        disp6.setText("Disponibles hoy: " + d1);
+        
+        l = club.getCourtBookings("Pista 5", LocalDate.now());
+        d1 = slots - l.size(); 
+        disp4.setText("Disponibles hoy: " + d1);
+        
+        l = club.getCourtBookings("Pista 6", LocalDate.now());
+        d1 = slots - l.size(); 
+        disp2.setText("Disponibles hoy: " + d1);
+        
     }
 
     @FXML
