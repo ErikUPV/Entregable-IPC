@@ -36,6 +36,7 @@ import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.espacio_personal.FXMLEspacioPController;
 import model.*;
 
 /**
@@ -81,8 +82,10 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     private ObservableList<String> comboObsList;
 
     private Member member;
-    
+
     private static FXMLBusquedaUsuarioController controlador;
+
+    private FXMLEspacioPController c;
 
     /**
      * Initializes the controller class.
@@ -90,6 +93,8 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controlador = this;
+        c = FXMLEspacioPController.getController();
+        comboBox.visibleProperty().setValue(false);
 
         try {
             club = Club.getInstance();
@@ -98,7 +103,13 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         }
 
         FXMLAutenticacionController.memberProperty().addListener((var ob, var oldv, var newv) -> {
-            member = (Member) newv;
+            if (newv != null) {
+                member = (Member) newv;
+                comboBox.visibleProperty().setValue(true);
+            } else {
+                comboBox.visibleProperty().setValue(false);
+
+            }
 
         });
         lista = new ArrayList<>();
@@ -130,8 +141,6 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             String pista = item.getCourt().getName().substring(5);
             return new SimpleStringProperty(pista);
         });
-
-        
 
     }
 
@@ -171,9 +180,10 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
         dialogPane.getStyleClass().add("myAlert");
     }
-    
+
     public void initializeComboBox() {
-        comboBox.setValue(member.getName());
+        if (member != null) {
+            comboBox.setValue(member.getName() + " - Opciones");
         comboList = new ArrayList<>();
 
         comboObsList = FXCollections.observableArrayList(comboList);
@@ -190,17 +200,17 @@ public class FXMLBusquedaUsuarioController implements Initializable {
                 FXMLAutenticacionController.cerrarSesion();
 
             } else if (newv.equals("Mis reservas")) {
+                c.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }
 
         });
+        }
 
     }
-    
-     public static FXMLBusquedaUsuarioController getController() {
+
+    public static FXMLBusquedaUsuarioController getController() {
         return controlador;
     }
 
 }
-
-

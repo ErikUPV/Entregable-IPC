@@ -43,6 +43,7 @@ import javafx.util.Duration;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.espacio_personal.FXMLEspacioPController;
 import model.*;
 
 /**
@@ -129,15 +130,25 @@ public class FXMLVerPistasController implements Initializable {
     private List<String> comboList;
     private ObservableList<String> comboObsList;
 
-    private static FXMLVerPistasController controlador;
+    private static FXMLEspacioPController controlador;
+
+    private static FXMLVerPistasController c;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        controlador = this;
 
         FXMLAutenticacionController.memberProperty().addListener((ob, oldv, newv) -> {
             member = (Member) newv;
+            if (member == null) {
+
+                comboBox.visibleProperty().setValue(false);
+
+            } else {
+                comboBox.visibleProperty().setValue(true);
+            }
+
+            controlador = FXMLEspacioPController.getController();
 
         });
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
@@ -166,6 +177,8 @@ public class FXMLVerPistasController implements Initializable {
         iv4.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv5.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
+        c = this;
+        comboBox.visibleProperty().setValue(false);
 
     }
 
@@ -258,8 +271,13 @@ public class FXMLVerPistasController implements Initializable {
 //        Parent root = miCargador.getRoot();
 //        if (root == null) {
 //            root = miCargador.load();
-//        }
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+//        }public void setDefault() {
+        if (FXMLAutenticacionController.memberProperty().getValue() == null) {
+            JavaFXMLApplication.setRoot(Paginas.INICIO);
+        } else {
+            controlador.setDefault();
+            JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+        }
     }
 
     @FXML
@@ -289,10 +307,10 @@ public class FXMLVerPistasController implements Initializable {
         comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
         comboBox.setItems(comboObsList);
-        comboBox.setValue(member.getName());
+        comboBox.setValue(member.getName() + " - Opciones");
 
         comboBox.getSelectionModel().select(-1);
-        
+
         comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
             if (newv == null) {
                 return;
@@ -302,6 +320,7 @@ public class FXMLVerPistasController implements Initializable {
                 FXMLAutenticacionController.cerrarSesion();
 
             } else if (newv.equals("Mis reservas")) {
+                controlador.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }
 
@@ -310,6 +329,7 @@ public class FXMLVerPistasController implements Initializable {
     }
 
     public static FXMLVerPistasController getController() {
-        return controlador;
+        return c;
     }
+
 }

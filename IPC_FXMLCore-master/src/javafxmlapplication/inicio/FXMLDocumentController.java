@@ -31,6 +31,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
+import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import model.*;
 
 /**
@@ -114,6 +115,7 @@ public class FXMLDocumentController implements Initializable {
 //        if (root == null) {
 //            root = miCargador.load();
 //        }
+        FXMLAutenticacionController.memberProperty().setValue(null);
         JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 

@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,11 +25,15 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import static javafxmlapplication.autenticacion.FXMLAutenticacionController.cerrarSesion;
+import javafxmlapplication.pistas.FXMLPistaConcretaController;
 import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.Club;
 import model.ClubDAOException;
@@ -41,8 +46,6 @@ import model.Member;
  */
 public class FXMLEspacioPController implements Initializable {
 
-    @FXML
-    private Button backButton;
     private ImageView profilePicture;
     @FXML
     private Button reservarPista;
@@ -60,10 +63,20 @@ public class FXMLEspacioPController implements Initializable {
     private Member member;
     private static ObjectProperty memberProperty;
     @FXML
-    private Pane paneEscena;
+    private VBox paneEscena;
     FXMLModificarDatosController controlador;
     @FXML
     private ImageView profilePictureImg;
+    @FXML
+    private HBox mainVBox;
+    @FXML
+    private BorderPane borderPane;
+
+    private Node children;
+
+    private static FXMLEspacioPController esteControlador;
+    @FXML
+    private VBox dentroVBox;
 
     /**
      * Initializes the controller class.
@@ -74,8 +87,10 @@ public class FXMLEspacioPController implements Initializable {
     }
 
     public void updateItems() {
-        
-        nameLabel.setText(member.getName() + " " + member.getSurname());
+
+        String nomYAp = member.getName() + " " + member.getSurname();
+
+        nameLabel.setText(capitalize(nomYAp));
         nicknameLabel.setText(member.getNickName());
         profilePictureImg.setImage(member.getImage());
     }
@@ -84,16 +99,28 @@ public class FXMLEspacioPController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         memberProperty = FXMLAutenticacionController.memberProperty();
         memberProperty.addListener((ob, oldv, newv) -> {
-            member = (Member) newv;
-            profilePictureImg.setImage(member.getImage());
-            nameLabel.setText(member.getName() + " " + member.getSurname());
-            nicknameLabel.setText(member.getNickName());
+            if (newv == null) {
+
+                member = (Member) newv;
+                String nomYAp = member.getName() + " " + member.getSurname();
+                profilePictureImg.setImage(member.getImage());
+                nameLabel.setText(capitalize(nomYAp));
+                nicknameLabel.setText(member.getNickName());
+
+            }
+     
         });
+
+        mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
+        mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
+
+        children = dentroVBox;
+        esteControlador = this;
 
     }
 
-    @FXML
     private void backButtonOnAction(ActionEvent event) {
+        JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
 
     @FXML
@@ -103,8 +130,8 @@ public class FXMLEspacioPController implements Initializable {
                 return;
             }
         }
-        FXMLVerPistasController controlador = FXMLVerPistasController.getController();
-        controlador.initializeComboBox();
+        FXMLVerPistasController c = FXMLVerPistasController.getController();
+        c.initializeComboBox();
         JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 
@@ -120,10 +147,11 @@ public class FXMLEspacioPController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLMisReservas.fxml"));
             Pane modificarD = loader.load();
             FXMLMisReservasController controlador = loader.getController();
-            
-            controlador.initMember(member);
+
+            controlador.initMember(member, this);
 
             paneEscena.getChildren().add(modificarD);
+            controlador.setPane(paneEscena);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -141,8 +169,9 @@ public class FXMLEspacioPController implements Initializable {
             controlador.initMember(member, this);
 
             paneEscena.getChildren().add(modificarD);
+
         } catch (IOException e) {
-            System.out.println(e);
+            java.util.logging.Logger.getLogger(FXMLEspacioPController.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
         modificarPerfil.disableProperty().setValue(true);
         misReservas.disableProperty().setValue(false);
@@ -151,5 +180,30 @@ public class FXMLEspacioPController implements Initializable {
     @FXML
     private void cerrarSesionOnAction(ActionEvent event) {
         cerrarSesion();
+    }
+
+    public Pane getPane() {
+        return paneEscena;
+    }
+
+    public void setDefault() {
+        paneEscena.getChildren().clear();
+        paneEscena.getChildren().add(children);
+        modificarPerfil.disableProperty().setValue(false);
+        misReservas.disableProperty().setValue(false);
+
+    }
+
+    public static FXMLEspacioPController getController() {
+        return esteControlador;
+    }
+
+    public static String capitalize(String s) {
+        String res = "";
+        String[] sArray = s.split(" ");
+        for (String a : sArray) {
+            res += a.substring(0, 1).toUpperCase() + a.substring(1) + " ";
+        }
+        return res;
     }
 }

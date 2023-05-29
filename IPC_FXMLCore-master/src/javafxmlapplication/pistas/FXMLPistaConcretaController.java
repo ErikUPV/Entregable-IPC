@@ -57,6 +57,7 @@ import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.espacio_personal.FXMLEspacioPController;
 import model.*;
 
 /**
@@ -124,11 +125,14 @@ public class FXMLPistaConcretaController implements Initializable {
     private VBox tableViewVBox;
 
     private List<Booking> bookingList;
-    
+
     private static FXMLPistaConcretaController controlador;
+
+    private FXMLEspacioPController c;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      */
 //    public void initPista(int pista) {
@@ -161,6 +165,7 @@ public class FXMLPistaConcretaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controlador = this;
+        c = FXMLEspacioPController.getController();
 
         bReservar.setDisable(true);
 
@@ -183,7 +188,8 @@ public class FXMLPistaConcretaController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLPistaConcretaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        datePicker.disableProperty().setValue(true);
+        comboBox.visibleProperty().setValue(false);
         FXMLVerPistasController.numPista.addListener((ob, oldv, newv) -> {
             title.setText("Reservar pista " + newv);
 
@@ -221,18 +227,22 @@ public class FXMLPistaConcretaController implements Initializable {
         memberProperty = FXMLAutenticacionController.memberProperty();
 
         memberProperty.addListener((ob, oldv, newv) -> {
-            member = (Member) newv;
-            System.out.println(member.getName());
+            if (newv != null) {
+                member = (Member) newv;
+                bookingList = new ArrayList<>(club.getUserBookings(member.getNickName()));
+                Collections.sort(bookingList);
+                for (Booking b : bookingList) {
+                    System.out.println(b.getMadeForDay() + " a las " + b.getFromTime());
+                }
+                datePicker.disableProperty().setValue(false);
+                comboBox.visibleProperty().setValue(true);
 
-            bookingList = new ArrayList<>(club.getUserBookings(member.getNickName()));
-            Collections.sort(bookingList);
-            for (Booking b : bookingList) {
-                System.out.println(b.getMadeForDay() + " a las " + b.getFromTime());
+            } else {
+                datePicker.disableProperty().setValue(true);
+                comboBox.visibleProperty().setValue(false);
             }
 
         });
-
-       
 
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         borderPane.heightProperty().addListener((observable, oldv, newv) -> {
@@ -349,8 +359,6 @@ public class FXMLPistaConcretaController implements Initializable {
         horaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.2));
         estadoCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.4));
         userCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.399));
-
-       
 
 //        Set userBookings = Set.copyOf(club.getUserBookings(member.getNickName()));
 //        Set dayBookings = Set.copyOf(club.getCourtBookings("Pista " + nPista,datePicker.getValue()));
@@ -483,6 +491,11 @@ public class FXMLPistaConcretaController implements Initializable {
 
         updateTableView(dia);
         JavaFXMLApplication.updatedProperty().setValue(false);
+        Alert alertF = new Alert(AlertType.INFORMATION);
+        startAlert(alertF);
+        alertF.setHeaderText("Reservado con éxito");
+        alertF.setContentText("Su pista ha sido reservada");
+        alertF.showAndWait();
 
     }
 
@@ -545,37 +558,37 @@ public class FXMLPistaConcretaController implements Initializable {
         }
         return false;
     }
-    
-     public void initializeComboBox() {
-        comboBox.setValue(member.getName());
-        comboList = new ArrayList<>();
 
-        comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+    public void initializeComboBox() {
+        if (member != null) {
+            comboBox.setValue(member.getName() + " - Opciones");
+            comboList = new ArrayList<>();
 
-        comboBox.setItems(comboObsList);
+            comboObsList = FXCollections.observableArrayList(comboList);
+            comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
-        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
-            if (newv == null) {
-                return;
-            }
+            comboBox.setItems(comboObsList);
 
-            if (newv.equals("Cerrar sesión")) {
-                FXMLAutenticacionController.cerrarSesion();
+            comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+                if (newv == null) {
+                    return;
+                }
 
-            } else if (newv.equals("Mis reservas")) {
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
-            }
+                if (newv.equals("Cerrar sesión")) {
+                    FXMLAutenticacionController.cerrarSesion();
 
-        });
+                } else if (newv.equals("Mis reservas")) {
+                    c.setDefault();
+                    JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+                }
+
+            });
+        }
 
     }
-    
-     public static FXMLPistaConcretaController getController() {
+
+    public static FXMLPistaConcretaController getController() {
         return controlador;
     }
 
-
 }
-
-
