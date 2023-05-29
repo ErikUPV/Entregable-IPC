@@ -131,17 +131,23 @@ public class FXMLVerPistasController implements Initializable {
     private ObservableList<String> comboObsList;
 
     private static FXMLEspacioPController controlador;
-    
+
     private static FXMLVerPistasController c;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
 
         FXMLAutenticacionController.memberProperty().addListener((ob, oldv, newv) -> {
             member = (Member) newv;
-            
+            if (member == null) {
+
+                comboBox.visibleProperty().setValue(false);
+
+            } else {
+                comboBox.visibleProperty().setValue(true);
+            }
+
             controlador = FXMLEspacioPController.getController();
 
         });
@@ -172,6 +178,7 @@ public class FXMLVerPistasController implements Initializable {
         iv5.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         c = this;
+        comboBox.visibleProperty().setValue(false);
 
     }
 
@@ -259,14 +266,18 @@ public class FXMLVerPistasController implements Initializable {
 
     @FXML
     private void backButtonOnAction(ActionEvent event) throws IOException {
-        controlador.setDefault();
+
 //        FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.INICIO);
 //        Parent root = miCargador.getRoot();
 //        if (root == null) {
 //            root = miCargador.load();
 //        }public void setDefault() {
-        
-        JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+        if (FXMLAutenticacionController.memberProperty().getValue() == null) {
+            JavaFXMLApplication.setRoot(Paginas.INICIO);
+        } else {
+            controlador.setDefault();
+            JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+        }
     }
 
     @FXML
@@ -299,7 +310,7 @@ public class FXMLVerPistasController implements Initializable {
         comboBox.setValue(member.getName() + " - Opciones");
 
         comboBox.getSelectionModel().select(-1);
-        
+
         comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
             if (newv == null) {
                 return;
@@ -316,10 +327,9 @@ public class FXMLVerPistasController implements Initializable {
         });
 
     }
-    
+
     public static FXMLVerPistasController getController() {
         return c;
     }
 
-    
 }

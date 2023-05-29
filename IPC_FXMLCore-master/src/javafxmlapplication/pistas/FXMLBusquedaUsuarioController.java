@@ -82,9 +82,9 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     private ObservableList<String> comboObsList;
 
     private Member member;
-    
+
     private static FXMLBusquedaUsuarioController controlador;
-    
+
     private FXMLEspacioPController c;
 
     /**
@@ -94,6 +94,8 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         controlador = this;
         c = FXMLEspacioPController.getController();
+        comboBox.visibleProperty().setValue(false);
+
         try {
             club = Club.getInstance();
         } catch (ClubDAOException | IOException ex) {
@@ -101,7 +103,13 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         }
 
         FXMLAutenticacionController.memberProperty().addListener((var ob, var oldv, var newv) -> {
-            member = (Member) newv;
+            if (newv != null) {
+                member = (Member) newv;
+                comboBox.visibleProperty().setValue(true);
+            } else {
+                comboBox.visibleProperty().setValue(false);
+
+            }
 
         });
         lista = new ArrayList<>();
@@ -133,8 +141,6 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             String pista = item.getCourt().getName().substring(5);
             return new SimpleStringProperty(pista);
         });
-
-        
 
     }
 
@@ -174,9 +180,10 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
         dialogPane.getStyleClass().add("myAlert");
     }
-    
+
     public void initializeComboBox() {
-        comboBox.setValue(member.getName() + " - Opciones");
+        if (member != null) {
+            comboBox.setValue(member.getName() + " - Opciones");
         comboList = new ArrayList<>();
 
         comboObsList = FXCollections.observableArrayList(comboList);
@@ -198,13 +205,12 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             }
 
         });
+        }
 
     }
-    
-     public static FXMLBusquedaUsuarioController getController() {
+
+    public static FXMLBusquedaUsuarioController getController() {
         return controlador;
     }
 
 }
-
-
