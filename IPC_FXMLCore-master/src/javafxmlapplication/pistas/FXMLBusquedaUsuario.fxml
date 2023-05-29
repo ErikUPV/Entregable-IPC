@@ -20,7 +20,7 @@
          <children>
             <VBox alignment="CENTER">
                <children>
-                  <Label fx:id="title" text="Buscar reservas de un usuario">
+                  <Label fx:id="title" styleClass="titulo-label" text="Buscar reservas de un usuario">
                      <font>
                         <Font size="36.0" />
                      </font>

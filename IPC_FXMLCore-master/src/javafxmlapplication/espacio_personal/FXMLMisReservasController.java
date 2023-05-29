@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -98,12 +101,14 @@ public class FXMLMisReservasController implements Initializable {
 //    }
     @FXML
     private Button cancelar;
-    
-    private FXMLEspacioPController controlador; 
-    
+
+    private FXMLEspacioPController controlador;
+
     private VBox paneEscena;
     @FXML
     private VBox mainVBox;
+
+    public boolean delete;
 
     /**
      * Initializes the controller class.
@@ -118,31 +123,41 @@ public class FXMLMisReservasController implements Initializable {
         reservasT.setItems(reservaObsList);
         controlador = c;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         cancelar.requestFocus();
+        JavaFXMLApplication.updatedProperty().setValue(false);
         JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
-           if (newv) {
-               
-               List<Booking> aux = club.getUserBookings(member.getNickName());
-                
-            
-            for (Booking b : aux) {
-                if (reservaObsList.indexOf(b) == -1) {
-                    reservaObsList.add(b);
-                }
+            if (newv) {
+
+                List<Booking> aux = club.getUserBookings(member.getNickName());
+
+                reservaObsList.clear();
+                reservaObsList.addAll(club.getUserBookings(member.getNickName()));
             }
-           }
         });
         System.out.println("hy");
 
+        reservasT.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+            if (newv == null) {
+                cancelar.disableProperty().setValue(true);
+                return;
+            }
+            if (LocalDateTime.now().compareTo(newv.getMadeForDay().atTime(newv.getFromTime()).minusHours(24)) < 0) {
+                cancelar.disableProperty().setValue(false);
+            } else {
+                cancelar.disableProperty().setValue(true);
+            }
+
+        });
         try {
             club = Club.getInstance();
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLMisReservasController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         col1.prefWidthProperty().bind(reservasT.widthProperty().multiply(.195));
         col2.prefWidthProperty().bind(reservasT.widthProperty().multiply(.13));
         col3.prefWidthProperty().bind(reservasT.widthProperty().multiply(.13));
@@ -158,7 +173,6 @@ public class FXMLMisReservasController implements Initializable {
 //        col6.minWidthProperty().bind(reservasT.widthProperty().multiply(.195));
 //        
 //        
-
         //col1.setCellValueFactory(new PropertyValueFactory<>("Dia"));
         //col2.setCellValueFactory(new PropertyValueFactory<>("Inicio"));
         //col3.setCellValueFactory(new PropertyValueFactory<>("Final"));
@@ -205,7 +219,6 @@ public class FXMLMisReservasController implements Initializable {
             return new SimpleStringProperty(pista);
         });
 
-       
         col5.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
             Image pagado;
@@ -216,10 +229,10 @@ public class FXMLMisReservasController implements Initializable {
                 File img = new File("src/javafxmlapplication/imagenes/close.png");
                 pagado = new Image(img.toURI().toString());
             }
-            
-            return new  SimpleObjectProperty<>(pagado);
+
+            return new SimpleObjectProperty<>(pagado);
         });
-        
+
         col5.setCellFactory(column -> new TableCell<Booking, Image>() {
             private final ImageView imageView = new ImageView();
 
@@ -244,17 +257,17 @@ public class FXMLMisReservasController implements Initializable {
         col6.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
             Image cancelar;
-            
+
             if (LocalDateTime.now().compareTo(item.getMadeForDay().atTime(item.getFromTime()).minusHours(24)) < 0) {
-                File img = new File("src/javafxmlapplication/imagenes/close.png");
+                File img = new File("src/javafxmlapplication/imagenes/check-mark.png");
                 cancelar = new Image(img.toURI().toString());
             } else {
-                 File img = new File("src/javafxmlapplication/imagenes/check-mark.png");
+                File img = new File("src/javafxmlapplication/imagenes/close.png");
                 cancelar = new Image(img.toURI().toString());
             }
-            return new  SimpleObjectProperty<>(cancelar);
+            return new SimpleObjectProperty<>(cancelar);
         });
-         col6.setCellFactory(column -> new TableCell<Booking, Image>() {
+        col6.setCellFactory(column -> new TableCell<Booking, Image>() {
             private final ImageView imageView = new ImageView();
 
             {
@@ -274,8 +287,7 @@ public class FXMLMisReservasController implements Initializable {
                 }
             }
         });
-        
-       
+
         //modificar pa image
 //        col6.setCellValueFactory(cellData -> {
 //            Booking item = cellData.getValue();
@@ -285,16 +297,50 @@ public class FXMLMisReservasController implements Initializable {
 //            return new SimpleStringProperty(cancelar);
 //        });
         // 
-
     }
 
     @FXML
-    private void cancelarButtonOnAction(ActionEvent event) {
+    private void cancelarButtonOnAction(ActionEvent event) throws ClubDAOException {
+
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Confirmación");
+        startAlert(a);
+        a.setHeaderText("¿Quiere salir sin guardar?");
+        a.setContentText("Si sale ahora sus cambios no se guardarán");
+        startAlert(a);
+        Optional<ButtonType> res;
+        res = a.showAndWait();
+        res.ifPresent(e -> {
+            if (!e.equals(ButtonType.OK)) {
+
+            } else {
+                Booking b = reservasT.getSelectionModel().getSelectedItem();
+
+                try {
+                    club.removeBooking(b);
+                } catch (ClubDAOException ex) {
+                    Logger.getLogger(FXMLMisReservasController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                club.getUserBookings("admin").forEach(el -> {
+                    System.out.println(el.getMember().getName());
+
+                });
+                delete = true;
+                JavaFXMLApplication.updatedProperty().setValue(true);
+                delete = false;
+            }
+        });
 
     }
-    
+
     public void setPane(VBox p) {
         paneEscena = p;
-        
+
+    }
+
+    private void startAlert(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
+        dialogPane.getStyleClass().add("myAlert");
     }
 }

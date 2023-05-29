@@ -13,10 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox fx:id="mainVBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLModificarDatosController">
+<VBox fx:id="mainVBox" alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLModificarDatosController">
    <children>
-      <Label id="sobreVerde" text="Modificar datos">
+      <Label id="sobreVerde" styleClass="titulo-label" text="Modificar datos">
          <font>
             <Font size="25.0" />
          </font>
@@ -216,7 +215,7 @@
                   <Insets left="50.0" right="50.0" />
                </padding>
             </Separator>
-            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="900.0" spacing="20.0">
+            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="900.0" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="badInputLabel" textFill="RED">
                      <padding>

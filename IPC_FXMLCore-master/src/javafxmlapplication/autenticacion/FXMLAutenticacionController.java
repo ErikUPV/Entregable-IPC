@@ -26,6 +26,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
+import javafxmlapplication.espacio_personal.FXMLEspacioPController;
 import model.*;
 
 /**
@@ -56,13 +57,14 @@ public class FXMLAutenticacionController implements Initializable {
     @FXML
     private Label debugLabel;
 
+    private FXMLEspacioPController c;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         memberProperty = new SimpleObjectProperty(member);
-
         try {
             club = Club.getInstance();
             File f = new File("src/javafxmlapplication/imagenes/home.png");
@@ -75,7 +77,6 @@ public class FXMLAutenticacionController implements Initializable {
         }
 
         //debugLabel.setText("" + club.getCourts().toString());
-
         // TODO
         columnaPrincipal.minWidthProperty().set(400);
         // TODO
@@ -85,18 +86,18 @@ public class FXMLAutenticacionController implements Initializable {
 
     @FXML
     private void backButtonOnAction(ActionEvent event) {
-       JavaFXMLApplication.setRoot(Paginas.INICIO);
-       JavaFXMLApplication.borrarTextField(passwordField, userTextField);
+        JavaFXMLApplication.setRoot(Paginas.INICIO);
+        JavaFXMLApplication.borrarTextField(passwordField, userTextField);
     }
 
     @FXML
     private void loginButtonOnAction(ActionEvent event) throws InterruptedException, IOException {
-        try {
-             member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
 
-            if (member != null) {
-                System.out.println("login exitoso");
-                //debugLabel.textProperty().set("Bienvenido " + member.getNickName());
+        member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
+
+        if (member != null) {
+            System.out.println("login exitoso");
+            //debugLabel.textProperty().set("Bienvenido " + member.getNickName());
 
 //                FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.ESPACIO_PERSONAL);
 //                FXMLEspacioPersonalController controlador = miCargador.getController();
@@ -105,16 +106,15 @@ public class FXMLAutenticacionController implements Initializable {
 //                if (root == null) {
 //                    root = miCargador.load();
 //                }
-                memberProperty.setValue(member);
+            memberProperty.setValue(member);
 
-                System.out.println(member.getName() + " " + member.getSurname());
+            System.out.println(member.getName() + " " + member.getSurname());
+            c = FXMLEspacioPController.getController();
 
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
-                JavaFXMLApplication.borrarTextField(passwordField, userTextField);
+            c.setDefault();
+            JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+            JavaFXMLApplication.borrarTextField(passwordField, userTextField);
 
-            }
-        } catch (NullPointerException e) {
-            //debugLabel.setText("Por favor introduzca unas credenciales válidas");
         }
     }
 
@@ -136,11 +136,10 @@ public class FXMLAutenticacionController implements Initializable {
     public static ObjectProperty memberProperty() {
         return memberProperty;
     }
-    
+
     public static void cerrarSesion() {
         member = null;
         JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
-    
 
 }

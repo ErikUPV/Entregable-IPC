@@ -38,6 +38,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.registro.FXMLRegistroController;
 import model.Club;
 import model.ClubDAOException;
 import model.Member;
@@ -100,7 +101,7 @@ public class FXMLModificarDatosController implements Initializable {
     private VBox imageVBox;
     @FXML
     private VBox mainVBox;
-    
+
     String style;
 
     public void initMember(Member m, FXMLEspacioPController c) throws ClubDAOException, IOException {
@@ -116,7 +117,7 @@ public class FXMLModificarDatosController implements Initializable {
         password = member.getPassword();
         editarNombre.requestFocus();
         controlador = c;
-        
+
         name = member.getName();
         surname = member.getSurname();
         telefono = member.getTelephone();
@@ -135,7 +136,7 @@ public class FXMLModificarDatosController implements Initializable {
         quiereSalir = true;
         style = nameLabel.getStyle();
         profilePicture.fitWidthProperty().bind(imageVBox.widthProperty().multiply(0.4));
-        
+
         mainVBox.widthProperty().addListener((ob, oldv, newv) -> {
             if (newv.intValue() < 900) {
                 nameLabel.setStyle("-fx-font-size: 17");
@@ -158,7 +159,6 @@ public class FXMLModificarDatosController implements Initializable {
     @FXML
     private void modificarOnAction(ActionEvent event) {
         cambiado = false;
-        
 
         Alert a = new Alert(AlertType.CONFIRMATION);
         a.setTitle("Confirmación");
@@ -247,6 +247,7 @@ public class FXMLModificarDatosController implements Initializable {
         quiereSalir = false;
         TextField tlfField = new TextField();
         Label l1 = new Label("Teléfono");
+        tlfField.setTextFormatter(FXMLRegistroController.getTextFormatter(9));
 
         HBox hBox1 = new HBox();
         hBox1.setAlignment(Pos.CENTER_RIGHT);
@@ -350,6 +351,10 @@ public class FXMLModificarDatosController implements Initializable {
         quiereSalir = false;
         TextField cardField = new TextField();
         TextField cvcField = new TextField();
+
+        cardField.setTextFormatter(FXMLRegistroController.getTextFormatter(16));
+        cvcField.setTextFormatter(FXMLRegistroController.getTextFormatter(3));
+
         Label l1 = new Label("Número de tarjeta");
         Label l2 = new Label("CVC");
 
@@ -419,7 +424,7 @@ public class FXMLModificarDatosController implements Initializable {
             Path imgPath = selectedFile.toPath();
             img = new Image(imgPath.toString());
             profilePicture.setImage(img);
-            
+
         }
 
     }
