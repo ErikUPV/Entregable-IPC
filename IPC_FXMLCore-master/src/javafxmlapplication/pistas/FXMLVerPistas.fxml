@@ -18,7 +18,7 @@
    <center>
       <VBox fx:id="mainVBox" alignment="CENTER" styleClass="vBoxPrincipal" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Reservar Pistas">
+            <Label styleClass="titulo-label" text="Reservar Pistas">
                <font>
                   <Font size="40.0" />
                </font>

@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,8 +46,6 @@ import model.Member;
  */
 public class FXMLEspacioPController implements Initializable {
 
-    @FXML
-    private Button backButton;
     private ImageView profilePicture;
     @FXML
     private Button reservarPista;
@@ -73,6 +72,12 @@ public class FXMLEspacioPController implements Initializable {
     @FXML
     private BorderPane borderPane;
 
+    private Node children;
+
+    private static FXMLEspacioPController esteControlador;
+    @FXML
+    private VBox dentroVBox;
+
     /**
      * Initializes the controller class.
      */
@@ -82,8 +87,10 @@ public class FXMLEspacioPController implements Initializable {
     }
 
     public void updateItems() {
-        
-        nameLabel.setText(member.getName() + " " + member.getSurname());
+
+        String nomYAp = member.getName() + " " + member.getSurname();
+
+        nameLabel.setText(capitalize(nomYAp));
         nicknameLabel.setText(member.getNickName());
         profilePictureImg.setImage(member.getImage());
     }
@@ -93,19 +100,20 @@ public class FXMLEspacioPController implements Initializable {
         memberProperty = FXMLAutenticacionController.memberProperty();
         memberProperty.addListener((ob, oldv, newv) -> {
             member = (Member) newv;
+            String nomYAp = member.getName() + " " + member.getSurname();
             profilePictureImg.setImage(member.getImage());
-            nameLabel.setText(member.getName() + " " + member.getSurname());
+            nameLabel.setText(capitalize(nomYAp));
             nicknameLabel.setText(member.getNickName());
         });
-        
+
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
-        
-        
+
+        children = dentroVBox;
+        esteControlador = this;
 
     }
 
-    @FXML
     private void backButtonOnAction(ActionEvent event) {
         JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
@@ -117,8 +125,8 @@ public class FXMLEspacioPController implements Initializable {
                 return;
             }
         }
-        FXMLVerPistasController controlador = FXMLVerPistasController.getController();
-        controlador.initializeComboBox();
+        FXMLVerPistasController c = FXMLVerPistasController.getController();
+        c.initializeComboBox();
         JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 
@@ -134,7 +142,7 @@ public class FXMLEspacioPController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafxmlapplication/espacio_personal/FXMLMisReservas.fxml"));
             Pane modificarD = loader.load();
             FXMLMisReservasController controlador = loader.getController();
-            
+
             controlador.initMember(member, this);
 
             paneEscena.getChildren().add(modificarD);
@@ -156,7 +164,7 @@ public class FXMLEspacioPController implements Initializable {
             controlador.initMember(member, this);
 
             paneEscena.getChildren().add(modificarD);
-            
+
         } catch (IOException e) {
             java.util.logging.Logger.getLogger(FXMLEspacioPController.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
@@ -168,8 +176,29 @@ public class FXMLEspacioPController implements Initializable {
     private void cerrarSesionOnAction(ActionEvent event) {
         cerrarSesion();
     }
-    
+
     public Pane getPane() {
         return paneEscena;
+    }
+
+    public void setDefault() {
+        paneEscena.getChildren().clear();
+        paneEscena.getChildren().add(children);
+        modificarPerfil.disableProperty().setValue(false);
+        misReservas.disableProperty().setValue(false);
+
+    }
+
+    public static FXMLEspacioPController getController() {
+        return esteControlador;
+    }
+
+    public static String capitalize(String s) {
+        String res = "";
+        String[] sArray = s.split(" ");
+        for (String a : sArray) {
+            res += a.substring(0, 1).toUpperCase() + a.substring(1) + " ";
+        }
+        return res;
     }
 }

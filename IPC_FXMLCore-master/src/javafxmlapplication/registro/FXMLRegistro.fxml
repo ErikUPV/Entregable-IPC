@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.registro.FXMLRegistroController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.registro.FXMLRegistroController">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
@@ -48,7 +48,7 @@
          <children>
             <VBox fx:id="vBoxPrincipal" prefHeight="434.0" prefWidth="520.0" spacing="20.0" styleClass="vBoxPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label text="Registro">
+                  <Label styleClass="titulo-label" text="Registro">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>

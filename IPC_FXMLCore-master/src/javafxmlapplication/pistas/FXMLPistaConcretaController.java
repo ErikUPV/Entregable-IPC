@@ -57,6 +57,7 @@ import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.espacio_personal.FXMLEspacioPController;
 import model.*;
 
 /**
@@ -124,11 +125,14 @@ public class FXMLPistaConcretaController implements Initializable {
     private VBox tableViewVBox;
 
     private List<Booking> bookingList;
-    
+
     private static FXMLPistaConcretaController controlador;
+
+    private FXMLEspacioPController c;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      */
 //    public void initPista(int pista) {
@@ -161,6 +165,7 @@ public class FXMLPistaConcretaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controlador = this;
+        c = FXMLEspacioPController.getController();
 
         bReservar.setDisable(true);
 
@@ -231,8 +236,6 @@ public class FXMLPistaConcretaController implements Initializable {
             }
 
         });
-
-       
 
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
         borderPane.heightProperty().addListener((observable, oldv, newv) -> {
@@ -349,8 +352,6 @@ public class FXMLPistaConcretaController implements Initializable {
         horaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.2));
         estadoCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.4));
         userCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.399));
-
-       
 
 //        Set userBookings = Set.copyOf(club.getUserBookings(member.getNickName()));
 //        Set dayBookings = Set.copyOf(club.getCourtBookings("Pista " + nPista,datePicker.getValue()));
@@ -550,9 +551,9 @@ public class FXMLPistaConcretaController implements Initializable {
         }
         return false;
     }
-    
-     public void initializeComboBox() {
-        comboBox.setValue(member.getName());
+
+    public void initializeComboBox() {
+        comboBox.setValue(member.getName() + " - Opciones");
         comboList = new ArrayList<>();
 
         comboObsList = FXCollections.observableArrayList(comboList);
@@ -569,18 +570,16 @@ public class FXMLPistaConcretaController implements Initializable {
                 FXMLAutenticacionController.cerrarSesion();
 
             } else if (newv.equals("Mis reservas")) {
+                c.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }
 
         });
 
     }
-    
-     public static FXMLPistaConcretaController getController() {
+
+    public static FXMLPistaConcretaController getController() {
         return controlador;
     }
 
-
 }
-
-

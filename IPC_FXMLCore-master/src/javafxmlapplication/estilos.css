@@ -85,9 +85,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 }
 
-.vBoxPrincipal > .label {
+ .titulo-label {
     -fx-text-fill: seagreen;
-    -fx-text-effect: bold
+    -fx-font-weight: bold;
+    -fx-font-size: 30
 }
 
 .registro-label {

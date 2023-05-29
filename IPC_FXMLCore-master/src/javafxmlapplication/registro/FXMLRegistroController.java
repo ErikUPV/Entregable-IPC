@@ -149,7 +149,7 @@ public class FXMLRegistroController implements Initializable {
 
     }
 
-    private TextFormatter<String> getTextFormatter(int e) {
+    public static TextFormatter<String> getTextFormatter(int e) {
         TextFormatter<String> formatter2 = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("\\d{0," + e + "}")) {

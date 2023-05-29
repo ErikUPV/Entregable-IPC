@@ -36,6 +36,7 @@ import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.espacio_personal.FXMLEspacioPController;
 import model.*;
 
 /**
@@ -83,6 +84,8 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     private Member member;
     
     private static FXMLBusquedaUsuarioController controlador;
+    
+    private FXMLEspacioPController c;
 
     /**
      * Initializes the controller class.
@@ -90,7 +93,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controlador = this;
-
+        c = FXMLEspacioPController.getController();
         try {
             club = Club.getInstance();
         } catch (ClubDAOException | IOException ex) {
@@ -173,7 +176,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
     }
     
     public void initializeComboBox() {
-        comboBox.setValue(member.getName());
+        comboBox.setValue(member.getName() + " - Opciones");
         comboList = new ArrayList<>();
 
         comboObsList = FXCollections.observableArrayList(comboList);
@@ -190,6 +193,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
                 FXMLAutenticacionController.cerrarSesion();
 
             } else if (newv.equals("Mis reservas")) {
+                c.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }
 
