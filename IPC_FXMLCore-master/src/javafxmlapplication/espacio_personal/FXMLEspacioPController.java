@@ -77,6 +77,8 @@ public class FXMLEspacioPController implements Initializable {
     private static FXMLEspacioPController esteControlador;
     @FXML
     private VBox dentroVBox;
+    @FXML
+    private VBox vBoxTocho;
 
     /**
      * Initializes the controller class.
