@@ -5,53 +5,47 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLMisReservasController">
+<VBox fx:id="mainVBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLMisReservasController">
    <children>
-      <VBox alignment="CENTER" prefWidth="900.0">
+      <VBox fx:id="cambioVBOX" alignment="CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="cambioVBOX" alignment="CENTER" prefWidth="603.0" spacing="10.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label text="Mis reservas">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="reservasT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="330.0" prefWidth="565.0" VBox.vgrow="ALWAYS">
-                     <columns>
-                        <TableColumn fx:id="col1" minWidth="110.0" prefWidth="110.0" text="Dia" />
-                        <TableColumn fx:id="col2" minWidth="75.0" prefWidth="75.0" text="Inicio" />
-                        <TableColumn fx:id="col3" minWidth="75.0" prefWidth="75.0" text="Final" />
-                        <TableColumn fx:id="col4" minWidth="95.0" prefWidth="95.0" text="Pista" />
-                        <TableColumn fx:id="col5" minWidth="100.0" prefWidth="100.0" text="Pagado" />
-                        <TableColumn fx:id="col6" minWidth="110.0" prefWidth="110.0" text="Cancelable" />
-                     </columns>
-                  </TableView>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="35.0" prefWidth="565.0">
-               <children>
-                  <Button fx:id="cancelar" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarButtonOnAction" prefHeight="35.0" prefWidth="565.0" text="Cancelar">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-               </children>
+            <Label text="Mis reservas">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TableView fx:id="reservasT" prefHeight="330.0" prefWidth="565.0" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="col1" minWidth="110.0" prefWidth="110.0" text="Dia" />
+                  <TableColumn fx:id="col2" minWidth="75.0" prefWidth="75.0" text="Inicio" />
+                  <TableColumn fx:id="col3" minWidth="75.0" prefWidth="75.0" text="Final" />
+                  <TableColumn fx:id="col4" minWidth="95.0" prefWidth="95.0" text="Pista" />
+                  <TableColumn fx:id="col5" minWidth="100.0" prefWidth="100.0" text="Pagado" />
+                  <TableColumn fx:id="col6" minWidth="110.0" prefWidth="110.0" text="Cancelable" />
+               </columns>
+            </TableView>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox prefHeight="35.0" prefWidth="565.0">
+         <children>
+            <Button fx:id="cancelar" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarButtonOnAction" prefHeight="35.0" prefWidth="565.0" text="Cancelar">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-            </VBox>
+            </Button>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
       </VBox>
    </children>
-</Pane>
+</VBox>

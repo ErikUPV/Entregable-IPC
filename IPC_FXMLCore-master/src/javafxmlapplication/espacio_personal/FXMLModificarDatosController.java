@@ -34,6 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.util.Pair;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
@@ -54,8 +55,6 @@ public class FXMLModificarDatosController implements Initializable {
     private Label badInputLabel;
     @FXML
     private Button modificar;
-    @FXML
-    private Pane paneModif;
     private Member member;
     private Club club;
     @FXML
@@ -97,6 +96,12 @@ public class FXMLModificarDatosController implements Initializable {
     String cardNumber;
     int cvc;
     Image img;
+    @FXML
+    private VBox imageVBox;
+    @FXML
+    private VBox mainVBox;
+    
+    String style;
 
     public void initMember(Member m, FXMLEspacioPController c) throws ClubDAOException, IOException {
         member = m;
@@ -128,6 +133,26 @@ public class FXMLModificarDatosController implements Initializable {
         cambiado = false;
         editarNombre.requestFocus();
         quiereSalir = true;
+        style = nameLabel.getStyle();
+        profilePicture.fitWidthProperty().bind(imageVBox.widthProperty().multiply(0.4));
+        
+        mainVBox.widthProperty().addListener((ob, oldv, newv) -> {
+            if (newv.intValue() < 900) {
+                nameLabel.setStyle("-fx-font-size: 17");
+                surnameLabel.setStyle("-fx-font-size: 17");
+                tlfLabel.setStyle("-fx-font-size: 17");
+                passwordLabel.setStyle("-fx-font-size: 17");
+                cardLabel.setStyle("-fx-font-size: 17");
+                cvcLabel.setStyle("-fx-font-size: 17");
+            } else {
+                nameLabel.setStyle(style);
+                surnameLabel.setStyle(style);
+                tlfLabel.setStyle(style);
+                passwordLabel.setStyle(style);
+                cardLabel.setStyle(style);
+                cvcLabel.setStyle(style);
+            }
+        });
     }
 
     @FXML
