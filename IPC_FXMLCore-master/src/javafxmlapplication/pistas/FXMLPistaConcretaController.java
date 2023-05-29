@@ -188,7 +188,8 @@ public class FXMLPistaConcretaController implements Initializable {
         } catch (ClubDAOException | IOException ex) {
             Logger.getLogger(FXMLPistaConcretaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        datePicker.disableProperty().setValue(true);
+        comboBox.visibleProperty().setValue(false);
         FXMLVerPistasController.numPista.addListener((ob, oldv, newv) -> {
             title.setText("Reservar pista " + newv);
 
@@ -226,13 +227,19 @@ public class FXMLPistaConcretaController implements Initializable {
         memberProperty = FXMLAutenticacionController.memberProperty();
 
         memberProperty.addListener((ob, oldv, newv) -> {
-            member = (Member) newv;
-            System.out.println(member.getName());
+            if (newv != null) {
+                member = (Member) newv;
+                bookingList = new ArrayList<>(club.getUserBookings(member.getNickName()));
+                Collections.sort(bookingList);
+                for (Booking b : bookingList) {
+                    System.out.println(b.getMadeForDay() + " a las " + b.getFromTime());
+                }
+                datePicker.disableProperty().setValue(false);
+                comboBox.visibleProperty().setValue(true);
 
-            bookingList = new ArrayList<>(club.getUserBookings(member.getNickName()));
-            Collections.sort(bookingList);
-            for (Booking b : bookingList) {
-                System.out.println(b.getMadeForDay() + " a las " + b.getFromTime());
+            } else {
+                datePicker.disableProperty().setValue(true);
+                comboBox.visibleProperty().setValue(false);
             }
 
         });
@@ -553,28 +560,30 @@ public class FXMLPistaConcretaController implements Initializable {
     }
 
     public void initializeComboBox() {
-        comboBox.setValue(member.getName() + " - Opciones");
-        comboList = new ArrayList<>();
+        if (member != null) {
+            comboBox.setValue(member.getName() + " - Opciones");
+            comboList = new ArrayList<>();
 
-        comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+            comboObsList = FXCollections.observableArrayList(comboList);
+            comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
-        comboBox.setItems(comboObsList);
+            comboBox.setItems(comboObsList);
 
-        comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
-            if (newv == null) {
-                return;
-            }
+            comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
+                if (newv == null) {
+                    return;
+                }
 
-            if (newv.equals("Cerrar sesión")) {
-                FXMLAutenticacionController.cerrarSesion();
+                if (newv.equals("Cerrar sesión")) {
+                    FXMLAutenticacionController.cerrarSesion();
 
-            } else if (newv.equals("Mis reservas")) {
-                c.setDefault();
-                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
-            }
+                } else if (newv.equals("Mis reservas")) {
+                    c.setDefault();
+                    JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+                }
 
-        });
+            });
+        }
 
     }
 

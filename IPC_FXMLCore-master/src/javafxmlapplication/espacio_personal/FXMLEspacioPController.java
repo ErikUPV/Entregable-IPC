@@ -99,11 +99,16 @@ public class FXMLEspacioPController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         memberProperty = FXMLAutenticacionController.memberProperty();
         memberProperty.addListener((ob, oldv, newv) -> {
-            member = (Member) newv;
-            String nomYAp = member.getName() + " " + member.getSurname();
-            profilePictureImg.setImage(member.getImage());
-            nameLabel.setText(capitalize(nomYAp));
-            nicknameLabel.setText(member.getNickName());
+            if (newv == null) {
+
+                member = (Member) newv;
+                String nomYAp = member.getName() + " " + member.getSurname();
+                profilePictureImg.setImage(member.getImage());
+                nameLabel.setText(capitalize(nomYAp));
+                nicknameLabel.setText(member.getNickName());
+
+            }
+     
         });
 
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
