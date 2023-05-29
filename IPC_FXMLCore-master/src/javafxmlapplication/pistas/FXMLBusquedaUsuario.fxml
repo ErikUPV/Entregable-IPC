@@ -38,7 +38,10 @@
                   <HBox prefHeight="0.0" prefWidth="779.0" spacing="5.0">
                      <children>
                         <TextField fx:id="buscarTextField" prefHeight="27.0" prefWidth="172.0" />
-                        <Button mnemonicParsing="false" onAction="#buscarButtonOnAction" text="Buscar" />
+                        <Button alignment="CENTER_RIGHT" minHeight="-Infinity" mnemonicParsing="false" onAction="#buscarButtonOnAction" prefHeight="26.0" prefWidth="56.0" text="Buscar" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Button>
                      </children>
                   </HBox>
                </children>
@@ -72,7 +75,7 @@
    <top>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="800.0" styleClass="tool-bar" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="347.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="347.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button fx:id="volverPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
                      <graphic>

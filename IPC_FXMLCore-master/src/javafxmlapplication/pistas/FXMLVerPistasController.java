@@ -329,8 +329,10 @@ public class FXMLVerPistasController implements Initializable {
         comboObsList = FXCollections.observableArrayList(comboList);
         comboObsList.clear();
 
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
-
+        comboObsList.addAll("Espacio Personal", "Cerrar sesión");
+        
+        //comboBox.setPromptText("Selecciona una opción"); 
+        
         comboBox.setItems(comboObsList);
         comboBox.setValue(member.getName() + " - Opciones");
 
@@ -344,7 +346,7 @@ public class FXMLVerPistasController implements Initializable {
             if (newv.equals("Cerrar sesión")) {
                 FXMLAutenticacionController.cerrarSesion();
 
-            } else if (newv.equals("Mis reservas")) {
+            } else if (newv.equals("Espacio Personal")) {
                 controlador.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }

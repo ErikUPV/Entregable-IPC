@@ -6,6 +6,7 @@ package javafxmlapplication.pistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +120,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.8));
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
 
-        pistaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.33));
+        pistaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.34));
         diaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.33));
         horaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.33));
 
@@ -149,6 +150,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 
+    
     @FXML
     private void buscarButtonOnAction(ActionEvent event) {
         String text = buscarTextField.getText();
@@ -167,11 +169,18 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             alert.setHeaderText("Error en la búsqueda");
             alert.setContentText("Este usuario no existe");
             alert.showAndWait();
-        } else {
+        } else if (member != null){
             listaObservable.clear();
             listaObservable.addAll(club.getUserBookings(text));
             title.setText(titulo + text);
 
+        } else {
+            listaObservable.clear();
+            List<Booking> l = club.getUserBookings(text);
+            for(int i = 0; i < l.size(); i++) {
+                if(!l.get(i).isForDay(LocalDate.now())) {listaObservable.add(l.get(i));}
+            }
+            title.setText(titulo + text);
         }
     }
 
@@ -187,7 +196,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         comboList = new ArrayList<>();
 
         comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+        comboObsList.addAll("Espacio Personal", "Cerrar sesión");
 
         comboBox.setItems(comboObsList);
 
@@ -199,7 +208,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             if (newv.equals("Cerrar sesión")) {
                 FXMLAutenticacionController.cerrarSesion();
 
-            } else if (newv.equals("Mis reservas")) {
+            } else if (newv.equals("Espacio Personal")) {
                 c.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }
