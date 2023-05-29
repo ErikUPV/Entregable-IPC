@@ -87,7 +87,7 @@ public class JavaFXMLApplication extends Application {
         loader = new FXMLLoader(getClass().getResource("pistas/FXMLVerPistas.fxml"));
         root = loader.load();
         roots.put(Paginas.PISTAS, root);
-        loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLEspacioP.fxml"));
+        loader = new FXMLLoader(getClass().getResource("espacio_personal/FXMLEspacioPers.fxml"));
         root = loader.load();
         roots.put(Paginas.ESPACIO_P, root);
         loader = new FXMLLoader(getClass().getResource("inicio2/FXMLDocument.fxml"));

@@ -483,6 +483,11 @@ public class FXMLPistaConcretaController implements Initializable {
 
         updateTableView(dia);
         JavaFXMLApplication.updatedProperty().setValue(false);
+        Alert alertF = new Alert(AlertType.INFORMATION);
+        startAlert(alertF);
+        alertF.setHeaderText("Reservado con éxito");
+        alertF.setContentText("Su pista ha sido reservada");
+        alertF.showAndWait();
 
     }
 

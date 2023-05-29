@@ -24,11 +24,15 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import static javafxmlapplication.autenticacion.FXMLAutenticacionController.cerrarSesion;
+import javafxmlapplication.pistas.FXMLPistaConcretaController;
 import javafxmlapplication.pistas.FXMLVerPistasController;
 import model.Club;
 import model.ClubDAOException;
@@ -60,10 +64,14 @@ public class FXMLEspacioPController implements Initializable {
     private Member member;
     private static ObjectProperty memberProperty;
     @FXML
-    private Pane paneEscena;
+    private VBox paneEscena;
     FXMLModificarDatosController controlador;
     @FXML
     private ImageView profilePictureImg;
+    @FXML
+    private HBox mainVBox;
+    @FXML
+    private BorderPane borderPane;
 
     /**
      * Initializes the controller class.
@@ -89,6 +97,11 @@ public class FXMLEspacioPController implements Initializable {
             nameLabel.setText(member.getName() + " " + member.getSurname());
             nicknameLabel.setText(member.getNickName());
         });
+        
+        mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.9));
+        mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
+        
+        
 
     }
 
@@ -121,9 +134,10 @@ public class FXMLEspacioPController implements Initializable {
             Pane modificarD = loader.load();
             FXMLMisReservasController controlador = loader.getController();
             
-            controlador.initMember(member);
+            controlador.initMember(member, this);
 
             paneEscena.getChildren().add(modificarD);
+            controlador.setPane(paneEscena);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -141,8 +155,9 @@ public class FXMLEspacioPController implements Initializable {
             controlador.initMember(member, this);
 
             paneEscena.getChildren().add(modificarD);
+            
         } catch (IOException e) {
-            System.out.println(e);
+            java.util.logging.Logger.getLogger(FXMLEspacioPController.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
         modificarPerfil.disableProperty().setValue(true);
         misReservas.disableProperty().setValue(false);
@@ -151,5 +166,9 @@ public class FXMLEspacioPController implements Initializable {
     @FXML
     private void cerrarSesionOnAction(ActionEvent event) {
         cerrarSesion();
+    }
+    
+    public Pane getPane() {
+        return paneEscena;
     }
 }
