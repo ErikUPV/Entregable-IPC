@@ -179,6 +179,13 @@ public class FXMLRegistroController implements Initializable {
                     JavaFXMLApplication.borrarTextField(nameTextField, nickTextField, pwTextField, repeatPwTextField, surnameTextField, tlfTextField, creditCardTextField, cvcTextField);
                     perfilImageView.setImage(null);
                     JavaFXMLApplication.setRoot(Paginas.INICIO);
+                    hideErrorMessage(nameTextField);
+                    hideErrorMessage(tlfTextField);
+                    hideErrorMessage(creditCardTextField);
+                    hideErrorMessage(surnameTextField);
+                    hideErrorMessage(cvcTextField);
+                    hideErrorMessage(nickTextField);
+                    badInputLabel.setVisible(false);
                 }
             });
         }
@@ -276,6 +283,8 @@ public class FXMLRegistroController implements Initializable {
                 badInputLabel.textProperty().setValue("Valores Incorrectos");
 
             }
+            JavaFXMLApplication.borrarTextField(nameTextField, nickTextField, surnameTextField, pwTextField, repeatPwTextField, tlfTextField, cvcTextField, creditCardTextField);
+            perfilImageView.setImage(null);
             Timeline timeline = new Timeline(
                     new KeyFrame(Duration.seconds(0),
                             event2 -> { //FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
@@ -295,15 +304,6 @@ public class FXMLRegistroController implements Initializable {
             timeline.play();
 
         }
-
-        nameTextField.setText("");
-        nickTextField.setText("");
-        surnameTextField.setText("");
-        pwTextField.setText("");
-        repeatPwTextField.setText("");
-        tlfTextField.setText("");
-        cvcTextField.setText("");
-        creditCardTextField.setText("");
 
     }
 
