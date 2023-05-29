@@ -16,7 +16,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -93,7 +96,19 @@ public class FXMLAutenticacionController implements Initializable {
     @FXML
     private void loginButtonOnAction(ActionEvent event) throws InterruptedException, IOException {
 
-        member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
+        if (!club.existsLogin(userTextField.getText())) {
+            Alert a = new Alert(AlertType.ERROR); // INFORMATION
+            a.setTitle("Error");
+            a.setHeaderText("Error al introducir los datos");
+            a.setContentText("El usuario no existe");
+           startAlert(a);
+            a.showAndWait();
+            return;
+        }
+
+        if (club.getMemberByCredentials(userTextField.getText(), passwordField.getText()) != null) {
+            member = club.getMemberByCredentials(userTextField.getText(), passwordField.getText());
+        } 
 
         if (member != null) {
             System.out.println("login exitoso");
@@ -115,7 +130,15 @@ public class FXMLAutenticacionController implements Initializable {
             JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             JavaFXMLApplication.borrarTextField(passwordField, userTextField);
 
+        } else {
+            Alert a = new Alert(AlertType.ERROR); // INFORMATION
+            a.setTitle("Error");
+            a.setHeaderText("Error al introducir los datos");
+            a.setContentText("Contraseña incorrecta");
+            startAlert(a);
+            a.showAndWait();
         }
+
     }
 
     @FXML
@@ -140,6 +163,11 @@ public class FXMLAutenticacionController implements Initializable {
     public static void cerrarSesion() {
         member = null;
         JavaFXMLApplication.setRoot(Paginas.INICIO);
+    }
+    private void startAlert(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("../estilos.css").toExternalForm());
+        dialogPane.getStyleClass().add("myAlert");
     }
 
 }
