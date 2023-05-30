@@ -183,7 +183,6 @@
             <GridPane maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
                <columnConstraints>
                   <ColumnConstraints />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="183.59996337890624" minWidth="10.0" prefWidth="41.400001525878906" />
                   <ColumnConstraints fx:id="col2" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="219.79997863769532" />
                   <ColumnConstraints hgrow="NEVER" maxWidth="374.40000610351564" minWidth="10.0" prefWidth="282.39996337890625" />
                   <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="118.39999999999998" />
@@ -193,17 +192,17 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="209.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="209.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="136.0" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="136.0" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="5">
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="4">
                      <children>
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="111.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -212,19 +211,23 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <Button fx:id="volverPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0" GridPane.columnIndex="1">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagenes/left-arrow_1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="buscarUserButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buscarUserButtonOnAction" prefHeight="29.0" prefWidth="223.0" text="Buscar reservas de otro usuario" GridPane.columnIndex="3" />
+                  <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="52.0">
+                     <children>
+                        <Button fx:id="volverPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/left-arrow_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Button fx:id="buscarUserButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buscarUserButtonOnAction" prefHeight="29.0" prefWidth="223.0" text="Buscar reservas de otro usuario" GridPane.columnIndex="2" />
                </children>
             </GridPane>
          </children>

@@ -6,6 +6,7 @@ package javafxmlapplication.pistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +113,8 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             }
 
         });
+        
+        
         lista = new ArrayList<>();
         listaObservable = FXCollections.observableArrayList(lista);
         pistaTableView.setItems(listaObservable);
@@ -119,14 +122,14 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         mainVBox.maxWidthProperty().bind(borderPane.widthProperty().multiply(0.8));
         mainVBox.maxHeightProperty().bind(borderPane.heightProperty().multiply(0.8));
 
-        pistaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.33));
+        pistaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.34));
         diaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.33));
         horaCol.prefWidthProperty().bind(pistaTableView.widthProperty().multiply(0.33));
 
         // TODO
         diaCol.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
-            String day = item.getBookingDate().toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            String day = item.getMadeForDay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             return new SimpleStringProperty(day);
         });
 
@@ -149,6 +152,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         JavaFXMLApplication.setRoot(Paginas.PISTAS);
     }
 
+    
     @FXML
     private void buscarButtonOnAction(ActionEvent event) {
         String text = buscarTextField.getText();
@@ -169,10 +173,15 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             alert.showAndWait();
         } else {
             listaObservable.clear();
-            listaObservable.addAll(club.getUserBookings(text));
+            List<Booking> l = club.getUserBookings(text);
+            for (Booking b : l) {
+                if (b.getMadeForDay().compareTo(LocalDate.now()) >= 0) {
+                    listaObservable.add(b);
+                }
+            }
             title.setText(titulo + text);
 
-        }
+        } 
     }
 
     private void startAlert(Alert alert) {
@@ -187,7 +196,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         comboList = new ArrayList<>();
 
         comboObsList = FXCollections.observableArrayList(comboList);
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+        comboObsList.addAll("Espacio Personal", "Cerrar sesión");
 
         
         comboBox.setItems(comboObsList);
@@ -200,7 +209,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             if (newv.equals("Cerrar sesión")) {
                 FXMLAutenticacionController.cerrarSesion();
 
-            } else if (newv.equals("Mis reservas")) {
+            } else if (newv.equals("Espacio Personal")) {
                 c.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }

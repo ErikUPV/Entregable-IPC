@@ -93,7 +93,7 @@
    <top>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="800.0" styleClass="tool-bar" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="347.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="37.0" prefWidth="52.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button fx:id="volverPista" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="35.0" prefWidth="36.0">
                      <graphic>
@@ -103,6 +103,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </Button>
                </children>
             </HBox>

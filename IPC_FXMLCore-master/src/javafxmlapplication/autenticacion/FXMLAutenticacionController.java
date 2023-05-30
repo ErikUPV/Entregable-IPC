@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -27,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.espacio_personal.FXMLEspacioPController;
@@ -95,7 +98,7 @@ public class FXMLAutenticacionController implements Initializable {
 
     @FXML
     private void loginButtonOnAction(ActionEvent event) throws InterruptedException, IOException {
-
+        if (userTextField.getText().isEmpty() || passwordField.getText().isEmpty()) return;
         if (!club.existsLogin(userTextField.getText())) {
             Alert a = new Alert(AlertType.ERROR); // INFORMATION
             a.setTitle("Error");
@@ -129,6 +132,23 @@ public class FXMLAutenticacionController implements Initializable {
             c.setDefault();
             JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             JavaFXMLApplication.borrarTextField(passwordField, userTextField);
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(0),
+                            event2 -> { //FXMLLoader miCargador = JavaFXMLApplication.getLoader(Paginas.REGISTRO2);
+//                                    Parent root = miCargador.getRoot();
+//                                    if (root == null) try {
+//                                        root = miCargador.load();
+
+                                JavaFXMLApplication.setRoot(Paginas.REGISTRO2);
+                            }),
+                    new KeyFrame(Duration.seconds(1.5),
+                            event2 -> {
+                                JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
+                                ;
+                            })
+            );
+            timeline.setCycleCount(1);
+            timeline.play();
 
         } else {
             Alert a = new Alert(AlertType.ERROR); // INFORMATION
@@ -161,7 +181,7 @@ public class FXMLAutenticacionController implements Initializable {
     }
 
     public static void cerrarSesion() {
-        member = null;
+        memberProperty.setValue(null);
         JavaFXMLApplication.setRoot(Paginas.INICIO);
     }
     private void startAlert(Alert alert) {

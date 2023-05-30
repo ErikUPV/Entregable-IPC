@@ -572,7 +572,7 @@ public class FXMLPistaConcretaController implements Initializable {
             comboList = new ArrayList<>();
 
             comboObsList = FXCollections.observableArrayList(comboList);
-            comboObsList.addAll("Mis reservas", "Cerrar sesión");
+            comboObsList.addAll("Espacio Personal", "Cerrar sesión");
 
             comboBox.setItems(comboObsList);
 
@@ -584,7 +584,7 @@ public class FXMLPistaConcretaController implements Initializable {
                 if (newv.equals("Cerrar sesión")) {
                     FXMLAutenticacionController.cerrarSesion();
 
-                } else if (newv.equals("Mis reservas")) {
+                } else if (newv.equals("Espacio Personal")) {
                     c.setDefault();
                     JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
                 }
