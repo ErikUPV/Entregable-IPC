@@ -24,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -42,6 +43,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
@@ -194,8 +197,8 @@ public class FXMLRegistroController implements Initializable {
     }
 
     @FXML
-    private void elegirImagenOnAction(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
+    private void elegirImagenOnAction(ActionEvent event) throws IOException {
+        /*FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Elegir imagen");
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg")
@@ -209,8 +212,22 @@ public class FXMLRegistroController implements Initializable {
             Image img = new Image(imgPath.toString());
             perfilImageView.setImage(img);
             imagen = img;
+        }*/
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafxmlapplication/registro/FXMLImagenes.fxml"));
+        
+        Parent p = loader.load();
+        Scene scene = new Scene(p, 750, 600);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Elección de imagen");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        FXMLImagenesController controlador = loader.getController();
+        
+        stage.showAndWait();
+        
+        if(controlador.isOKPressed()) {
+            perfilImageView.setImage(controlador.getImage());
         }
-
     }
 
     @FXML

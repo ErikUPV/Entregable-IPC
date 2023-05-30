@@ -189,6 +189,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         comboObsList = FXCollections.observableArrayList(comboList);
         comboObsList.addAll("Mis reservas", "Cerrar sesión");
 
+        
         comboBox.setItems(comboObsList);
 
         comboBox.getSelectionModel().selectedItemProperty().addListener((ob, oldv, newv) -> {
