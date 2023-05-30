@@ -164,6 +164,7 @@ public class FXMLRegistroController implements Initializable {
     private void backButtonOnAction(ActionEvent event) {
 
         if (!nameTextField.getText().isEmpty() || !surnameTextField.getText().isEmpty() || !tlfTextField.getText().isEmpty() || !nickTextField.getText().isEmpty() || !pwTextField.getText().isEmpty() || !creditCardTextField.getText().isEmpty() || !cvcTextField.getText().isEmpty()) {
+            
             Alert a = new Alert(AlertType.CONFIRMATION);
             a.setTitle("Confirmación");
             startAlert(a);
@@ -262,6 +263,7 @@ public class FXMLRegistroController implements Initializable {
         }
         if (cvcTextField.getText().isEmpty() && creditCardTextField.getText().isEmpty()) {
             cvcTextField.setText("0");
+            //JavaFXMLApplication.borrarTextField(cvcTextField);
         }
         boolean b = nickTextField.getText().isEmpty()
                 || nameTextField.getText().isEmpty()

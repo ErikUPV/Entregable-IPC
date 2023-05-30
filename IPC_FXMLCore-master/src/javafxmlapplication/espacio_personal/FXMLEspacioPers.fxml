@@ -14,9 +14,9 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="mainContainer" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.espacio_personal.FXMLEspacioPController">
    <top>
-      <VBox alignment="CENTER_RIGHT" styleClass="tool-bar" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="927.0" styleClass="tool-bar" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="cerrar" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#cerrarSesionOnAction" text="Cerrar sesión" />
+            <Button fx:id="cerrar" mnemonicParsing="false" onAction="#cerrarSesionOnAction" prefWidth="150.0" text="Cerrar sesión" />
          </children>
       </VBox>
    </top>
