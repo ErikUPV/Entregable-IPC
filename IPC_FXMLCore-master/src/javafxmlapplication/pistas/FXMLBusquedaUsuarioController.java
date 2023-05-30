@@ -113,6 +113,8 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             }
 
         });
+        
+        
         lista = new ArrayList<>();
         listaObservable = FXCollections.observableArrayList(lista);
         pistaTableView.setItems(listaObservable);
@@ -127,7 +129,7 @@ public class FXMLBusquedaUsuarioController implements Initializable {
         // TODO
         diaCol.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
-            String day = item.getBookingDate().toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            String day = item.getMadeForDay().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             return new SimpleStringProperty(day);
         });
 
@@ -169,19 +171,17 @@ public class FXMLBusquedaUsuarioController implements Initializable {
             alert.setHeaderText("Error en la búsqueda");
             alert.setContentText("Este usuario no existe");
             alert.showAndWait();
-        } else if (member != null){
-            listaObservable.clear();
-            listaObservable.addAll(club.getUserBookings(text));
-            title.setText(titulo + text);
-
         } else {
             listaObservable.clear();
             List<Booking> l = club.getUserBookings(text);
-            for(int i = 0; i < l.size(); i++) {
-                if(!l.get(i).isForDay(LocalDate.now())) {listaObservable.add(l.get(i));}
+            for (Booking b : l) {
+                if (b.getMadeForDay().compareTo(LocalDate.now()) >= 0) {
+                    listaObservable.add(b);
+                }
             }
             title.setText(titulo + text);
-        }
+
+        } 
     }
 
     private void startAlert(Alert alert) {

@@ -54,6 +54,8 @@ import model.*;
  */
 public class FXMLRegistroController implements Initializable {
 
+    
+    int cvc;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -117,8 +119,8 @@ public class FXMLRegistroController implements Initializable {
                 String password1 = pwTextField.getText();
                 String password2 = repeatPwTextField.getText();
                 if (!password1.equals(password2)) {
-                    showErrorMessage(pwTextField, "Passwords do not match!");
-                    showErrorMessage(repeatPwTextField, "Passwords do not match!");
+                    showErrorMessage(pwTextField);
+                    showErrorMessage(repeatPwTextField);
                     badInputLabel.setText("Passwords don't match");
                     repeatPwTextField.setText("");
                     badInputLabel.visibleProperty().setValue(true);
@@ -135,7 +137,7 @@ public class FXMLRegistroController implements Initializable {
 
         cvcTextField.setTextFormatter(getTextFormatter(3));
         creditCardTextField.setTextFormatter(getTextFormatter(16));
-        tlfTextField.setTextFormatter(getTextFormatter(11));
+        tlfTextField.setTextFormatter(getTextFormatter(9));
 
         repeatPwTextField.maxWidthProperty().bind(pwTextField.widthProperty());
 
@@ -175,7 +177,7 @@ public class FXMLRegistroController implements Initializable {
             res = a.showAndWait();
             res.ifPresent(e -> {
                 if (!e.equals(ButtonType.OK)) {
-
+                    
                 } else {
                     JavaFXMLApplication.borrarTextField(nameTextField, nickTextField, pwTextField, repeatPwTextField, surnameTextField, tlfTextField, creditCardTextField, cvcTextField);
                     perfilImageView.setImage(null);
@@ -187,10 +189,11 @@ public class FXMLRegistroController implements Initializable {
                     hideErrorMessage(cvcTextField);
                     hideErrorMessage(nickTextField);
                     badInputLabel.setVisible(false);
+                    JavaFXMLApplication.setRoot(Paginas.INICIO);
                 }
             });
         }
-        JavaFXMLApplication.setRoot(Paginas.INICIO);
+        
 
     }
 
@@ -218,69 +221,70 @@ public class FXMLRegistroController implements Initializable {
     private void registerOnAction(ActionEvent event) throws IOException {
 
         if (nickTextField.textProperty().getValueSafe().isEmpty() || nickTextField.textProperty().getValueSafe().isBlank()) {
-            showErrorMessage(nickTextField, "Nick vacío");
+            showErrorMessage(nickTextField);
         } else {
             hideErrorMessage(nickTextField);
         }
 
         if (nameTextField.textProperty().getValueSafe().isEmpty() || nameTextField.textProperty().getValueSafe().isBlank()) {
-            showErrorMessage(nameTextField, "Nombre vacío");
+            showErrorMessage(nameTextField);
         } else {
             hideErrorMessage(nameTextField);
         }
 
         if (surnameTextField.textProperty().getValueSafe().isEmpty()) {
-            showErrorMessage(surnameTextField, "Apellido vacío");
+            showErrorMessage(surnameTextField);
         } else {
             hideErrorMessage(surnameTextField);
         }
 
         if (tlfTextField.textProperty().getValueSafe().isEmpty()) {
-            showErrorMessage(tlfTextField, "Teléfono vacío");
+            showErrorMessage(tlfTextField);
         } else {
             hideErrorMessage(tlfTextField);
         }
 
         if (pwTextField.textProperty().getValueSafe().isEmpty()) {
-            showErrorMessage(pwTextField, "Contraseña vacía");
+            showErrorMessage(pwTextField);
         } else if (!repeatPwTextField.getText().isEmpty()) {
             hideErrorMessage(pwTextField);
         }
 
         if (repeatPwTextField.textProperty().getValueSafe().isEmpty()) {
-            showErrorMessage(repeatPwTextField, "Pw mismatch");
+            showErrorMessage(repeatPwTextField);
         } else {
             hideErrorMessage(repeatPwTextField);
         }
 
         if ((creditCardTextField.textProperty().getValueSafe().isEmpty() && !cvcTextField.textProperty().getValueSafe().isEmpty()) || (!creditCardTextField.textProperty().getValueSafe().isEmpty() && cvcTextField.textProperty().getValueSafe().isEmpty())) {
-            showErrorMessage(creditCardTextField, "Número vacío o CVC vacío");
-            showErrorMessage(cvcTextField, "");
+            showErrorMessage(creditCardTextField);
+            showErrorMessage(cvcTextField);
 
         } else {
             hideErrorMessage(creditCardTextField);
             hideErrorMessage(cvcTextField);
         }
-        if (cvcTextField.getText().isEmpty() && creditCardTextField.getText().isEmpty()) {
-            cvcTextField.setText("0");
-            //JavaFXMLApplication.borrarTextField(cvcTextField);
-        }
+       
         boolean b = nickTextField.getText().isEmpty()
                 || nameTextField.getText().isEmpty()
                 || surnameTextField.getText().isEmpty()
                 || tlfTextField.getText().isEmpty()
                 || pwTextField.getText().isEmpty()
-                || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().equals("0"))
+                || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().isEmpty())
                 || !pwMatch;
         if (!b) {
             try {
                 System.out.println("usuario registrado");
                 if (club.existsLogin(nickTextField.getText())) {
-                    badInputLabel.textProperty().setValue("Ya existe este usuario");
+                    showErrorMessage(nickTextField);
+                    badInputLabel.setText("Ya existe este usuario");
                     return;
                 }
+                
+                if (cvcTextField.getText().isEmpty()) cvc = 0;
+                else cvc = Integer.parseInt(cvcTextField.getText());
                 club.registerMember(nameTextField.textProperty().getValue(), surnameTextField.textProperty().getValue(), tlfTextField.textProperty().getValue(),
-                        nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(), Integer.parseInt(cvcTextField.textProperty().getValue()), imagen);
+                        nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(), cvc, imagen);
             } catch (ClubDAOException e) {
                 badInputLabel.textProperty().setValue("Valores Incorrectos");
 
@@ -305,11 +309,15 @@ public class FXMLRegistroController implements Initializable {
             timeline.setCycleCount(1);
             timeline.play();
 
+        } else {
+            badInputLabel.setText("Campos vacíos");
         }
+            
+        
 
     }
 
-    private void showErrorMessage(TextField field, String msg) {
+    private void showErrorMessage(TextField field) {
         String source = field.getId();
         badInputLabel.visibleProperty().setValue(true);
         field.styleProperty().setValue("-fx-background-color: #FCE5E0;"
