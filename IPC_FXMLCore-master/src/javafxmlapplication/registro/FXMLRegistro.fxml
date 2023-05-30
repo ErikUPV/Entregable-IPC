@@ -70,7 +70,7 @@
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Label fx:id="nickLabel" styleClass="registro-label" text="Nickname" />
-                              <TextField fx:id="nickTextField" maxWidth="-Infinity" prefHeight="26.0" prefWidth="139.0" text="1" />
+                              <TextField fx:id="nickTextField" maxWidth="-Infinity" prefHeight="26.0" prefWidth="139.0" />
                            </children>
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="54.0" prefWidth="118.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -80,13 +80,13 @@
                                     <VBox alignment="BOTTOM_LEFT" prefHeight="50.0" prefWidth="230.0">
                                        <children>
                                           <Label styleClass="registro-label" text="Nombre" />
-                                          <TextField fx:id="nameTextField" text="1" />
+                                          <TextField fx:id="nameTextField" />
                                        </children>
                                     </VBox>
                                     <VBox alignment="BOTTOM_LEFT" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="342.0">
                                        <children>
                                           <Label styleClass="registro-label" text="Apellidos" />
-                                          <TextField fx:id="surnameTextField" text="1" />
+                                          <TextField fx:id="surnameTextField" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -96,31 +96,31 @@
                         <VBox alignment="BOTTOM_LEFT" prefHeight="54.0" prefWidth="174.0" GridPane.rowIndex="2">
                            <children>
                               <Label styleClass="registro-label" text="Teléfono" />
-                              <TextField fx:id="tlfTextField" maxWidth="-Infinity" prefHeight="26.0" prefWidth="140.0" text="1" />
+                              <TextField fx:id="tlfTextField" maxWidth="-Infinity" prefHeight="26.0" prefWidth="140.0" />
                            </children>
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                            <children>
                               <Label styleClass="registro-label" text="Contraseña" />
-                              <PasswordField fx:id="pwTextField" text="1" />
+                              <PasswordField fx:id="pwTextField" />
                            </children>
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="54.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
                               <Label styleClass="registro-label" text="Repetir contraseña" />
-                              <PasswordField fx:id="repeatPwTextField" text="1" />
+                              <PasswordField fx:id="repeatPwTextField" />
                            </children>
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="5">
                            <children>
                               <Label styleClass="registro-label" text="Nº tarjeta de cŕedito" />
-                              <TextField fx:id="creditCardTextField" text="1" />
+                              <TextField fx:id="creditCardTextField" />
                            </children>
                         </VBox>
                         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <children>
                               <Label styleClass="registro-label" text="CVC" />
-                              <TextField fx:id="cvcTextField" maxWidth="-Infinity" prefWidth="50.0" text="1" />
+                              <TextField fx:id="cvcTextField" maxWidth="-Infinity" prefWidth="50.0" />
                            </children>
                         </VBox>
                         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="400.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
