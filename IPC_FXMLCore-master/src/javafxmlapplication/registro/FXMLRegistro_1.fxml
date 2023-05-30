@@ -33,7 +33,7 @@
                   <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
                </padding>
                <children>
-                  <Label text="Registro finalizado">
+                  <Label text="Completado con éxito">
                      <font>
                         <Font size="18.0" />
                      </font>

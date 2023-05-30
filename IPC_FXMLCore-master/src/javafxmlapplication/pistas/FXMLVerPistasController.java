@@ -7,6 +7,7 @@ package javafxmlapplication.pistas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -137,6 +138,23 @@ public class FXMLVerPistasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
+            if (newv) {
+                List<Booking> l = club.getCourtBookings("Pista 1", LocalDate.now());
+                disp1.setText("Disponibles hoy: " + disponiblesHoy(l));
+
+                l = club.getCourtBookings("Pista 2", LocalDate.now());
+                disp2.setText("Disponibles hoy: " + disponiblesHoy(l));
+                l = club.getCourtBookings("Pista 3", LocalDate.now());
+                disp3.setText("Disponibles hoy: " + disponiblesHoy(l));
+                l = club.getCourtBookings("Pista 4", LocalDate.now());
+                disp4.setText("Disponibles hoy: " + disponiblesHoy(l));
+                l = club.getCourtBookings("Pista 5", LocalDate.now());
+                disp5.setText("Disponibles hoy: " + disponiblesHoy(l));
+                l = club.getCourtBookings("Pista 6", LocalDate.now());
+                disp6.setText("Disponibles hoy: " + disponiblesHoy(l));
+            }
+        });
 
         FXMLAutenticacionController.memberProperty().addListener((ob, oldv, newv) -> {
             member = (Member) newv;
@@ -179,32 +197,37 @@ public class FXMLVerPistasController implements Initializable {
         iv6.fitHeightProperty().bind(mainGridPane.heightProperty().multiply(0.3));
         c = this;
         comboBox.visibleProperty().setValue(false);
-        
+
         List<Booking> l = club.getCourtBookings("Pista 1", LocalDate.now());
-        int slots = club.getBookingSlots();
-        int d1 = slots - l.size(); 
-        disp1.setText("Disponibles hoy: " + d1);
-        
+        disp1.setText("Disponibles hoy: " + disponiblesHoy(l));
+
         l = club.getCourtBookings("Pista 2", LocalDate.now());
-        d1 = slots - l.size(); 
-        disp5.setText("Disponibles hoy: " + d1);
-        
+        disp2.setText("Disponibles hoy: " + disponiblesHoy(l));
         l = club.getCourtBookings("Pista 3", LocalDate.now());
-        d1 = slots - l.size(); 
-        disp3.setText("Disponibles hoy: " + d1);
-        
+        disp3.setText("Disponibles hoy: " + disponiblesHoy(l));
         l = club.getCourtBookings("Pista 4", LocalDate.now());
-        d1 = slots - l.size(); 
-        disp6.setText("Disponibles hoy: " + d1);
-        
+        disp4.setText("Disponibles hoy: " + disponiblesHoy(l));
         l = club.getCourtBookings("Pista 5", LocalDate.now());
-        d1 = slots - l.size(); 
-        disp4.setText("Disponibles hoy: " + d1);
-        
+        disp5.setText("Disponibles hoy: " + disponiblesHoy(l));
         l = club.getCourtBookings("Pista 6", LocalDate.now());
-        d1 = slots - l.size(); 
-        disp2.setText("Disponibles hoy: " + d1);
-        
+        disp6.setText("Disponibles hoy: " + disponiblesHoy(l));
+
+    }
+
+    private int disponiblesHoy(List<Booking> l) {
+        int slots = club.getBookingSlots();
+        int res = slots - l.size();
+        int hora = LocalDateTime.now().getHour();
+        int sumarAlFinal = 0;
+
+        for (int i = 0; i < l.size(); i++) {
+            if (l.get(i).getFromTime().getHour() < hora) {
+                sumarAlFinal++;
+            }
+        }
+
+        res = res - (hora - 8) + sumarAlFinal;
+        return res;
     }
 
     @FXML
@@ -329,8 +352,9 @@ public class FXMLVerPistasController implements Initializable {
         comboObsList = FXCollections.observableArrayList(comboList);
         comboObsList.clear();
 
-        comboObsList.addAll("Mis reservas", "Cerrar sesión");
+        comboObsList.addAll("Espacio Personal", "Cerrar sesión");
 
+        //comboBox.setPromptText("Selecciona una opción"); 
         comboBox.setItems(comboObsList);
         comboBox.setValue(member.getName() + " - Opciones");
 
@@ -344,7 +368,7 @@ public class FXMLVerPistasController implements Initializable {
             if (newv.equals("Cerrar sesión")) {
                 FXMLAutenticacionController.cerrarSesion();
 
-            } else if (newv.equals("Mis reservas")) {
+            } else if (newv.equals("Espacio Personal")) {
                 controlador.setDefault();
                 JavaFXMLApplication.setRoot(Paginas.ESPACIO_P);
             }

@@ -111,7 +111,8 @@ public class FXMLModificarDatosController implements Initializable {
         nameLabel.setText(member.getName());
         surnameLabel.setText(member.getSurname());
         cardLabel.setText(censurar(member.getCreditCard(), false));
-        cvcLabel.setText("" + member.getSvc());
+        if (member.getSvc() != 0) cvcLabel.setText("" + member.getSvc());
+        else cvcLabel.setText("");
         tlfLabel.setText(member.getTelephone());
         passwordLabel.setText(censurar(member.getPassword(), true));
         password = member.getPassword();
