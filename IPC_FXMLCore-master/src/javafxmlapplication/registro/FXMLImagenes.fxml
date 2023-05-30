@@ -135,7 +135,7 @@
                         </ImageView>
                      </graphic>
                   </ToggleButton>
-                  <ToggleButton id="invisibleButton" fx:id="elegirImagen" mnemonicParsing="false" onAction="#elegirImagenOnAction" prefHeight="128.0" prefWidth="136.0" text="Subir imagen" toggleGroup="$imagen">
+                  <ToggleButton id="invisibleButton" fx:id="elegirImagen" mnemonicParsing="false" onAction="#elegirImagenOnAction" prefHeight="128.0" prefWidth="136.0" text="Subir imagen" toggleGroup="$imagen" underline="true">
                      <graphic>
                         <ImageView fx:id="imagenPersonalizada" fitHeight="120.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
