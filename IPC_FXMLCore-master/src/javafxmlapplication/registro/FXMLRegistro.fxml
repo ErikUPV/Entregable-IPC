@@ -46,7 +46,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox fx:id="vBoxPrincipal" prefHeight="434.0" prefWidth="520.0" spacing="20.0" styleClass="vBoxPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox fx:id="vBoxPrincipal" alignment="TOP_CENTER" prefHeight="434.0" prefWidth="520.0" spacing="20.0" styleClass="vBoxPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label styleClass="titulo-label" text="Registro">
                      <font>
@@ -158,10 +158,14 @@
                   </GridPane>
                   <VBox>
                      <children>
-                        <Label text="Imagen perfil" />
                         <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="440.0" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#elegirImagenOnAction" prefHeight="26.0" prefWidth="99.0" text="Elegir imagen" />
+                              <VBox>
+                                 <children>
+                                    <Label text="Imagen perfil" />
+                                    <Button mnemonicParsing="false" onAction="#elegirImagenOnAction" prefHeight="26.0" prefWidth="99.0" text="Elegir imagen" />
+                                 </children>
+                              </VBox>
                               <ImageView fx:id="perfilImageView" fitHeight="44.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </HBox>

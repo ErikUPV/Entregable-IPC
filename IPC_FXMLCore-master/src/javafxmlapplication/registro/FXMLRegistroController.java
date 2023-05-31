@@ -195,7 +195,9 @@ public class FXMLRegistroController implements Initializable {
                     JavaFXMLApplication.setRoot(Paginas.INICIO);
                 }
             });
+            return;
         }
+        JavaFXMLApplication.setRoot(Paginas.INICIO);
         
 
     }
@@ -285,16 +287,32 @@ public class FXMLRegistroController implements Initializable {
             hideErrorMessage(creditCardTextField);
             hideErrorMessage(cvcTextField);
         }
-       
         boolean b = nickTextField.getText().isEmpty()
                 || nameTextField.getText().isEmpty()
                 || surnameTextField.getText().isEmpty()
-                || tlfTextField.getText().isEmpty()
+                || tlfTextField.getText().isEmpty() 
                 || pwTextField.getText().isEmpty()
-                || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().isEmpty())
+                || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().isEmpty()) 
                 || !pwMatch;
         if (!b) {
             try {
+                if ( tlfTextField.getText().length() != 9) {
+                    showErrorMessage(tlfTextField);
+                    badInputLabel.setText("Longitud insuficiente");
+                    
+                }
+                if (creditCardTextField.getText().length() != 16) {
+                    badInputLabel.setText("Longitud insuficiente");
+                    showErrorMessage(creditCardTextField);
+                    
+                }
+                if ( cvcTextField.getText().length() != 3){
+                    badInputLabel.setText("Longitud insuficiente");
+                    showErrorMessage(cvcTextField);
+                } 
+                if (cvcTextField.getText().length() != 3 ||creditCardTextField.getText().length() != 16 || tlfTextField.getText().length() != 9 ) {
+                    return;
+                }
                 System.out.println("usuario registrado");
                 if (club.existsLogin(nickTextField.getText())) {
                     showErrorMessage(nickTextField);

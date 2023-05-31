@@ -509,7 +509,7 @@ public class FXMLPistaConcretaController implements Initializable {
     private void checkAvaliability() {
         courtDayItemList.forEach(elementObs -> {
             LocalDateTime t = elementObs.getMadeForDay().atTime(elementObs.getFromTime());
-            if (elementObs.getFromTime().compareTo(LocalTime.now().plusHours(1)) < 0 && elementObs.getMadeForDay().equals(LocalDate.now()) && elementObs.statusProperty().getValue() != CourtDayItem.OCUPADO) {
+            if (elementObs.getFromTime().compareTo(LocalTime.now()) < 0 && elementObs.getMadeForDay().equals(LocalDate.now()) && elementObs.statusProperty().getValue() != CourtDayItem.OCUPADO) {
                 elementObs.setOldForDay(true);
             }
 
@@ -547,7 +547,7 @@ public class FXMLPistaConcretaController implements Initializable {
                             startAlert(alert);
                             alert.setTitle("Error en la reserva");
                             alert.setHeaderText("Máximo de reservas alcanzado");
-                            alert.setContentText("Debido a que ya ha reservado dos pistas seguidas, no puede seguir reservando hoy");
+                            alert.setContentText("No puede reservar tres pistas seguidas");
                             alert.showAndWait();
                             return true;
                         }

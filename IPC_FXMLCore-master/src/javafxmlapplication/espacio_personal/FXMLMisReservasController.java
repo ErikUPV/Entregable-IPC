@@ -127,7 +127,7 @@ public class FXMLMisReservasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        cancelar.requestFocus();
+        cancelar.setDisable(true);
         JavaFXMLApplication.updatedProperty().setValue(false);
         JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
             if (newv) {
