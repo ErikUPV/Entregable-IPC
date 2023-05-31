@@ -92,7 +92,7 @@ public class FXMLModificarDatosController implements Initializable {
     private String password;
 
     private boolean cambiado;
-
+    private boolean contraseñaCorta = false;
     private boolean quiereSalir;
 
     FXMLEspacioPController controlador;
@@ -343,8 +343,10 @@ public class FXMLModificarDatosController implements Initializable {
         
 
         if (dialog.getResult()) {
-            if (passwordField.getText().equals("") || repPasswordField.getText().equals("") || !passwordField.getText().equals(repPasswordField.getText())) {
+            if (passwordField.getText().equals("") || passwordField.getText().length() < 6 || repPasswordField.getText().equals("") || !passwordField.getText().equals(repPasswordField.getText())) {
+                if(passwordField.getText().length() < 6) {contraseñaCorta = true;}
                 alertaError();
+                
                 editarContraseñaOnAction(event);
             } else {
                 password = passwordField.getText();
@@ -462,7 +464,13 @@ public class FXMLModificarDatosController implements Initializable {
         Alert a = new Alert(AlertType.ERROR);
         a.setTitle("Error");
         a.setHeaderText("Ha ocurrido un error");
-        a.setContentText("Los valores introducidos no son válidos.");
+        if(contraseñaCorta) {
+            a.setContentText("La contraseña ha de contener al menos 6 carácteres.");
+            contraseñaCorta = false;
+        } else {
+            a.setContentText("Los valores introducidos no son válidos.");
+        }
+        
         startAlert(a);
         a.showAndWait();
     }

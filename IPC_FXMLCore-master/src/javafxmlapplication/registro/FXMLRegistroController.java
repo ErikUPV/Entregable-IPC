@@ -289,13 +289,18 @@ public class FXMLRegistroController implements Initializable {
                 || nameTextField.getText().isEmpty()
                 || surnameTextField.getText().isEmpty()
                 || tlfTextField.getText().isEmpty()
-                || pwTextField.getText().isEmpty()
+                || (pwTextField.getText().isEmpty() || pwTextField.getText().length() < 6)
                 || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().isEmpty())
                 || !pwMatch;
         if (!b) {
             try {
                 if (tlfTextField.getText().length() != 9) {
                     showErrorMessage(tlfTextField);
+                    badInputLabel.setText("Longitud insuficiente");
+
+                }
+                if (pwTextField.getText().length() < 6) {
+                    showErrorMessage(pwTextField);
                     badInputLabel.setText("Longitud insuficiente");
 
                 }
@@ -309,7 +314,7 @@ public class FXMLRegistroController implements Initializable {
                     showErrorMessage(cvcTextField);
 
                 }
-                if (tlfTextField.getText().length() != 9 || (cvcTextField.getText().length() < 3 && cvcTextField.getText().length() > 0) || (creditCardTextField.getText().length() < 16 && creditCardTextField.getText().length() > 0)) {
+                if (tlfTextField.getText().length() != 9 || pwTextField.getText().length() < 6 || (cvcTextField.getText().length() < 3 && cvcTextField.getText().length() > 0) || (creditCardTextField.getText().length() < 16 && creditCardTextField.getText().length() > 0)) {
                     return;
                 }
                 System.out.println("usuario registrado");
