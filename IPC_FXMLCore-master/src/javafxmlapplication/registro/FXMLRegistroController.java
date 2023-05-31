@@ -305,7 +305,7 @@ public class FXMLRegistroController implements Initializable {
                 if (cvcTextField.getText().isEmpty()) cvc = 0;
                 else cvc = Integer.parseInt(cvcTextField.getText());
                 club.registerMember(nameTextField.textProperty().getValue(), surnameTextField.textProperty().getValue(), tlfTextField.textProperty().getValue(),
-                        nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(), cvc, imagen);
+                        nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(), cvc, perfilImageView.getImage());
             } catch (ClubDAOException e) {
                 badInputLabel.textProperty().setValue("Valores Incorrectos");
 

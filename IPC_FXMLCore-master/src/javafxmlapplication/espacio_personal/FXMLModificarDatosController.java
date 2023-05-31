@@ -184,7 +184,7 @@ public class FXMLModificarDatosController implements Initializable {
                 member.setPassword(password);
                 member.setCreditCard(cardNumber);
                 member.setSvc(cvc);
-                member.setImage(img);
+                member.setImage(profilePicture.getImage());
                 controlador.updateItems();
             }
         });

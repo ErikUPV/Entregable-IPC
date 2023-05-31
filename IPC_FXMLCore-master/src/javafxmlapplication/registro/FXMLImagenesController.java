@@ -111,27 +111,27 @@ public class FXMLImagenesController implements Initializable {
 
     @FXML
     private void man1(ActionEvent event) {
-        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/man1.PNG");
+        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/men.PNG");
     }
 
     @FXML
     private void man2(ActionEvent event) {
-        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/man2.PNG");
+        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/men2.PNG");
     }
 
     @FXML
     private void man3(ActionEvent event) {
-        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/man3.PNG");
+        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/men3.PNG");
     }
 
     @FXML
     private void man4(ActionEvent event) {
-        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/man4.PNG");
+        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/men4.PNG");
     }
 
     @FXML
     private void man5(ActionEvent event) {
-        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/man5.PNG");
+        imagenFinal = new Image("/javafxmlapplication/imagenes/avatars/men5.PNG");
     }
 
     @FXML
