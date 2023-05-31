@@ -58,8 +58,8 @@ public class JavaFXMLApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         club = Club.getInstance();
-        club.setInitialData();
-        club.addSimpleData();
+        //club.setInitialData();
+        //club.addSimpleData();
         
         updated = new SimpleBooleanProperty(false);
         

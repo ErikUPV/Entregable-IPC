@@ -222,7 +222,7 @@ public class FXMLMisReservasController implements Initializable {
         col5.setCellValueFactory(cellData -> {
             Booking item = cellData.getValue();
             Image pagado;
-            //item.getPaid()
+            //item.getPaid();
             if (!"".equals(member.getCreditCard())) {
                 File img = new File("src/javafxmlapplication/imagenes/check-mark.png");
                 pagado = new Image(img.toURI().toString());

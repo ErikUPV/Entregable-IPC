@@ -13,10 +13,13 @@ import java.util.ResourceBundle;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -36,8 +39,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
+import javafxmlapplication.registro.FXMLImagenesController;
 import javafxmlapplication.registro.FXMLRegistroController;
 import model.Club;
 import model.ClubDAOException;
@@ -178,7 +184,7 @@ public class FXMLModificarDatosController implements Initializable {
                 member.setPassword(password);
                 member.setCreditCard(cardNumber);
                 member.setSvc(cvc);
-                member.setImage(img);
+                member.setImage(profilePicture.getImage());
                 controlador.updateItems();
             }
         });
@@ -411,9 +417,9 @@ public class FXMLModificarDatosController implements Initializable {
     }
 
     @FXML
-    private void editarImagenOnAction(ActionEvent event) {
+    private void editarImagenOnAction(ActionEvent event) throws IOException {
         quiereSalir = false;
-        FileChooser fileChooser = new FileChooser();
+        /*FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Elegir imagen");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg")
@@ -427,6 +433,27 @@ public class FXMLModificarDatosController implements Initializable {
             img = new Image(imgPath.toString());
             profilePicture.setImage(img);
 
+        }*/
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafxmlapplication/registro/FXMLImagenes.fxml"));
+        
+        Parent p = loader.load();
+        Scene scene = new Scene(p, 750, 600);
+        Stage stage = new Stage();
+        /*stage.setMinHeight(600);
+        stage.setMinWidth(750);
+        stage.setMaxWidth(750);
+        stage.setMaxHeight(600);*/
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setTitle("Elección de imagen");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        FXMLImagenesController controlador = loader.getController();
+        
+        stage.showAndWait();
+        
+        if(controlador.isOKPressed()) {
+            profilePicture.setImage(controlador.getImage());
         }
 
     }

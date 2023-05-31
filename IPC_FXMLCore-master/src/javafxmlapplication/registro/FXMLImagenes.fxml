@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: papayawhip;" stylesheets="@../estilos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.registro.FXMLImagenesController">
+   <children>
+      <Label style="-fx-text-fill: seagreen;" text="Elegir Imagen">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Label>
+      <VBox alignment="CENTER" maxWidth="-Infinity" prefWidth="650.0" style="-fx-border-color: seagreen; -fx-border-radius: 5%;">
+         <children>
+            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="200.0" prefWidth="650.0" spacing="10.0">
+               <children>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#man1" prefHeight="128.0" prefWidth="136.0">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/men.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="imagen" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#man2" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/men2.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#man3" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/men3.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#man4" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/men4.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="200.0" prefWidth="650.0" spacing="10.0">
+               <children>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#man5" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/men5.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#woman1" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/woman.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#woman2" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/woman2.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#woman3" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/woman3.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="200.0" prefWidth="650.0" spacing="10.0">
+               <children>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#woman4" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/woman4.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#woman5" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/woman5.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" mnemonicParsing="false" onAction="#woman6" prefHeight="128.0" prefWidth="136.0" toggleGroup="$imagen">
+                     <graphic>
+                        <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/avatars/woman6.PNG" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton id="invisibleButton" fx:id="elegirImagen" mnemonicParsing="false" onAction="#elegirImagenOnAction" prefHeight="128.0" prefWidth="136.0" text="Subir imagen" toggleGroup="$imagen" underline="true">
+                     <graphic>
+                        <ImageView fx:id="imagenPersonalizada" fitHeight="120.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></ToggleButton>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="15.0" top="15.0" />
+         </VBox.margin>
+      </VBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="180.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button fx:id="aceptarButton" mnemonicParsing="false" onAction="#aceptarButtonOnAction" text="Aceptar" />
+            <Button fx:id="cancelarButton" mnemonicParsing="false" onAction="#cancelarButtonOnAction" text="Cancelar" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" right="25.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
