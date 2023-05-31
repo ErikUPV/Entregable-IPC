@@ -136,6 +136,9 @@
                            <padding>
                               <Insets top="5.0" />
                            </padding>
+                           <GridPane.margin>
+                              <Insets top="10.0" />
+                           </GridPane.margin>
                         </HBox>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="26.0" prefWidth="323.0" GridPane.columnIndex="1">
                            <children>
