@@ -57,7 +57,6 @@ import model.*;
  */
 public class FXMLRegistroController implements Initializable {
 
-    
     int cvc;
     @FXML
     private BorderPane borderPane;
@@ -169,7 +168,7 @@ public class FXMLRegistroController implements Initializable {
     private void backButtonOnAction(ActionEvent event) {
 
         if (!nameTextField.getText().isEmpty() || !surnameTextField.getText().isEmpty() || !tlfTextField.getText().isEmpty() || !nickTextField.getText().isEmpty() || !pwTextField.getText().isEmpty() || !creditCardTextField.getText().isEmpty() || !cvcTextField.getText().isEmpty()) {
-            
+
             Alert a = new Alert(AlertType.CONFIRMATION);
             a.setTitle("Confirmación");
             startAlert(a);
@@ -180,7 +179,7 @@ public class FXMLRegistroController implements Initializable {
             res = a.showAndWait();
             res.ifPresent(e -> {
                 if (!e.equals(ButtonType.OK)) {
-                    
+
                 } else {
                     JavaFXMLApplication.borrarTextField(nameTextField, nickTextField, pwTextField, repeatPwTextField, surnameTextField, tlfTextField, creditCardTextField, cvcTextField);
                     perfilImageView.setImage(null);
@@ -198,7 +197,6 @@ public class FXMLRegistroController implements Initializable {
             return;
         }
         JavaFXMLApplication.setRoot(Paginas.INICIO);
-        
 
     }
 
@@ -220,7 +218,7 @@ public class FXMLRegistroController implements Initializable {
             imagen = img;
         }*/
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/javafxmlapplication/registro/FXMLImagenes.fxml"));
-        
+
         Parent p = loader.load();
         Scene scene = new Scene(p, 750, 600);
         Stage stage = new Stage();
@@ -232,10 +230,10 @@ public class FXMLRegistroController implements Initializable {
         stage.setTitle("Elección de imagen");
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLImagenesController controlador = loader.getController();
-        
+
         stage.showAndWait();
-        
-        if(controlador.isOKPressed()) {
+
+        if (controlador.isOKPressed()) {
             perfilImageView.setImage(controlador.getImage());
         }
     }
@@ -290,27 +288,28 @@ public class FXMLRegistroController implements Initializable {
         boolean b = nickTextField.getText().isEmpty()
                 || nameTextField.getText().isEmpty()
                 || surnameTextField.getText().isEmpty()
-                || tlfTextField.getText().isEmpty() 
+                || tlfTextField.getText().isEmpty()
                 || pwTextField.getText().isEmpty()
-                || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().isEmpty()) 
+                || (creditCardTextField.getText().isEmpty() && !cvcTextField.getText().isEmpty())
                 || !pwMatch;
         if (!b) {
             try {
-                if ( tlfTextField.getText().length() != 9) {
+                if (tlfTextField.getText().length() != 9) {
                     showErrorMessage(tlfTextField);
                     badInputLabel.setText("Longitud insuficiente");
-                    
+
                 }
-                if (creditCardTextField.getText().length() != 16) {
+                if (creditCardTextField.getText().length() < 16 && creditCardTextField.getText().length() > 0) {
                     badInputLabel.setText("Longitud insuficiente");
                     showErrorMessage(creditCardTextField);
-                    
+
                 }
-                if ( cvcTextField.getText().length() != 3){
+                if (cvcTextField.getText().length() < 3 && cvcTextField.getText().length() > 0) {
                     badInputLabel.setText("Longitud insuficiente");
                     showErrorMessage(cvcTextField);
-                } 
-                if (cvcTextField.getText().length() != 3 ||creditCardTextField.getText().length() != 16 || tlfTextField.getText().length() != 9 ) {
+
+                }
+                if (tlfTextField.getText().length() != 9 || (cvcTextField.getText().length() < 3 && cvcTextField.getText().length() > 0) || (creditCardTextField.getText().length() < 16 && creditCardTextField.getText().length() > 0)) {
                     return;
                 }
                 System.out.println("usuario registrado");
@@ -319,9 +318,12 @@ public class FXMLRegistroController implements Initializable {
                     badInputLabel.setText("Ya existe este usuario");
                     return;
                 }
-                
-                if (cvcTextField.getText().isEmpty()) cvc = 0;
-                else cvc = Integer.parseInt(cvcTextField.getText());
+
+                if (cvcTextField.getText().isEmpty()) {
+                    cvc = 0;
+                } else {
+                    cvc = Integer.parseInt(cvcTextField.getText());
+                }
                 club.registerMember(nameTextField.textProperty().getValue(), surnameTextField.textProperty().getValue(), tlfTextField.textProperty().getValue(),
                         nickTextField.textProperty().getValue(), pwTextField.textProperty().getValue(), creditCardTextField.textProperty().getValue(), cvc, perfilImageView.getImage());
             } catch (ClubDAOException e) {
@@ -351,8 +353,6 @@ public class FXMLRegistroController implements Initializable {
         } else {
             badInputLabel.setText("Campos vacíos");
         }
-            
-        
 
     }
 
