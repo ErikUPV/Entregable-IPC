@@ -439,6 +439,11 @@ public class FXMLModificarDatosController implements Initializable {
         Parent p = loader.load();
         Scene scene = new Scene(p, 750, 600);
         Stage stage = new Stage();
+        /*stage.setMinHeight(600);
+        stage.setMinWidth(750);
+        stage.setMaxWidth(750);
+        stage.setMaxHeight(600);*/
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.setTitle("Elección de imagen");
         stage.initModality(Modality.APPLICATION_MODAL);

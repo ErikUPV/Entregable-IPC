@@ -221,7 +221,7 @@ public class FXMLVerPistasController implements Initializable {
         int sumarAlFinal = 0;
 
         for (int i = 0; i < l.size(); i++) {
-            if (l.get(i).getFromTime().getHour() < hora) {
+            if (l.get(i).getFromTime().getHour() <= hora) {
                 sumarAlFinal++;
             }
         }

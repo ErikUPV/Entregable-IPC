@@ -223,6 +223,10 @@ public class FXMLRegistroController implements Initializable {
         Scene scene = new Scene(p, 750, 600);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setMinHeight(600);
+        stage.setMinWidth(750);
+        stage.setMaxWidth(750);
+        stage.setMaxHeight(600);
         stage.setTitle("Elección de imagen");
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLImagenesController controlador = loader.getController();
