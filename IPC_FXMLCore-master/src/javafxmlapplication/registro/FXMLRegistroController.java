@@ -301,17 +301,16 @@ public class FXMLRegistroController implements Initializable {
                     badInputLabel.setText("Longitud insuficiente");
                     
                 }
-                if (creditCardTextField.getText().length() < 16 && creditCardTextField.getText().length() > 0 ) {
+                if (creditCardTextField.getText().length() != 16) {
                     badInputLabel.setText("Longitud insuficiente");
                     showErrorMessage(creditCardTextField);
                     
                 }
-                if ( cvcTextField.getText().length() < 3 && cvcTextField.getText().length() > 0){
+                if ( cvcTextField.getText().length() != 3){
                     badInputLabel.setText("Longitud insuficiente");
                     showErrorMessage(cvcTextField);
-                 
                 } 
-                if (tlfTextField.getText().length() != 9 ||(cvcTextField.getText().length() < 3 && cvcTextField.getText().length() > 0) || (creditCardTextField.getText().length() < 16 && creditCardTextField.getText().length() > 0 ) ) {
+                if (cvcTextField.getText().length() != 3 ||creditCardTextField.getText().length() != 16 || tlfTextField.getText().length() != 9 ) {
                     return;
                 }
                 System.out.println("usuario registrado");
