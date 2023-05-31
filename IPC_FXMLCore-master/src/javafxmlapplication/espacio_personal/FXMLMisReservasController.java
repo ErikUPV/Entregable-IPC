@@ -119,23 +119,35 @@ public class FXMLMisReservasController implements Initializable {
         member = m;
         reservaList = new ArrayList<>();
         reservaObsList = FXCollections.observableList(reservaList);
-        reservaObsList.addAll(club.getUserBookings(member.getNickName()));
+        int i = 0;
+        List<Booking> l = club.getUserBookings(member.getNickName());
+        while(i<10) {
+            Booking b = l.get(i++);
+            reservaObsList.add(b);
+        }
+        
+        //reservaObsList.addAll(club.getUserBookings(member.getNickName()));
         reservasT.setItems(reservaObsList);
+
         controlador = c;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        
+       //ActualizarTabla(club.getUserBookings(member.getNickName())); 
+
         cancelar.setDisable(true);
         JavaFXMLApplication.updatedProperty().setValue(false);
         JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
             if (newv) {
 
                 List<Booking> aux = club.getUserBookings(member.getNickName());
-
-                reservaObsList.clear();
-                reservaObsList.addAll(club.getUserBookings(member.getNickName()));
+                
+                //ActualizarTabla(club.getUserBookings(member.getNickName())); asi no
+               reservaObsList.clear();
+               reservaObsList.addAll(club.getUserBookings(member.getNickName()));
             }
         });
         System.out.println("hy");
@@ -306,8 +318,8 @@ public class FXMLMisReservasController implements Initializable {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Confirmación");
         startAlert(a);
-        a.setHeaderText("¿Quiere salir sin guardar?");
-        a.setContentText("Si sale ahora sus cambios no se guardarán");
+        a.setHeaderText("¿Quiere cancelar su reserva?");
+        a.setContentText("La cancelación es irreversible, si quiere la pista de nuevo tendrá que volver a reservarla.");
         startAlert(a);
         Optional<ButtonType> res;
         res = a.showAndWait();
@@ -329,11 +341,27 @@ public class FXMLMisReservasController implements Initializable {
                 delete = true;
                 JavaFXMLApplication.updatedProperty().setValue(true);
                 delete = false;
+           
+                ActualizarTabla(club.getUserBookings(member.getNickName()));
             }
         });
 
     }
 
+    public void ActualizarTabla (List<Booking> l) {
+        
+        reservaObsList.clear();
+        int i = 0;
+        while(i<10) {
+            Booking b = l.get(i++);
+            reservaObsList.add(b);
+        }
+        reservasT.setItems(reservaObsList);
+    }
+    
+   
+    
+    
     public void setPane(VBox p) {
         paneEscena = p;
 
