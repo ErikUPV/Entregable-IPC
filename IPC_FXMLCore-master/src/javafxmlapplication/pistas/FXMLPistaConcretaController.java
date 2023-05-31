@@ -58,6 +58,8 @@ import javafxmlapplication.JavaFXMLApplication;
 import javafxmlapplication.Paginas;
 import javafxmlapplication.autenticacion.FXMLAutenticacionController;
 import javafxmlapplication.espacio_personal.FXMLEspacioPController;
+import javafxmlapplication.espacio_personal.FXMLMisReservasController;
+
 import model.*;
 
 /**
@@ -392,6 +394,8 @@ public class FXMLPistaConcretaController implements Initializable {
         courtDayItemList = FXCollections.observableArrayList(filteredData);
         checkAvaliability();
         pistaTableView.setItems(courtDayItemList);
+//        ActualizarTabla(club.getUserBookings(member.getNickName()));
+
 
     }
 
@@ -598,4 +602,15 @@ public class FXMLPistaConcretaController implements Initializable {
         return controlador;
     }
 
+//    public void ActualizarTabla (List<Booking> l) {
+//        
+//        reservaObsList.clear();
+//        //diaReserva = LocalDate.now();
+//        int i = 0;
+//        while(i<10) {
+//            Booking b = l.get(i++);
+//            reservaObsList.add(b);
+//        }
+//        reservasT.setItems(reservaObsList);
+//    }
 }
