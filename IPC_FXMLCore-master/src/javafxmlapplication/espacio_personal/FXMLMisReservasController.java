@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -119,23 +120,40 @@ public class FXMLMisReservasController implements Initializable {
         member = m;
         reservaList = new ArrayList<>();
         reservaObsList = FXCollections.observableList(reservaList);
-        reservaObsList.addAll(club.getUserBookings(member.getNickName()));
+       List<Booking> aux = club.getUserBookings(member.getNickName());
+                 Stack<Booking> auxStack = new Stack();
+                 auxStack.addAll(aux);
+
+                while (auxStack.size() > 10) {
+                    auxStack.pop();
+                }
+                aux = new ArrayList(auxStack);
+                reservaObsList.addAll(aux);
+
         reservasT.setItems(reservaObsList);
         controlador = c;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         cancelar.setDisable(true);
         JavaFXMLApplication.updatedProperty().setValue(false);
         JavaFXMLApplication.updatedProperty().addListener((ob, oldv, newv) -> {
             if (newv) {
 
-                List<Booking> aux = club.getUserBookings(member.getNickName());
+               
 
                 reservaObsList.clear();
-                reservaObsList.addAll(club.getUserBookings(member.getNickName()));
+                 List<Booking> aux = club.getUserBookings(member.getNickName());
+                 Stack<Booking> auxStack = new Stack();
+                 auxStack.addAll(aux);
+
+                while (auxStack.size() > 10) {
+                    auxStack.pop();
+                }
+                aux = new ArrayList(auxStack);
+                reservaObsList.addAll(aux);
             }
         });
         System.out.println("hy");
@@ -329,6 +347,7 @@ public class FXMLMisReservasController implements Initializable {
                 delete = true;
                 JavaFXMLApplication.updatedProperty().setValue(true);
                 delete = false;
+               
             }
         });
 

@@ -34,7 +34,7 @@
       </VBox>
       <VBox prefHeight="35.0" prefWidth="565.0" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="cancelar" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarButtonOnAction" prefHeight="35.0" prefWidth="565.0" text="Cancelar">
+            <Button fx:id="cancelar" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarButtonOnAction" prefHeight="35.0" prefWidth="565.0" text="Cancelar reserva">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
