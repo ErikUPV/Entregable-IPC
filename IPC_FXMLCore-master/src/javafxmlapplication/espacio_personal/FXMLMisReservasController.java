@@ -351,7 +351,6 @@ public class FXMLMisReservasController implements Initializable {
     public void ActualizarTabla (List<Booking> l) {
         
         reservaObsList.clear();
-        //diaReserva = LocalDate.now();
         int i = 0;
         while(i<10) {
             Booking b = l.get(i++);
