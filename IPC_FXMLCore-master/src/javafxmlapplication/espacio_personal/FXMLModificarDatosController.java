@@ -324,16 +324,17 @@ public class FXMLModificarDatosController implements Initializable {
         dialog.setHeaderText("ATENCIÓN\nAl aceptar se cambiarán los datos modificados");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         dialog.getDialogPane().setContent(vBox);
+        passwordField.requestFocus();
         startAlert(dialog);
-
+        
         dialog.setResultConverter((buttonType) -> {
             if (buttonType == ButtonType.OK) {
                 return true;
             }
             return false;
         });
-
         dialog.showAndWait();
+        
 
         if (dialog.getResult()) {
             if (passwordField.getText().equals("") || repPasswordField.getText().equals("") || !passwordField.getText().equals(repPasswordField.getText())) {

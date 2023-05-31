@@ -102,7 +102,7 @@ public class FXMLAutenticacionController implements Initializable {
         if (!club.existsLogin(userTextField.getText())) {
             Alert a = new Alert(AlertType.ERROR); // INFORMATION
             a.setTitle("Error");
-            a.setHeaderText("Error al introducir los datos");
+            a.setHeaderText("Ha ocurrido un error");
             a.setContentText("El usuario no existe");
            startAlert(a);
             a.showAndWait();
@@ -153,7 +153,7 @@ public class FXMLAutenticacionController implements Initializable {
         } else {
             Alert a = new Alert(AlertType.ERROR); // INFORMATION
             a.setTitle("Error");
-            a.setHeaderText("Error al introducir los datos");
+            a.setHeaderText("Ha ocurrido un error");
             a.setContentText("Contraseña incorrecta");
             startAlert(a);
             a.showAndWait();
